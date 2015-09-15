@@ -1,0 +1,5 @@
+<p>Bienvenido, <%= @user.first_name %>!</p>
+
+<p> Para activar su cuenta, sólo tienes que seguir <%= link_to 'this link', activate_user_url(@user.activation_token) %>.</p>
+
+<p> Gracias por unirte y ten un gran día!</p>

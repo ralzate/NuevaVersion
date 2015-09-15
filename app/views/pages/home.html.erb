@@ -1,0 +1,1571 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>SinStock</title>
+    <!-- Google Fonts -->
+    <link href='http://fonts.googleapis.com/css?family=Titillium+Web:400,200,300,700,600' rel='stylesheet' type='text/css'>
+    <link href='http://fonts.googleapis.com/css?family=Roboto+Condensed:400,700,300' rel='stylesheet' type='text/css'>
+    <link href='http://fonts.googleapis.com/css?family=Raleway:400,100' rel='stylesheet' type='text/css'>
+    <!-- Bootstrap -->
+    <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
+    <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+      <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+      <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+    <![endif]-->
+  </head>
+  <body>
+<br/>
+
+
+<script type="text/javascript">
+$(document).ready(function () {
+
+    var navListItems = $('div.setup-panel div a'),
+
+            allWells = $('.setup-content'),
+            allNextBtn = $('.nextBtn');
+
+    allWells.hide();
+
+    navListItems.click(function (e) {
+        e.preventDefault();
+        var $target = $($(this).attr('href')),
+                $item = $(this);
+
+        if (!$item.hasClass('disabled')) {
+            navListItems.removeClass('btn-primary').addClass('btn-default');
+            $item.addClass('btn-primary');
+            allWells.hide();
+            $target.show();
+            $target.find('input:eq(0)').focus();
+        }
+    });
+
+    allNextBtn.click(function(){
+        var curStep = $(this).closest(".setup-content"),
+            curStepBtn = curStep.attr("id"),
+            nextStepWizard = $('div.setup-panel div a[href="#' + curStepBtn + '"]').parent().next().children("a"),
+            curInputs = curStep.find("input[type='text'],input[type='url']"),
+            isValid = true;
+
+        $(".form-group").removeClass("has-error");
+        for(var i=0; i<curInputs.length; i++){
+            if (!curInputs[i].validity.valid){
+                isValid = false;
+                $(curInputs[i]).closest(".form-group").addClass("has-error");
+            }
+        }
+
+        if (isValid)
+            nextStepWizard.removeAttr('disabled').trigger('click');
+    });
+
+    $('div.setup-panel div a.btn-primary').trigger('click');
+});
+</script>
+ 
+
+                    
+                <script type="text/javascript">
+                     function validate(field) {
+                    // Get the  value of the input field being submitted
+                    value = document.getElementById(field).value;
+
+                    // Set the error field tag in the html
+                    errorField = field + 'Error';
+
+                    // Set the success field
+                    successField = field + 'Success';
+
+                    if (value != '') {
+                        document.getElementById(successField).style.display = 'block';
+                        document.getElementById(errorField).style.display = 'none';
+                        return true;
+                    } else {
+                        document.getElementById(successField).style.display = 'none';
+                        document.getElementById(errorField).style.display = 'block';
+                        return false;
+                    }
+                }
+
+                function SimulateSubmit() {
+                    // Query your elements some how
+                    var inputs = document.getElementsByTagName('input');
+
+                    // Loop your elements
+                    for (i = 0, len = inputs.length; i < len; i++) {
+                        if( validate(inputs[i].id) === false) {
+                        }
+                    }
+                }
+                </script>
+
+                <style type="text/css">
+                    .err, .suc {
+                    display: none;
+                }
+                .err { color: red;}
+                .suc { color: green;}
+                </style>
+
+<div align="center">
+
+    <% if not current_user %>
+
+        <!-- Modal -->
+        <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+          <div class="modal-dialog" role="document">
+            <div class="modal-content" style="margin-left:-300px; width:200%;">
+              <div class="modal-header" style="background-color: #1abc9c;">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title" id="myModalLabel">Ingresa los Datos Para Personas</h4>
+              </div>
+              <div class="modal-body">
+
+                <div class="container">
+                    <div class="stepwizard">
+                        <div class="stepwizard-row setup-panel">
+                            <div class="stepwizard-step">
+                                <a href="#step-1" type="button" class="btn btn-primary btn-circle">1</a>
+                                <p>Datos personales</p>
+                            </div>
+                            <div class="stepwizard-step">
+                                <a href="#step-2" type="button" class="btn btn-default btn-circle" disabled="disabled">2</a>
+                                <p>Datos Empresa</p>
+                            </div>
+                            <div class="stepwizard-step">
+                                <a href="#step-3" type="button" class="btn btn-default btn-circle" disabled="disabled">3</a>
+                                <p>Datos de acceso</p>
+                            </div>
+                        </div>
+                    </div>
+                    <%= form_for(@user, html: { multipart: true }) do |f| %>
+
+
+                        <div class="row setup-content" id="step-1">
+                            <div class="col-xs-12">
+                                <div class="col-md-12">
+                                    <h3>Datos personales</h3>
+                                    <div class="row">
+                                        <div class="col-md-6"> 
+                                            <div class="form-group">
+                                                <label class="control-label">Primer Nombre</label>
+                                                <%= f.text_field :first_name, class: "form-control valid", id: 'PrimerNombre', onblur: "validate('PrimerNombre')", :required => true , :placeholder => "Por Favor ingresa tu Primer Nombre" %>
+                                            </div>
+                                            <span id="PrimerNombreError" class="err">Por Favor Ingresa tu Primer Nombre</span>
+                                            <span id="PrimerNombreSuccess" class="suc">Dato ingresado correctamente</span>
+                                        </div>
+                                        <div class="col-md-6"> 
+                                            <div class="form-group">
+                                                <label class="control-label">Segundo Nombre</label>
+                                                <%= f.text_field :second_name, class: "form-control valid", id: 'SegundoNombre', onblur: "validate('SegundoNombre')"  , :placeholder => "Si tienes Segundo Nombre ingresalo" %>
+                                            </div>
+                                            <span id="SegundoNombreSuccess" class="suc">Dato ingresado correctamente</span>
+                                        </div>
+                                    </div> 
+                                    <div class="row">
+                                        <div class="col-md-6"> 
+                                            <div class="form-group">
+                                                <label class="control-label">Primer Apellido</label>
+                                                <%= f.text_field :first_surname, class: "form-control valid" , id: 'PrimerApellido', onblur: "validate('PrimerApellido')", :required => true, :placeholder => "Por Favor ingresa tu Primer apellido" %>
+                                            </div>
+                                            <span id="PrimerApellidoError" class="err">Por Favor ingresa tu apellido</span>
+                                            <span id="PrimerApellidoSuccess" class="suc">Dato ingresado correctamente</span> 
+                                        </div>
+                                        <div class="col-md-6"> 
+                                            <div class="form-group">
+                                                <label class="control-label">Segundo Apellido</label>
+                                                <%= f.text_field :second_surname, class: "form-control valid", id: 'SegundoApellido', onblur: "validate('SegundoApellido')", :placeholder => "Si tienes Segundo Apellido ingresalo" %>
+                                            </div>
+                                            <span id="SegundoApellidoSuccess" class="suc">Dato ingresado correctamente</span> 
+                                        </div>
+                                    </div>  
+
+                                    <div class="row">
+                                        <div class="col-md-6"> 
+                                            <div class="form-group">
+                                                <label class="control-label">Identificación</label>
+                                                <%= f.text_field :identification, class: "form-control valid", id: 'Identificacion', onblur: "validate('Identificacion')", :onkeypress => "return numbersonly(event);", :required => true, :placeholder => "Por Favor ingresa tu Identificación" %>
+                                            </div>
+                                            <span id="IdentificacionError" class="err">Por Favor ingresar tu identificación</span>
+                                            <span id="IdentificacionSuccess" class="suc">Dato ingresado correctamente</span> 
+                                        </div>
+                                        <div class="col-md-6"> 
+                                            <div class="form-group">
+                                                <label class="control-label">Telefono</label>
+                                                <%= f.text_field :phone, class: "form-control valid", id: 'Telefono', onblur: "validate('Telefono')", :required => true, :onkeypress => "return numbersonly(event);", :placeholder => "Por Favor ingresa tu Telefono" %>
+                                            </div>
+                                            <span id="TelefonoError" class="err">Por Favor ingresar un Telefono</span>
+                                            <span id="TelefonoSuccess" class="suc">Dato ingresado correctamente</span>
+                                        </div>
+                                    </div>     
+                                    <div class="row">
+                                        <div class="col-md-6"> 
+                                            <div class="form-group">
+                                                <label class="control-label">Celular</label>
+                                                <%= f.text_field :cell_phone, class: "form-control valid", id: 'Celular', onblur: "validate('Celular')" , :required => true, :onkeypress => "return numbersonly(event);", :placeholder => "Por Favor ingresa tu Celular"  %>
+                                            </div>
+                                            <span id="CelularError" class="err">Por Favor ingresar un Celular</span>
+                                            <span id="CelularSuccess" class="suc">Dato ingresado correctamente</span> 
+                                        </div>
+                                        <% if current_user.present? && current_user.rol_id == "1" %>
+                                        <div class="col-md-6"> 
+                                            <div class="form-group">
+                                                <label class="control-label">Rol</label>
+                                                <%= f.collection_select :rol_id, Rol.all, :id, :name, { prompt: "Por favor selecciona uno", :selected => params[:search], hide_label: :true }, class: "form-control valid", :required => true %>
+                                            </div>
+                                        </div>                                            
+                                        <% end %>
+                                    </div> 
+                                    <div class="row">
+                                        <div align="center">
+                                            <h1>Ingresa tu Foto</h1>
+                                        </div>
+                                        <div class="col-md-12"> 
+                                            <div class="form-group">
+                                                <div class="input-container">
+                                                    <div class="fileinput fileinput-new" data-provides="fileinput">
+                                                      <div class="fileinput-preview thumbnail" data-trigger="fileinput" style="width: 200px; height: 150px;"></div>
+                                                      <div>
+                                                        <span class="btn btn-default btn-file"><span class="fileinput-new"><%= f.file_field :picture, class: "form-control", id: 'button' %></span><span class="fileinput-exists">Cambiar</span><input type="file" name="..."></span>
+                                                        <a href="#" class="btn btn-default fileinput-exists" data-dismiss="fileinput">Eliminar</a>
+                                                      </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>  
+                                    <button class="btn btn-primary nextBtn btn-lg pull-right" type="button" >Siguiente</button>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row setup-content" id="step-2">
+                            <div class="col-xs-12">
+                                <div class="col-md-12">
+                                    <h3>Datos Empresa</h3>
+                                        <div class="row">
+                                            <div class="col-md-6">
+                                                <div class="form-group">
+                                                    <label class="control-label">Razón Social</label>
+                                                    <%= f.text_field :business_name, class: "form-control valid",  id: 'business_name', onblur: "validate('business_name')", :required => true, :placeholder => "Por Favor ingresa la razón social" %>
+                                                </div>
+                                                <span id="business_nameError" class="err">Por Favor ingresar una razón social</span>
+                                                <span id="business_nameSuccess" class="suc">Dato ingresado correctamente</span> 
+                                            </div>
+                                            <div class="col-md-6">
+                                                <div class="form-group">
+                                                    <label class="control-label">Rut</label>
+                                                    <%= f.text_field :rut, class: "form-control valid",  id: 'Rut', onblur: "validate('Rut')", :required => true, :placeholder => "Por Favor ingresa el rut"  %>
+                                                </div>
+                                                <span id="RutError" class="err">Por Favor ingresar el rut</span>
+                                                <span id="RutSuccess" class="suc">Dato ingresado correctamente</span> 
+                                            </div> 
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-md-6">
+                                                <div class="form-group">
+                                                    <label class="control-label">Dirección</label>
+                                                    <%= f.text_field :address, class: "form-control valid",  id: 'Direccion', onblur: "validate('Direccion')", :required => true, :placeholder => "Por Favor ingresa la direccion" %>
+                                                </div>
+                                                <span id="DireccionError" class="err">Por Favor ingresar una Direccion</span>
+                                                <span id="DireccionSuccess" class="suc">Dato ingresado correctamente</span> 
+                                            </div>
+                                            <div class="col-md-6">
+                                                <div class="form-group">
+                                                    <label class="control-label">Pagina Web</label>
+                                                    <%= f.text_field :web_page, class: "form-control valid",  id: 'PaginaWeb', onblur: "validate('PaginaWeb')", :placeholder => "Si tienes pagina web Por favor ingresala"  %>
+                                                </div>
+                                                <span id="PaginaWebSuccess" class="suc">Dato ingresado correctamente</span> 
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-md-12">
+                                                <div class="form-group">
+                                                    <label class="control-label">Breve Descripción</label>
+                                                    <%= f.text_field :description, class: "form-control valid",  id: 'DescripcionCompañia', onblur: "validate('DescripcionCompañia')", :required => true %>
+                                                <span id="DescripcionCompañiaSuccess" class="suc">Dato ingresado correctamente</span> 
+                                                <span id="DescripcionCompañiaError" class="err">Por Favor ingresar una Breve Descripción de la Empresa</span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div align="center">
+                                                <h1>Ingresa el Logo</h1>
+                                            </div>
+                                            <div class="col-md-12"> 
+                                                <div class="form-group">
+                                                    <div class="input-container">
+                                                        <div class="fileinput fileinput-new" data-provides="fileinput">
+                                                          <div class="fileinput-preview thumbnail" data-trigger="fileinput" style="width: 200px; height: 150px;"></div>
+                                                          <div>
+                                                            <span class="btn btn-default btn-file"><span class="fileinput-new"><%= f.file_field :logo, class: "form-control", id: 'button' %></span><span class="fileinput-exists">Cambiar</span><input type="file" name="..."></span>
+                                                            <a href="#" class="btn btn-default fileinput-exists" data-dismiss="fileinput">Eliminar</a>
+                                                          </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>  
+                                        <button class="btn btn-primary nextBtn btn-lg pull-right" type="button" >Siguiente</button>
+                                </div>    
+                            </div>
+                        </div>
+                        <div class="row setup-content" id="step-3">
+                            <div class="col-xs-12">
+                                <div class="col-md-12">
+                                    <h3>Datos de acceso</h3>
+                                    <div class="row">
+                                            <div class="col-md-6">
+                                                <div class="form-group">
+                                                    <label class="control-label">Email</label>
+                                                    <%= f.text_field :email, class: "form-control valid",  id: 'Test9', onblur: "validate('Test9')", :required => true %>
+                                                </div>
+                                                <span id="Test9Error" class="err">Por Favor ingresar un email</span>
+                                                <span id="Test9Success" class="suc">Dato ingresado correctamente <%  %></span>
+                                                <div class="row" align="left">
+                                                    <div class="col-sm-12">
+                                                        <span class="glyphicon glyphicon-ok" style="color: rgb(0, 164, 30);"></span>El email debe ser unico<br>
+
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-6">
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-md-6">
+                                                <div class="form-group">
+                                                    <label class="control-label">Clave</label>
+                                                    <%= f.password_field :password, class: "form-control valid", id: 'password1', :required => true %>
+                                                </div>
+                                                <div class="row" align="left">
+                                                    <div class="col-sm-12">
+                                                        <span id="8char" class="glyphicon glyphicon-remove" style="color:#FF0004;"></span>Minimo 8 Caracteres<br>
+                                                        <span id="ucase" class="glyphicon glyphicon-remove" style="color:#FF0004;"></span>Debe contener una letra en mayuscula
+                                                    </div>
+                                                    <div class="col-sm-12">
+                                                        <span id="lcase" class="glyphicon glyphicon-remove" style="color:#FF0004;"></span>Debe contener una letra minuscula<br>
+                                                        <span id="num" class="glyphicon glyphicon-remove" style="color:#FF0004;"></span>Debe contener un numero
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <div class="form-group">
+                                                    <label class="control-label">Confirmar clave:</label>
+                                                    <%= f.password_field :password_confirmation, class: "form-control valid", id: 'password2', :required => true %>
+                                                </div>
+                                               <div align="left">
+                                                <span id="pwmatch" class="glyphicon glyphicon-remove" style="color:#FF0004;">
+                                                </span>Las Contraseñas concuerdan
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <%= f.hidden_field :type_user, value: "Persona" %>
+
+                                     <button type="button" class="btn btn-info  btn-lg" data-dismiss="modal">Cerrar</button>
+                                <%= f.submit "Guardar Datos", :class => 'btn btn-primary  btn-lg' %>
+                                </div>
+                            </div>
+                        </div>
+                    <% end %>   
+                </div>
+            </div>
+          </div>
+        </div>
+      </div>              
+
+
+
+                
+                <!-- Modal -->
+        <div class="modal fade" id="myModal2" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+          <div class="modal-dialog" role="document">
+            <div class="modal-content" style="margin-left:-300px; width:200%;">
+              <div class="modal-header" style="background-color: #1abc9c;">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title" id="myModalLabel">Ingresa los Datos Para Personas</h4>
+              </div>
+              <div class="modal-body">
+        
+
+
+
+<style type="text/css">
+    .wizard {
+    margin: 20px auto;
+    background: #fff;
+}
+
+    .wizard .nav-tabs {
+        position: relative;
+        margin: 40px auto;
+        margin-bottom: 0;
+        border-bottom-color: #e0e0e0;
+    }
+
+    .wizard > div.wizard-inner {
+        position: relative;
+    }
+
+.connecting-line {
+    height: 2px;
+    background: #e0e0e0;
+    position: absolute;
+    width: 80%;
+    margin: 0 auto;
+    left: 0;
+    right: 0;
+    top: 50%;
+    z-index: 1;
+}
+
+.wizard .nav-tabs > li.active > a, .wizard .nav-tabs > li.active > a:hover, .wizard .nav-tabs > li.active > a:focus {
+    color: #555555;
+    cursor: default;
+    border: 0;
+    border-bottom-color: transparent;
+}
+
+span.round-tab {
+    width: 70px;
+    height: 70px;
+    line-height: 70px;
+    display: inline-block;
+    border-radius: 100px;
+    background: #fff;
+    border: 2px solid #e0e0e0;
+    z-index: 2;
+    position: absolute;
+    left: 0;
+    text-align: center;
+    font-size: 25px;
+}
+span.round-tab i{
+    color:#555555;
+}
+.wizard li.active span.round-tab {
+    background: #fff;
+    border: 2px solid #5bc0de;
+    
+}
+.wizard li.active span.round-tab i{
+    color: #5bc0de;
+}
+
+span.round-tab:hover {
+    color: #333;
+    border: 2px solid #333;
+}
+
+.wizard .nav-tabs > li {
+    width: 25%;
+}
+
+.wizard li:after {
+    content: " ";
+    position: absolute;
+    left: 46%;
+    opacity: 0;
+    margin: 0 auto;
+    bottom: 0px;
+    border: 5px solid transparent;
+    border-bottom-color: #5bc0de;
+    transition: 0.1s ease-in-out;
+}
+
+.wizard li.active:after {
+    content: " ";
+    position: absolute;
+    left: 46%;
+    opacity: 1;
+    margin: 0 auto;
+    bottom: 0px;
+    border: 10px solid transparent;
+    border-bottom-color: #5bc0de;
+}
+
+.wizard .nav-tabs > li a {
+    width: 70px;
+    height: 70px;
+    margin: 20px auto;
+    border-radius: 100%;
+    padding: 0;
+}
+
+    .wizard .nav-tabs > li a:hover {
+        background: transparent;
+    }
+
+.wizard .tab-pane {
+    position: relative;
+    padding-top: 50px;
+}
+
+.wizard h3 {
+    margin-top: 0;
+}
+
+@media( max-width : 585px ) {
+
+    .wizard {
+        width: 90%;
+        height: auto !important;
+    }
+
+    span.round-tab {
+        font-size: 16px;
+        width: 50px;
+        height: 50px;
+        line-height: 50px;
+    }
+
+    .wizard .nav-tabs > li a {
+        width: 50px;
+        height: 50px;
+        line-height: 50px;
+    }
+
+    .wizard li.active:after {
+        content: " ";
+        position: absolute;
+        left: 35%;
+    }
+}
+</style>
+
+
+
+
+
+<script type="text/javascript">
+    $(document).ready(function () {
+    //Initialize tooltips
+    $('.nav-tabs > li a[title]').tooltip();
+    
+    //Wizard
+    $('a[data-toggle="tab"]').on('show.bs.tab', function (e) {
+
+        var $target = $(e.target);
+    
+        if ($target.parent().hasClass('disabled')) {
+            return false;
+        }
+    });
+
+    $(".next-step").click(function (e) {
+
+        var $active = $('.wizard .nav-tabs li.active');
+        $active.next().removeClass('disabled');
+        nextTab($active);
+
+    });
+    $(".prev-step").click(function (e) {
+
+        var $active = $('.wizard .nav-tabs li.active');
+        prevTab($active);
+
+    });
+});
+
+function nextTab(elem) {
+    $(elem).next().find('a[data-toggle="tab"]').click();
+}
+function prevTab(elem) {
+    $(elem).prev().find('a[data-toggle="tab"]').click();
+}
+</script>
+
+
+
+<div class="container">
+    <div class="row">
+        <section>
+        <div class="wizard">
+            <div class="wizard-inner">
+                <div class="connecting-line"></div>
+                <ul class="nav nav-tabs" role="tablist">
+
+                    <li role="presentation" class="active">
+                        <a href="#step1" data-toggle="tab" aria-controls="step1" role="tab" title="Step 1">
+                            <span class="round-tab">
+                                <i class="glyphicon glyphicon-folder-open"></i>
+                            </span>
+                        </a>
+                    </li>
+
+                    <li role="presentation" class="disabled">
+                        <a href="#step2" data-toggle="tab" aria-controls="step2" role="tab" title="Step 2">
+                            <span class="round-tab">
+                                <i class="glyphicon glyphicon-pencil"></i>
+                            </span>
+                        </a>
+                    </li>
+                    <li role="presentation" class="disabled">
+                        <a href="#step3" data-toggle="tab" aria-controls="step3" role="tab" title="Step 3">
+                            <span class="round-tab">
+                                <i class="glyphicon glyphicon-picture"></i>
+                            </span>
+                        </a>
+                    </li>
+
+                    <li role="presentation" class="disabled">
+                        <a href="#complete" data-toggle="tab" aria-controls="complete" role="tab" title="Complete">
+                            <span class="round-tab">
+                                <i class="glyphicon glyphicon-ok"></i>
+                            </span>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+
+             <%= form_for(@user, html: { multipart: true }) do |f| %>
+                <div class="tab-content">
+                    <div class="tab-pane active" role="tabpanel" id="step1">
+                        
+
+
+
+
+                   
+                        <div class="row">
+                            <div class="col-xs-12">
+                                <div class="col-md-12">
+                                    <h3>Datos empresa</h3>
+                                    <div class="row">
+                                        <div class="col-md-6"> 
+                                            <div class="form-group">
+                                                <label class="control-label">Nombre</label>
+                                                <%= f.text_field :first_name, class: "form-control valid", id: 'Nombre', onblur: "validate('PrimerNombre')", :required => true , :placeholder => "Por Favor ingresa tu Primer Nombre" %>
+                                            </div>
+                                            <span id="NombreError" class="err">Por Favor Ingresa el Nombre</span>
+                                            <span id="NombreSuccess" class="suc">Dato ingresado correctamente</span>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div class="form-group">
+                                                <label class="control-label">Dirección</label>
+                                                <%= f.text_field :address, class: "form-control valid",  id: 'Direccion', onblur: "validate('Direccion')", :required => true, :placeholder => "Por Favor ingresa la direccion" %>
+                                            </div>
+                                            <span id="DireccionError" class="err">Por Favor ingresar una razón social</span>
+                                            <span id="DireccionnameSuccess" class="suc">Dato ingresado correctamente</span> 
+                                        </div>
+                                    </div> 
+                                    <div class="row">
+                                        <div class="col-md-6"> 
+                                            <div class="form-group">
+                                                <label class="control-label">Telefono</label>
+                                                <%= f.text_field :phone, class: "form-control valid", id: 'Telefono', onblur: "validate('Telefono')", :required => true, :onkeypress => "return numbersonly(event);", :placeholder => "Por Favor ingresa tu Telefono" %>
+                                            </div>
+                                            <span id="TelefonoError" class="err">Por Favor ingresar un Telefono</span>
+                                            <span id="TelefonoSuccess" class="suc">Dato ingresado correctamente</span>
+                                        </div>
+                                        <div class="col-md-6"> 
+                                            <div class="form-group">
+                                                <label class="control-label">Celular</label>
+                                                <%= f.text_field :cell_phone, class: "form-control valid", id: 'Identificacion', onblur: "validate('Celular')" , :required => true, :onkeypress => "return numbersonly(event);", :placeholder => "Por Favor ingresa tu Celular"  %>
+                                            </div>
+                                            <span id="IdentificacionError" class="err">Por Favor ingresar tu identificación</span>
+                                            <span id="IdentificacionSuccess" class="suc">Dato ingresado correctamente</span> 
+                                        </div>
+                                    </div>     
+                                    <div class="row">
+                                        <div class="col-md-6"> 
+                                            <div class="form-group">
+                                                <label class="control-label">Razón Social</label>
+                                                <%= f.text_field :business_name, class: "form-control valid",  id: 'business_name', onblur: "validate('business_name')", :required => true, :placeholder => "Por Favor ingresa la razón social" %>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div class="form-group">
+                                                <label class="control-label">Pagina Web</label>
+                                                <%= f.text_field :web_page, class: "form-control valid",  id: 'PaginaWeb', onblur: "validate('PaginaWeb')", :placeholder => "Si tienes pagina web Por favor ingresala"  %>
+                                            </div>
+                                            <span id="PaginaWebSuccess" class="suc">Dato ingresado correctamente</span> 
+                                        </div>
+                                    </div> 
+                                    <div class="row">
+                                        <div class="col-md-6"> 
+                                            <div class="form-group">
+                                                    <label class="control-label">Nit</label>
+                                                    <%= f.text_field :nit, class: "form-control valid", id: 'EmpresaNit', onblur: "validate('EmpresaNit')" %>
+                                            </div>
+                                            <span id="EmpresaNitError" class="err">Por Favor ingresar un Nit</span>
+                                            <span id="EmpresaNitSuccess" class="suc">Dato ingresado correctamente</span>
+                                        </div>
+                                                            <div class="col-md-6"> 
+                                            <div class="form-group">
+                                                <label class="control-label">Rol</label>
+                                                <%= f.collection_select :rol_id, Rol.all, :id, :name, { prompt: "Por favor selecciona uno", :selected => params[:search], hide_label: :true }, class: "form-control valid", :required => true %>
+                                            </div>
+                                        </div>
+                                    </div> 
+                                    <div class="row">
+                                        <div class="form-group">
+                                            <label class="control-label">Breve Descripción</label>
+                                            <%= f.text_field :description, class: "form-control valid",  id: 'Test9', onblur: "validate('Test9')", :required => true %>
+                                        </div>
+                                        <span id="PaginaWebSuccess" class="suc">Dato ingresado correctamente</span> 
+                                    </div> 
+                                </div>
+                            </div>
+                        </div>
+
+
+
+
+
+                        <ul class="list-inline pull-right">
+                            <li><button type="button" class="btn btn-primary next-step">Siguiente</button></li>
+                        </ul>
+                    </div>
+                    <div class="tab-pane" role="tabpanel" id="step2">
+                        
+
+
+                        <div class="row">
+                            <div class="col-xs-12">
+                                <div class="col-md-12">
+                                    <h3>Datos Empresa</h3>       
+                                </div>
+                                        <div class="row">
+                                            <div class="col-md-12">
+                                                
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div align="center">
+                                                <h1>Ingresa el Logo</h1>
+                                            </div>
+                                            <div class="col-md-12"> 
+                                                <div class="form-group">
+                                                    <div class="input-container">
+                                                        <div class="fileinput fileinput-new" data-provides="fileinput">
+                                                          <div class="fileinput-preview thumbnail" data-trigger="fileinput" style="width: 200px; height: 150px;"></div>
+                                                          <div>
+                                                            <span class="btn btn-default btn-file"><span class="fileinput-new"><%= f.file_field :logo, class: "form-control", id: 'button' %></span><span class="fileinput-exists">Cambiar</span><input type="file" name="..."></span>
+                                                            <a href="#" class="btn btn-default fileinput-exists" data-dismiss="fileinput">Eliminar</a>
+                                                          </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>  
+                                </div>    
+                            </div>
+
+
+
+                        <ul class="list-inline pull-right">
+                            <li><button type="button" class="btn btn-default prev-step">Anterior</button></li>
+                            <li><button type="button" class="btn btn-primary next-step">Siguiente</button></li>
+                        </ul>
+                    </div>
+                    <div class="tab-pane" role="tabpanel" id="step3">
+                        <h3>Step 3</h3>
+                        <p>This is step 3</p>
+                        <ul class="list-inline pull-right">
+                            <li><button type="button" class="btn btn-default prev-step">Anterior</button></li>
+                            <li><button type="button" class="btn btn-primary btn-info-full next-step">Siguiente</button></li>
+                        </ul>
+                    </div>
+                    <div class="tab-pane" role="tabpanel" id="complete">
+
+
+
+
+
+
+
+                            <div class="col-xs-12">
+                                <div class="col-md-12">
+                                    <h3>Datos de acceso</h3>
+                                    <div class="row">
+                                            <div class="col-md-6">
+                                                <div class="form-group">
+                                                    <label class="control-label">Email</label>
+                                                    <%= f.text_field :email, class: "form-control valid",  id: 'Test9', onblur: "validate('Test9')", :required => true %>
+                                                </div>
+                                                <span id="Test9Error" class="err">Por Favor ingresar un email</span>
+                                                <span id="Test9Success" class="suc">Dato ingresado correctamente</span>
+                                            </div>
+                                            <div class="col-md-6">
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-md-6">
+                                                <div class="form-group">
+                                                    <label class="control-label">Clave</label>
+                                                    <%= f.password_field :password, class: "form-control valid", id: 'password1', :required => true %>
+                                                </div>
+
+                                            </div>
+                                            <div class="col-md-6">
+                                                <div class="form-group">
+                                                    <label class="control-label">Confirmar clave:</label>
+                                                    <%= f.password_field :password_confirmation, class: "form-control valid", id: 'password2', :required => true %>
+                                                </div>
+  
+                                            </div>
+                                        </div>
+                                        <%= f.hidden_field :type_user, value: "Persona" %>
+
+                                     <button type="button" class="btn btn-info  btn-lg" data-dismiss="modal">Cerrar</button>
+                                <%= f.submit "Gurdar Datos", :class => 'btn btn-primary  btn-lg' %>
+                                </div>
+                            </div>
+
+
+                    </div>
+                    <div class="clearfix"></div>
+                </div>
+                                <% end %>   
+
+        </div>
+    </section>
+   </div>
+</div>
+
+
+
+
+
+
+
+
+            </div>
+          </div>
+        </div>
+      </div>  
+    <% end %>
+</div>       
+
+<script type="text/javascript">
+    $("input[type=password]").keyup(function(){
+    var ucase = new RegExp("[A-Z]+");
+    var lcase = new RegExp("[a-z]+");
+    var num = new RegExp("[0-9]+");
+    
+    if($("#password1").val().length >= 8){
+        $("#8char").removeClass("glyphicon-remove");
+        $("#8char").addClass("glyphicon-ok");
+        $("#8char").css("color","#00A41E");
+    }else{
+        $("#8char").removeClass("glyphicon-ok");
+        $("#8char").addClass("glyphicon-remove");
+        $("#8char").css("color","#FF0004");
+    }
+    
+    if(ucase.test($("#password1").val())){
+        $("#ucase").removeClass("glyphicon-remove");
+        $("#ucase").addClass("glyphicon-ok");
+        $("#ucase").css("color","#00A41E");
+    }else{
+        $("#ucase").removeClass("glyphicon-ok");
+        $("#ucase").addClass("glyphicon-remove");
+        $("#ucase").css("color","#FF0004");
+    }
+    
+    if(lcase.test($("#password1").val())){
+        $("#lcase").removeClass("glyphicon-remove");
+        $("#lcase").addClass("glyphicon-ok");
+        $("#lcase").css("color","#00A41E");
+    }else{
+        $("#lcase").removeClass("glyphicon-ok");
+        $("#lcase").addClass("glyphicon-remove");
+        $("#lcase").css("color","#FF0004");
+    }
+    
+    if(num.test($("#password1").val())){
+        $("#num").removeClass("glyphicon-remove");
+        $("#num").addClass("glyphicon-ok");
+        $("#num").css("color","#00A41E");
+    }else{
+        $("#num").removeClass("glyphicon-ok");
+        $("#num").addClass("glyphicon-remove");
+        $("#num").css("color","#FF0004");
+    }
+    
+    if($("#password1").val() == $("#password2").val()){
+        $("#pwmatch").removeClass("glyphicon-remove");
+        $("#pwmatch").addClass("glyphicon-ok");
+        $("#pwmatch").css("color","#00A41E");
+    }else{
+        $("#pwmatch").removeClass("glyphicon-ok");
+        $("#pwmatch").addClass("glyphicon-remove");
+        $("#pwmatch").css("color","#FF0004");
+    }
+});
+    
+</script>
+
+
+
+
+
+
+
+<style type="text/css">
+    .btn-product{
+    width: 100%;
+}
+.price{
+    margin-left: -35px;
+}
+
+.thumbnail{
+    border: 2px solid #1ABC9C
+
+}
+</style>
+
+<style type="text/css">
+    
+
+
+
+/* Definiomos los estilos generales*/
+.vista {
+    width: 300px;
+    height: 200px;
+    margin: 20px;
+    float: left;
+    overflow: hidden;
+    position: relative;
+    text-align: center;
+    cursor: default;
+}
+.vista .mascara, .vista .contenido {
+    width: 205px;
+    height: 200px;
+    position: absolute;
+    overflow: hidden;
+    top: 0;
+    left: 0;
+}
+.vista img {
+    display: block;
+    position: relative;
+}
+.vista h2 {
+    text-transform: uppercase;
+    color: #fff;
+    text-align: center;
+    position: relative;
+    font-size: 17px;
+    padding: 10px;
+    background: hsla(0,0%,0%,0.8);
+    margin: 20px 0 0 0;
+}
+.vista p {
+    font-family: Georgia, serif;
+    font-style: italic;
+    font-size: 12px;
+    position: relative;
+    color: #fff;
+    padding: 10px 20px 20px;
+    text-align: center;
+}
+.vista a.informacion {
+    display: inline-block;
+    text-decoration: none;
+    padding: 7px 14px;
+    background: #000;
+    color: #fff;
+    text-transform: uppercase;
+    box-shadow: 0 0 1px #000;
+}
+.vista a.informacion:hover {
+    box-shadow: 0 0 5px #000
+}
+/******************************************************************************/
+/* Estilos para ejemplo 4 */
+.vista img {
+    -webkit-transition: all 0.4s ease-in-out 0.2s;
+    -moz-transition: all 0.4s ease-in-out 0.2s;
+    -o-transition: all 0.4s ease-in-out 0.2s;
+    -ms-transition: all 0.4s ease-in-out 0.2s;
+    transition: all 0.4s ease-in-out 0.2s;
+    opacity: 1;
+    border-radius: 0;
+}
+.vista .mascara {
+    opacity: 0;
+    background-color: hsla(0,0%,0%,0.8);
+    -webkit-transform: scale(0) rotate(-180deg);
+    -moz-transform: scale(0) rotate(-180deg);
+    -o-transform: scale(0) rotate(-180deg);
+    -ms-transform: scale(0) rotate(-180deg);
+    transform: scale(0) rotate(-180deg);
+    -webkit-transition: all 0.4s ease-in;
+    -moz-transition: all 0.4s ease-in;
+    -o-transition: all 0.4s ease-in;
+    -ms-transition: all 0.4s ease-in;
+    transition: all 0.4s ease-in;
+    border-radius: 0;
+}
+.vista h2 {
+    opacity: 0;
+    border-bottom: 1px solid hsla(0,0%,0%,0.3);
+    background: transparent;
+    margin: 20px 40px 0px 40px;
+    -webkit-transition: all 0.5s ease-in-out;
+    -moz-transition: all 0.5s ease-in-out;
+    -o-transition: all 0.5s ease-in-out;
+    -ms-transition: all 0.5s ease-in-out;
+    transition: all 0.5s ease-in-out;
+}
+.vista p {
+    opacity: 0;
+    -webkit-transition: all 0.5s ease-in-out;
+    -moz-transition: all 0.5s ease-in-out;
+    -o-transition: all 0.5s ease-in-out;
+    -ms-transition: all 0.5s ease-in-out;
+    transition: all 0.5s ease-in-out;
+}
+.vista a.informacion {
+    opacity: 0;
+    -webkit-transition: all 0.5s ease-in-out;
+    -moz-transition: all 0.5s ease-in-out;
+    -o-transition: all 0.5s ease-in-out;
+    -ms-transition: all 0.5s ease-in-out;
+    transition:all 0.5s ease-in-out;
+}
+.vista:hover .mascara { 
+    opacity: 1;
+    -webkit-transform: scale(1) rotate(0deg);
+    -moz-transform: scale(1) rotate(0deg);
+    -o-transform: scale(1) rotate(0deg);
+    -ms-transform: scale(1) rotate(0deg);
+    transform: scale(1) rotate(0deg);
+    -webkit-transition-delay: 0.2s;
+    -moz-transition-delay: 0.2s;
+    -o-transition-delay: 0.2s;
+    -ms-transition-delay: 0.2s;
+    transition-delay: 0.2s;
+}
+.vista:hover img    { 
+    -webkit-transform: scale(0); 
+    -moz-transform: scale(0); 
+    -o-transform: scale(0); 
+    -ms-transform: scale(0); 
+    transform: scale(0); 
+    opacity: 0;
+    -webkit-transition-delay: 0s;
+    -moz-transition-delay: 0s;
+    -o-transition-delay: 0s;
+    -ms-transition-delay: 0s;
+    transition-delay: 0s;
+}  
+.vista:hover h2,
+.vista:hover p,
+.vista:hover a.informacion {
+    opacity: 1;
+    -webkit-transition-delay: 0.5s;
+    -moz-transition-delay: 0.5s;
+    -o-transition-delay: 0.5s;
+    -ms-transition-delay: 0.5s;
+    transition-delay: 0.5s;
+}
+</style>
+
+
+
+
+<div class="container">
+        <div class="row">
+            <div class="col-md-9">
+                <h1>
+                    Ultimos Productos Ofertados</h1>
+            </div>
+        </div>
+    <div class="row">
+        <div class="col-md-12">
+        <% @products.each do |product| %>
+            <div class="col-sm-3 col-md-3">
+                <div class="thumbnail" style="height:420px;">
+                            <% if product.name? %>
+                                <h4 class="text-center"><span class="label label-info">
+                                <%= truncate(product.name, :length =>28) %></span></h4>
+                            <% else %>
+                                <h4 class="text-center"><span class="label label-info">
+                                ------- </span></h4>
+                            <% end %>
+                  
+                            
+                            <center>
+                            <div class="vista">  
+                            <% if product.avatar? %>
+                                <%= link_to image_tag(product.avatar.url(:thumb)), @product, :remote => true,  :rel => "tooltip", :title => "Mostrar", :class => 'btn btn-link img-responsive zoomIt' %>
+                            <% else  %>
+
+                                <%= link_to image_tag('default.jpg'), @product, :remote => true,  :rel => "tooltip", :title => "Mostrar", :class => 'btn btn-link zoomIt' %>
+                                                            <% end %>
+
+                                <div class="mascara">
+                                <% if product.name? %>
+                                <h2 class="text-center">
+                                <%= truncate(product.name, :length =>28) %></h2>
+                                <% else %>
+                                    <h2 class="text-center">
+                                    ------- </h2>
+                                <% end %> 
+                                <% if product.description? %>
+                                <p style="text-align : justify;"><%= truncate(product.description, :length =>28) %></p>  
+                                <% else %>
+                                <p style="text-align : justify;">Lorem Ipsum es simplemente el texto de relleno de las imprentas y archivos de texto. Lorem Ipsum ha sido el texto</p> 
+                                <% end %>
+                                <div style="margin-top:-10px;">
+                                <%= link_to 'Ver Mas ', product, class: 'btn btn-primary btn-sm' %> 
+                                </div>
+                            </div>  
+                        </div>
+                            </center>
+                        <div class="caption">
+                            <div class="row">
+
+                                <div class="col-md-8 col-xs-8">
+                                    <h3 style="font-size:18px; margin-top:-10px;">Articulo <%= product.label_new_used %></h3>
+                                </div>
+                                <div class="col-md-4 col-xs-4 price">
+                                    <h3 style="font-size:16px; margin-top:-10px;">
+                                    <label>$<%= product.unit_price %></label></h3>
+                                </div>
+                            </div>
+                            <p><%= truncate(product.description, :length =>100) %></p>
+                            <div class="row">
+                                <div class="col-md-6" style="margin-top:-10px;">
+                                    <%= link_to 'Ver Mas <i class="glyphicon glyphicon-search"></i>'.html_safe, product, class: 'btn btn-primary btn-sm' %>
+                                </div>
+                                <div class="col-md-6" style="margin-top:-10px;">
+                                    <%= link_to 'Interesado! <i class="glyphicon glyphicon-ok"></i>'.html_safe, product, class: 'btn btn-success btn-sm' %>
+                                </div>
+                            </div>
+                            <div align="center">
+                            <div class="row">
+                                <center>Contacto:</center>
+                                <div class="col-md-12">
+                                    <%= product.user.email %>
+                                </div>
+                            </div>
+                            </div>
+                        </div>
+                </div>
+            </div>
+
+        <% end %>
+        </div>
+
+    </div>
+
+</div>
+
+
+
+
+        <div class="row">
+            <div class="col-md-12 col-md-offset-5">                
+                Mostrando 3 Articulos de : <%= @products.total_entries %>  
+            </div>
+            <div class="col-md-12 col-md-offset-5">
+                <%= will_paginate @products, :previous_label => '&laquo; Anterior', :next_label => 'Siguiente &raquo;' %>
+            </div>    
+        </div>
+
+
+
+        <div class="footer-top-area">
+            <div class="zigzag-bottom"></div>
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-3 col-sm-6">
+                        <div class="footer-menu">
+                            <h2 class="footer-wid-title">Nuestros Servicios</h2>
+                            <ul>
+                                <li><%= link_to 'Ingeniería Mecánica', login_path, :class => "links_footer" %></li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="col-md-3 col-sm-6">
+                        <div class="footer-menu">
+                            <h2 class="footer-wid-title">Registrarte </h2>
+                            <ul>
+                                <li><%= link_to 'Registra tus Datos', login_path, :class => "links_footer" %></li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="col-md-3 col-sm-6">
+                        <div class="footer-menu">
+                            <h2 class="footer-wid-title">Ingresa</h2>
+                            <ul>
+                                <li><%= link_to 'Ingresa para Continuar', login_path, :class => "links_footer" %></li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="col-md-3 col-sm-6">
+                        <div class="footer-newsletter">
+                            <h2 class="footer-wid-title">Newsletter</h2>
+                            <p>Sign up to our newsletter and get exclusive deals you wont find anywhere else straight to your inbox!</p>
+                            <div class="newsletter-form">
+                                <form action="#">
+                                    <input type="email" placeholder="Type your email">
+                                    <input type="submit" value="Subscribe">
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div> 
+
+
+    <!-- End footer top area -->
+    <div class="footer-bottom-area">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-8">
+                    <div class="copyright">
+                        <p>Copyright © 2015 <a href="http://www.servidual.com/index.html" target="_blank">Servidual</a> - Soluciones Integrales en Ingeniería de Proyectos</p>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="footer-card-icon">
+                        <i class="fa fa-cc-discover"></i>
+                        <i class="fa fa-cc-mastercard"></i>
+                        <i class="fa fa-cc-paypal"></i>
+                        <i class="fa fa-cc-visa"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div> <!-- End footer bottom area -->
+    <!-- Latest jQuery form server -->
+
+    <script type="text/javascript">
+// Sticky Plugin v1.0.0 for jQuery
+// =============
+// Author: Anthony Garand
+// Improvements by German M. Bravo (Kronuz) and Ruud Kamphuis (ruudk)
+// Improvements by Leonardo C. Daronco (daronco)
+// Created: 2/14/2011
+// Date: 2/12/2012
+// Website: http://labs.anthonygarand.com/sticky
+// Description: Makes an element on the page stick on the screen as you scroll
+//       It will only set the 'top' and 'position' of your element, you
+//       might need to adjust the width in some cases.
+
+(function($) {
+  var defaults = {
+      topSpacing: 0,
+      bottomSpacing: 0,
+      className: 'is-sticky',
+      wrapperClassName: 'sticky-wrapper',
+      center: false,
+      getWidthFrom: '',
+      responsiveWidth: false
+    },
+    $window = $(window),
+    $document = $(document),
+    sticked = [],
+    windowHeight = $window.height(),
+    scroller = function() {
+      var scrollTop = $window.scrollTop(),
+        documentHeight = $document.height(),
+        dwh = documentHeight - windowHeight,
+        extra = (scrollTop > dwh) ? dwh - scrollTop : 0;
+
+      for (var i = 0; i < sticked.length; i++) {
+        var s = sticked[i],
+          elementTop = s.stickyWrapper.offset().top,
+          etse = elementTop - s.topSpacing - extra;
+
+        if (scrollTop <= etse) {
+          if (s.currentTop !== null) {
+            s.stickyElement
+              .css('position', '')
+              .css('top', '');
+            s.stickyElement.trigger('sticky-end', [s]).parent().removeClass(s.className);
+            s.currentTop = null;
+          }
+        }
+        else {
+          var newTop = documentHeight - s.stickyElement.outerHeight()
+            - s.topSpacing - s.bottomSpacing - scrollTop - extra;
+          if (newTop < 0) {
+            newTop = newTop + s.topSpacing;
+          } else {
+            newTop = s.topSpacing;
+          }
+          if (s.currentTop != newTop) {
+            s.stickyElement
+              .css('position', 'fixed')
+              .css('top', newTop);
+
+            if (typeof s.getWidthFrom !== 'undefined') {
+              s.stickyElement.css('width', $(s.getWidthFrom).width());
+            }
+
+            s.stickyElement.trigger('sticky-start', [s]).parent().addClass(s.className);
+            s.currentTop = newTop;
+          }
+        }
+      }
+    },
+    resizer = function() {
+      windowHeight = $window.height();
+
+      for (var i = 0; i < sticked.length; i++) {
+        var s = sticked[i];
+        if (typeof s.getWidthFrom !== 'undefined' && s.responsiveWidth === true) {
+          s.stickyElement.css('width', $(s.getWidthFrom).width());
+        }
+      }
+    },
+    methods = {
+      init: function(options) {
+        var o = $.extend({}, defaults, options);
+        return this.each(function() {
+          var stickyElement = $(this);
+          var stickyId = stickyElement.attr('id');
+          var wrapperId = stickyId ? stickyId + '-' + defaults.wrapperClassName : defaults.wrapperClassName
+          var wrapper = $('<div></div>')
+            .attr('id', stickyId + '-sticky-wrapper')
+            .addClass(o.wrapperClassName);
+          stickyElement.wrapAll(wrapper);
+          if (o.center) {
+            stickyElement.parent().css({width:stickyElement.outerWidth(),marginLeft:"auto",marginRight:"auto"});
+          }
+          if (stickyElement.css("float") == "right") {
+            stickyElement.css({"float":"none"}).parent().css({"float":"right"});
+          }
+          var stickyWrapper = stickyElement.parent();
+          stickyWrapper.css('height', stickyElement.outerHeight());
+          sticked.push({
+            topSpacing: o.topSpacing,
+            bottomSpacing: o.bottomSpacing,
+            stickyElement: stickyElement,
+            currentTop: null,
+            stickyWrapper: stickyWrapper,
+            className: o.className,
+            getWidthFrom: o.getWidthFrom,
+            responsiveWidth: o.responsiveWidth
+          });
+        });
+      },
+      update: scroller,
+      unstick: function(options) {
+        return this.each(function() {
+          var unstickyElement = $(this);
+
+          var removeIdx = -1;
+          for (var i = 0; i < sticked.length; i++)
+          {
+            if (sticked[i].stickyElement.get(0) == unstickyElement.get(0))
+            {
+                removeIdx = i;
+            }
+          }
+          if(removeIdx != -1)
+          {
+            sticked.splice(removeIdx,1);
+            unstickyElement.unwrap();
+            unstickyElement.removeAttr('style');
+          }
+        });
+      }
+    };
+  // should be more efficient than using $window.scroll(scroller) and $window.resize(resizer):
+  if (window.addEventListener) {
+    window.addEventListener('scroll', scroller, false);
+    window.addEventListener('resize', resizer, false);
+  } else if (window.attachEvent) {
+    window.attachEvent('onscroll', scroller);
+    window.attachEvent('onresize', resizer);
+  }
+  $.fn.sticky = function(method) {
+    if (methods[method]) {
+      return methods[method].apply(this, Array.prototype.slice.call(arguments, 1));
+    } else if (typeof method === 'object' || !method ) {
+      return methods.init.apply( this, arguments );
+    } else {
+      $.error('Method ' + method + ' does not exist on jQuery.sticky');
+    }
+  };
+  $.fn.unstick = function(method) {
+    if (methods[method]) {
+      return methods[method].apply(this, Array.prototype.slice.call(arguments, 1));
+    } else if (typeof method === 'object' || !method ) {
+      return methods.unstick.apply( this, arguments );
+    } else {
+      $.error('Method ' + method + ' does not exist on jQuery.sticky');
+    }
+  };
+  $(function() {
+    setTimeout(scroller, 0);
+  });
+})(jQuery);
+    </script>
+    <!-- jQuery easing -->
+    <script type="text/javascript">
+    /*
+ * jQuery Easing v1.3 - http://gsgd.co.uk/sandbox/jquery/easing/
+ *
+ * Uses the built in easing capabilities added In jQuery 1.1
+ * to offer multiple easing options
+ *
+ * TERMS OF USE - jQuery Easing
+ * 
+ * Open source under the BSD License. 
+ * 
+ * Copyright © 2008 George McGinley Smith
+ * All rights reserved.
+ * 
+ * Redistribution and use in source and binary forms, with or without modification, 
+ * are permitted provided that the following conditions are met:
+ * 
+ * Redistributions of source code must retain the above copyright notice, this list of 
+ * conditions and the following disclaimer.
+ * Redistributions in binary form must reproduce the above copyright notice, this list 
+ * of conditions and the following disclaimer in the documentation and/or other materials 
+ * provided with the distribution.
+ * 
+ * Neither the name of the author nor the names of contributors may be used to endorse 
+ * or promote products derived from this software without specific prior written permission.
+ * 
+ * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND ANY 
+ * EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF
+ * MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE
+ *  COPYRIGHT OWNER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL,
+ *  EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE
+ *  GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED 
+ * AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING
+ *  NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED 
+ * OF THE POSSIBILITY OF SUCH DAMAGE. 
+ *
+*/
+jQuery.easing["jswing"]=jQuery.easing["swing"];jQuery.extend(jQuery.easing,{def:"easeOutQuad",swing:function(a,b,c,d,e){return jQuery.easing[jQuery.easing.def](a,b,c,d,e)},easeInQuad:function(a,b,c,d,e){return d*(b/=e)*b+c},easeOutQuad:function(a,b,c,d,e){return-d*(b/=e)*(b-2)+c},easeInOutQuad:function(a,b,c,d,e){if((b/=e/2)<1)return d/2*b*b+c;return-d/2*(--b*(b-2)-1)+c},easeInCubic:function(a,b,c,d,e){return d*(b/=e)*b*b+c},easeOutCubic:function(a,b,c,d,e){return d*((b=b/e-1)*b*b+1)+c},easeInOutCubic:function(a,b,c,d,e){if((b/=e/2)<1)return d/2*b*b*b+c;return d/2*((b-=2)*b*b+2)+c},easeInQuart:function(a,b,c,d,e){return d*(b/=e)*b*b*b+c},easeOutQuart:function(a,b,c,d,e){return-d*((b=b/e-1)*b*b*b-1)+c},easeInOutQuart:function(a,b,c,d,e){if((b/=e/2)<1)return d/2*b*b*b*b+c;return-d/2*((b-=2)*b*b*b-2)+c},easeInQuint:function(a,b,c,d,e){return d*(b/=e)*b*b*b*b+c},easeOutQuint:function(a,b,c,d,e){return d*((b=b/e-1)*b*b*b*b+1)+c},easeInOutQuint:function(a,b,c,d,e){if((b/=e/2)<1)return d/2*b*b*b*b*b+c;return d/2*((b-=2)*b*b*b*b+2)+c},easeInSine:function(a,b,c,d,e){return-d*Math.cos(b/e*(Math.PI/2))+d+c},easeOutSine:function(a,b,c,d,e){return d*Math.sin(b/e*(Math.PI/2))+c},easeInOutSine:function(a,b,c,d,e){return-d/2*(Math.cos(Math.PI*b/e)-1)+c},easeInExpo:function(a,b,c,d,e){return b==0?c:d*Math.pow(2,10*(b/e-1))+c},easeOutExpo:function(a,b,c,d,e){return b==e?c+d:d*(-Math.pow(2,-10*b/e)+1)+c},easeInOutExpo:function(a,b,c,d,e){if(b==0)return c;if(b==e)return c+d;if((b/=e/2)<1)return d/2*Math.pow(2,10*(b-1))+c;return d/2*(-Math.pow(2,-10*--b)+2)+c},easeInCirc:function(a,b,c,d,e){return-d*(Math.sqrt(1-(b/=e)*b)-1)+c},easeOutCirc:function(a,b,c,d,e){return d*Math.sqrt(1-(b=b/e-1)*b)+c},easeInOutCirc:function(a,b,c,d,e){if((b/=e/2)<1)return-d/2*(Math.sqrt(1-b*b)-1)+c;return d/2*(Math.sqrt(1-(b-=2)*b)+1)+c},easeInElastic:function(a,b,c,d,e){var f=1.70158;var g=0;var h=d;if(b==0)return c;if((b/=e)==1)return c+d;if(!g)g=e*.3;if(h<Math.abs(d)){h=d;var f=g/4}else var f=g/(2*Math.PI)*Math.asin(d/h);return-(h*Math.pow(2,10*(b-=1))*Math.sin((b*e-f)*2*Math.PI/g))+c},easeOutElastic:function(a,b,c,d,e){var f=1.70158;var g=0;var h=d;if(b==0)return c;if((b/=e)==1)return c+d;if(!g)g=e*.3;if(h<Math.abs(d)){h=d;var f=g/4}else var f=g/(2*Math.PI)*Math.asin(d/h);return h*Math.pow(2,-10*b)*Math.sin((b*e-f)*2*Math.PI/g)+d+c},easeInOutElastic:function(a,b,c,d,e){var f=1.70158;var g=0;var h=d;if(b==0)return c;if((b/=e/2)==2)return c+d;if(!g)g=e*.3*1.5;if(h<Math.abs(d)){h=d;var f=g/4}else var f=g/(2*Math.PI)*Math.asin(d/h);if(b<1)return-.5*h*Math.pow(2,10*(b-=1))*Math.sin((b*e-f)*2*Math.PI/g)+c;return h*Math.pow(2,-10*(b-=1))*Math.sin((b*e-f)*2*Math.PI/g)*.5+d+c},easeInBack:function(a,b,c,d,e,f){if(f==undefined)f=1.70158;return d*(b/=e)*b*((f+1)*b-f)+c},easeOutBack:function(a,b,c,d,e,f){if(f==undefined)f=1.70158;return d*((b=b/e-1)*b*((f+1)*b+f)+1)+c},easeInOutBack:function(a,b,c,d,e,f){if(f==undefined)f=1.70158;if((b/=e/2)<1)return d/2*b*b*(((f*=1.525)+1)*b-f)+c;return d/2*((b-=2)*b*(((f*=1.525)+1)*b+f)+2)+c},easeInBounce:function(a,b,c,d,e){return d-jQuery.easing.easeOutBounce(a,e-b,0,d,e)+c},easeOutBounce:function(a,b,c,d,e){if((b/=e)<1/2.75){return d*7.5625*b*b+c}else if(b<2/2.75){return d*(7.5625*(b-=1.5/2.75)*b+.75)+c}else if(b<2.5/2.75){return d*(7.5625*(b-=2.25/2.75)*b+.9375)+c}else{return d*(7.5625*(b-=2.625/2.75)*b+.984375)+c}},easeInOutBounce:function(a,b,c,d,e){if(b<e/2)return jQuery.easing.easeInBounce(a,b*2,0,d,e)*.5+c;return jQuery.easing.easeOutBounce(a,b*2-e,0,d,e)*.5+d*.5+c}})
+/*
+ *
+ * TERMS OF USE - EASING EQUATIONS
+ * 
+ * Open source under the BSD License. 
+ * 
+ * Copyright © 2001 Robert Penner
+ * All rights reserved.
+ * 
+ * Redistribution and use in source and binary forms, with or without modification, 
+ * are permitted provided that the following conditions are met:
+ * 
+ * Redistributions of source code must retain the above copyright notice, this list of 
+ * conditions and the following disclaimer.
+ * Redistributions in binary form must reproduce the above copyright notice, this list 
+ * of conditions and the following disclaimer in the documentation and/or other materials 
+ * provided with the distribution.
+ * 
+ * Neither the name of the author nor the names of contributors may be used to endorse 
+ * or promote products derived from this software without specific prior written permission.
+ * 
+ * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND ANY 
+ * EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF
+ * MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE
+ *  COPYRIGHT OWNER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL,
+ *  EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE
+ *  GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED 
+ * AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING
+ *  NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED 
+ * OF THE POSSIBILITY OF SUCH DAMAGE. 
+ *
+ */
+    </script>
+    <!-- Main Script -->
+    <script type="text/javascript">
+jQuery(document).ready(function($){
+    
+    // jQuery sticky Menu
+    
+  $(".mainmenu-area").sticky({topSpacing:0});
+    
+    
+    $('.product-carousel').owlCarousel({
+        loop:true,
+        nav:true,
+        margin:20,
+        responsiveClass:true,
+        responsive:{
+            0:{
+                items:1,
+            },
+            600:{
+                items:3,
+            },
+            1000:{
+                items:5,
+            }
+        }
+    });  
+    
+    $('.related-products-carousel').owlCarousel({
+        loop:true,
+        nav:true,
+        margin:20,
+        responsiveClass:true,
+        responsive:{
+            0:{
+                items:1,
+            },
+            600:{
+                items:2,
+            },
+            1000:{
+                items:2,
+            },
+            1200:{
+                items:3,
+            }
+        }
+    });  
+    
+    $('.brand-list').owlCarousel({
+        loop:true,
+        nav:true,
+        margin:20,
+        responsiveClass:true,
+        responsive:{
+            0:{
+                items:1,
+            },
+            600:{
+                items:3,
+            },
+            1000:{
+                items:4,
+            }
+        }
+    });    
+    
+    
+    // Bootstrap Mobile Menu fix
+    $(".navbar-nav li a").click(function(){
+        $(".navbar-collapse").removeClass('in');
+    });    
+    
+    // jQuery Scroll effect
+    $('.navbar-nav li a, .scroll-to-up').bind('click', function(event) {
+        var $anchor = $(this);
+        var headerH = $('.header-area').outerHeight();
+        $('html, body').stop().animate({
+            scrollTop : $($anchor.attr('href')).offset().top - headerH + "px"
+        }, 1200, 'easeInOutExpo');
+
+        event.preventDefault();
+    });    
+    
+});
+
+
+    </script>
+  </body>
+</html>

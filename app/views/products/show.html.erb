@@ -1,0 +1,215 @@
+<script type="text/javascript">
+$(document).ready(function(){
+  var clickEvent = false;
+  $('#myCarousel').carousel({
+    interval:4000
+  }).on('click', '.list-group li', function() {
+      clickEvent = true;
+      $('.list-group li').removeClass('active');
+      $(this).addClass('active');
+    }).on('slid.bs.carousel', function(e) {
+    if(!clickEvent) {
+      var count = $('.list-group').children().length -1;
+      var current = $('.list-group li.active');
+      current.removeClass('active').next().addClass('active');
+      var id = parseInt(current.data('slide-to'));
+      if(count == id) {
+        $('.list-group li').first().addClass('active');
+      }
+    }
+    clickEvent = false;
+  });
+})
+$(window).load(function() {
+    var boxheight = $('#myCarousel .carousel-inner').innerHeight();
+    var itemlength = $('#myCarousel .item').length;
+    var triggerheight = Math.round(boxheight/itemlength+1);
+  $('#myCarousel .list-group-item').outerHeight(triggerheight);
+});
+</script>
+
+<div class="container-fluid">
+    <div class="content-wrapper">
+    <div class="item-container">
+    <div class="container">
+    <div class="container">
+    <div id="myCarousel" class="carousel slide" data-ride="carousel">
+      <!-- Wrapper for slides -->
+
+      <div class="carousel-inner">
+      
+        <div class="item active">
+        <% if @product.avatar? %>
+          <%= link_to image_tag(@product.avatar, size:'275x275'), @product, :remote => true,  :rel => "tooltip", :title => "Mostrar", :class => 'btn btn-link' %>
+          <% else %>
+           <%= link_to image_tag('default.jpg'), @product, :remote => true,  :rel => "tooltip", :title => "Mostrar", :class => 'btn btn-link zoomIt' %>
+           <% end %>
+        </div><!-- End Item -->
+
+        <div class="item">
+        <% if @product.avatar2? %>
+          <%= link_to image_tag(@product.avatar2, size:'275x275'), @product, :remote => true,  :rel => "tooltip", :title => "Mostrar", :class => 'btn btn-link' %>
+          <% else %>
+           <%= link_to image_tag('default.jpg'), @product, :remote => true,  :rel => "tooltip", :title => "Mostrar", :class => 'btn btn-link zoomIt' %>
+           <% end %>
+        </div><!-- End Item -->
+        <div class="item">
+        <% if @product.avatar3? %>
+          <%= link_to image_tag(@product.avatar3, size:'275x275'), @product, :remote => true,  :rel => "tooltip", :title => "Mostrar", :class => 'btn btn-link' %>
+        <% else %>
+           <%= link_to image_tag('default.jpg'), @product, :remote => true,  :rel => "tooltip", :title => "Mostrar", :class => 'btn btn-link zoomIt' %>
+        <% end %>
+        </div><!-- End Item -->
+        <div class="item">
+        <% if @product.avatar4? %>
+          <%= link_to image_tag(@product.avatar4, size:'275x275'), @product, :remote => true,  :rel => "tooltip", :title => "Mostrar", :class => 'btn btn-link' %>
+        <% else %>
+          <%= link_to image_tag('default.jpg'), @product, :remote => true,  :rel => "tooltip", :title => "Mostrar", :class => 'btn btn-link zoomIt' %>
+        <% end %>
+        </div><!-- End Item -->
+      </div><!-- End Carousel Inner -->
+    <ul class="list-group col-sm-4">
+      <li data-target="#myCarousel" data-slide-to="0" class="list-group-item active">
+      <% if @product.avatar? %>
+      <%= link_to image_tag(@product.avatar, size:'40x40'), @product, :class => 'btn btn-link' %></li>
+      <% else %>
+        <%= link_to image_tag('default.jpg'), @product, :remote => true,  :rel => "tooltip", :title => "Mostrar", :class => 'btn btn-link zoomIt' %></li>
+      <% end %> 
+      <li data-target="#myCarousel" data-slide-to="1" class="list-group-item">
+      <% if @product.avatar2? %>
+      <%= link_to image_tag(@product.avatar2, size:'40x40'), @product, :class => 'btn btn-link' %></li>
+      <% else %>
+       <%= link_to image_tag('default.jpg'), @product, :remote => true,  :rel => "tooltip", :title => "Mostrar", :class => 'btn btn-link zoomIt' %></li>
+      <% end %> 
+      <li data-target="#myCarousel" data-slide-to="2" class="list-group-item">
+      <% if @product.avatar3? %>
+      <%= link_to image_tag(@product.avatar3, size:'40x40'), @product, :class => 'btn btn-link' %></li>
+      <% else %>
+        <%= link_to image_tag('default.jpg'), @product, :remote => true,  :rel => "tooltip", :title => "Mostrar", :class => 'btn btn-link zoomIt' %></li>
+      <% end %>
+      <li data-target="#myCarousel" data-slide-to="3" class="list-group-item">
+      <% if @product.avatar4? %>
+        <%= link_to image_tag(@product.avatar4, size:'40x40'), @product, :class => 'btn btn-link' %></li>
+      <% else %> 
+        <%= link_to image_tag('default.jpg'), @product, :remote => true,  :rel => "tooltip", :title => "Mostrar", :class => 'btn btn-link zoomIt' %></li>
+      <% end %>
+    </ul>
+
+      <!-- Controls -->
+      <div class="carousel-controls">
+          <a class="left carousel-control" href="#myCarousel" data-slide="prev">
+            <span class="glyphicon glyphicon-chevron-left"></span>
+          </a>
+          <a class="right carousel-control" href="#myCarousel" data-slide="next">
+            <span class="glyphicon glyphicon-chevron-right"></span>
+          </a>
+      </div>
+
+    </div><!-- End Carousel -->
+</div>
+        <div class="col-md-7">
+          <div class="product-title"><%= @product.name %></div>
+          <div class="product-desc"><%= @product.description %></div>
+          <div class="product-rating"><i class="fa fa-star gold"></i> <i class="fa fa-star gold"></i> <i class="fa fa-star gold"></i> <i class="fa fa-star gold"></i> <i class="fa fa-star-o"></i> </div>
+          <hr>
+          <div class="product-price">$<%= @product.unit_price %></div>
+          <% if @product.stock != 0 %>
+          <div class="product-stock">Hay <%= @product.quantity.to_i %> unidades disponibles</div>
+          <% else %>
+          <div class="product-stock danger">No hay unidades disponibles</div>
+          <% end %>
+          <hr>
+          <div class="btn-group cart">
+            <button type="button" class="btn btn-success">
+              Estoy interesado
+            </button>
+          </div>
+          <div class="btn-group wishlist">
+              <%= link_to 'Regresar', root_path, :class => 'btn btn-danger' %>
+          </div>
+        </div>
+      </div>
+    </div>
+    <br/><br/><br/><br/>
+    <div class="container-fluid">
+    <div class="col-md-12 product-info">
+          <ul id="myTab" class="nav nav-tabs nav_tabs">
+            <li class="active"><a href="#service-one" data-toggle="tab">Descripción</a></li>
+            <li><a href="#service-two" data-toggle="tab">Información del Producto</a></li>
+            <li><a href="#service-three" data-toggle="tab">Preguntas</a></li>
+          </ul>
+        <div id="myTabContent" class="tab-content">
+            <div class="tab-pane fade in active" id="service-one">
+              <section class="container product-info">
+                <h3>Descripción de: <%= @product.name %></h3>
+                <%= @product.description %>
+              </section>
+            </div>
+          <div class="tab-pane fade" id="service-two">
+            <section class="container">
+    <div class="container">
+            <div class="row">
+            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+            <!-- PRICE ITEM -->
+            <div class="panel price panel-green">
+              <div class="panel-body text-center">
+                <p class="lead" style="font-size:40px"><h3>Datos de Producto <%= @product.name %></h3></p>
+              </div>
+                <div class="well">
+              <table class="table table-striped table-bordered">
+                <thead>
+                  <tr>
+                    <th>Nombre</th>
+                    <th>Descripción</th>
+                    <th>Stock</th>
+                    <th>Referencia</th>
+                    <th>Tipo Producto</th>
+                    <th>Cantidad</th>
+                    <th>Precio</th>
+                    <th>Nuevo Usado</th>
+                    <th>Total</th>
+                  </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                      <td><%= @product.name %></td>
+                      <td><%= @product.description %></td>
+                      <td><%= @product.stock %></td>
+                      <td><%= @product.reference %></td>
+                      <td><%= @product.type_product_id %></td>
+                      <td><%= @product.quantity %></td>
+                      <td><%= @product.unit_price %></td>
+                      <td><%= @product.new_used %></td>
+                      <td><%= @product.total %></td>
+                    </tr>
+                </tbody>
+              </table>
+              </div>
+                <a class="btn btn-lg btn-block btn-success" href="#">Intercambiar Ahora!</a>
+            </div>
+            <!-- /PRICE ITEM -->
+            </div>
+        </div>
+        </div>
+            </section>
+          </div>
+          <div class="tab-pane fade" id="service-three">
+          <section class="container">
+              <% if current_user %>
+                <h3 class="comment-section-header">Preguntas:</h3>
+                <!-- renders the _comment.html.erb partial file. -->
+                <p><%= render @product.comments %></p>
+                <h3 class="reply-to-msg">Escribe tu Pregunta:</h3>
+                <!-- renders the comments form -->
+                <%= render 'comments/form' %>
+                <% else %>
+                <h3>Necesitas Loguearte para Preguntar, <%= link_to 'Login', login_path %></h3>
+                <% end %>
+            </section>
+            </div>
+        </div>
+        <hr>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,146 @@
+<div class="header-area">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-8">
+                <div class="user-menu">
+                    <ul>
+                        <li><a href="#"><i class="fa fa-user"></i> My Account</a></li>
+                        <li><a href="#"><i class="fa fa-heart"></i> Wishlist</a></li>
+                        <li><a href="cart.html"><i class="fa fa-user"></i> My Cart</a></li>
+                        <li><a href="checkout.html"><i class="fa fa-user"></i> Checkout</a></li>
+                        <li><%= link_to "Mapa del Sitio", mapa_sitio_path %></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="header-right">
+                    <ul class="list-unstyled list-inline">
+                        <li class="dropdown dropdown-small">
+                            <a data-toggle="dropdown" data-hover="dropdown" class="dropdown-toggle" href="#"><span class="key">currency :</span><span class="value">USD </span><b class="caret"></b></a>
+                            <ul class="dropdown-menu">
+                                <li><a href="#">USD</a></li>
+                                <li><a href="#">INR</a></li>
+                                <li><a href="#">GBP</a></li>
+                            </ul>
+                        </li>
+                        <li class="dropdown dropdown-small">
+                            <a data-toggle="dropdown" data-hover="dropdown" class="dropdown-toggle" href="#"><span class="key">language :</span><span class="value">English </span><b class="caret"></b></a>
+                            <ul class="dropdown-menu">
+                                <li><a href="#">English</a></li>
+                                <li><a href="#">French</a></li>
+                                <li><a href="#">German</a></li>
+                            </ul>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</div> <!-- End header area -->
+<div class="site-branding-area">
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-6">
+                <div class="Mylogo">
+                    <%= link_to root_path do %>
+                        <div class="Mybox">Sin</div>
+                        <div class="Mytext"><h1><a class="second">Stock</a></h1></div>
+                    <% end %>
+                </div>
+            </div>
+            <div class="col-sm-6">
+                <!--Pulling Awesome Font -->
+                <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet">
+                <div class="row show-grid">
+                    <div class="col-md-12 col-md-offset-6">
+                        <ul class="social-network social-circle">
+                            <li><a href="#" class="icoRss social" title="Rss"><i class="fa fa-rss"></i></a></li>
+                            <li><a href="#" class="icoFacebook social" title="Facebook"><i class="fa fa-facebook"></i></a></li>
+                            <li><a href="#" class="icoTwitter social" title="Twitter"><i class="fa fa-twitter"></i></a></li>
+                            <li><a href="#" class="icoGoogle social" title="Google +"><i class="fa fa-google-plus"></i></a></li>
+                            <li><a href="#" class="icoLinkedin social" title="Linkedin"><i class="fa fa-linkedin"></i></a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- End site branding area -->
+<div class="mainmenu-area">
+    <div class="container">
+        <div class="row">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+            </div>
+            <div class="navbar-collapse collapse">
+                <ul class="nav navbar-nav">
+                    <li class="active"><%= link_to 'INICIO', root_path %></li>
+
+                    <li>
+                        <%= form_tag request.path, :method => 'get', :class => 'navbar-form navbar-left' do %>
+                        <%= content_tag :label do %>
+                        <%= text_field_tag :search, params[:search], :placeholder => "Encuentre su Producto", :class => 'form-control' %>
+                        <%= submit_tag "Consultar", :name => nil %>
+                        <% end %>
+                        <% end %>
+                    </li>
+                    <% if not current_user %>
+                    <li><!-- Button trigger modal -->
+                        <%= link_to 'Personas', "#", data: {toggle: "modal", target: "#myModal"} %>
+                    </li>
+                    <li>
+                        <%= link_to 'Empresas', "#", data: {toggle: "modal", target: "#myModal2"} %>
+                    </li>
+                    <% end %>
+                    <% if current_user %>
+                    <li><%= link_to 'Mis Productos', products_path %></li>
+                    <% end %>
+                    <% if current_user %>
+                        <% if current_user.rol_id == 1 %>
+                            <li><%= link_to "Users", users_path %></li>
+                            <li><%= link_to "Roles", roles_path %></li>
+                             <li><%= link_to 'Productos', products_path %></li>
+                            <li><%= link_to "categori", sector_categories_path %></li>
+                            <li><%= link_to "tipo pro", type_products_path %></li>
+                            <li><%= link_to "Tipo use", type_users_path %></li>
+                        <% end %>
+                        <li class="dropdown">
+                            <a data-toggle="dropdown" class="dropdown-toggle" href="#">Bienvenido <%= current_user.first_name %> <b class="caret"></b></a>
+                            <ul role="menu" class="dropdown-menu">
+                            <li><% link_to 'Inbox', conversations_path %></li>
+                            <li><%= link_to 'Cerrar Sesión', logout_path, method: :delete %></li>
+                            </ul>
+                        </li>
+                    <% end %>
+                </ul>
+                <% if not current_user %>
+                   <%= form_tag sessions_path, :method => :post, :class => 'navbar-form navbar-right'   do %>
+                        <div class="input-group">
+                            <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
+                            <%= email_field_tag :email, nil, class: 'form-control', required: true %>                                        
+                        </div>
+
+                        <div class="input-group">
+                            <span class="input-group-addon"><i class="glyphicon glyphicon-lock"></i></span>
+                            <%= password_field_tag :password, nil, class: 'form-control', required: true %>                                        
+                        </div>
+
+                        <%= submit_tag 'Login', class: 'btn btn-xs btn-success ' %>
+                   </form>
+                    <% end %>
+
+
+                
+                <% end %>
+    
+    
+            </div>
+        </div>
+    </div>
+</div> <!-- End mainmenu area -->

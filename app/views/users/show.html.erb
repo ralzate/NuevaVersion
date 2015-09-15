@@ -1,0 +1,28 @@
+<%= image_tag @user.picture.url if @user.picture? %>
+<p>
+  <strong>Nombre:</strong>
+  <%= @user.first_name %>
+</p>
+<p>
+  <strong>Email:</strong>
+  <%= @user.email %>
+</p>
+<p>
+  <% if @user.picture? %>
+  <strong>Imagen:</strong>
+  <td><%= image_tag(@user.picture, size:'40x40') %></td>
+  <strong>Imagen:</strong>
+  <% else  %>
+    <%= image_tag("default.jpg") %>
+
+  <% end %>
+</p>
+<% if logged_in? %>
+  <% if @user == current_user || current_user.admin %>
+    <%= link_to 'Editar', edit_user_path(@user) %> |
+  <% end %>
+  <% if @user != current_user %>
+    <%= link_to 'Send message', new_message_path(:user => @user.id) %>|
+  <% end %>
+<% end %>
+<%= link_to 'Atras', users_path %>

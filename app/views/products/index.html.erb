@@ -1,0 +1,44 @@
+<!--Version para navegadores de escritorio-->
+<div class="oculto-en-moviles">
+  <h1 class="title">Listado de mis articulos</h1>
+    <%= form_tag request.path, :method => 'get' do %>
+    <%= content_tag :label do %>
+    Buscar:
+    <%= text_field_tag :search, params[:search], :placeholder => "Buscador de Productos" %>
+    <%= submit_tag "Consultar", :name => nil %>
+    <% end %>
+    <% end %>
+    <br />
+    <div class="panel-body">
+    </div>
+    <table class="table table-hover">
+    <thead>
+      <tr>
+        <th>Imagen</th>
+        <th>Nombre</th>
+        <th>Cantidad</th>
+        <th>Precio Unitario</th>
+        <th>Nuevo / Usado</th>
+        <th>Total</th>
+        <th>Acciones</th>
+      </tr>
+    </thead>
+    <tbody>
+      <%= render @products %>
+    </tbody>
+  </table>
+  <%= link_to image_tag('Options/new.png', :size => "28x28"),  new_product_path,  :remote => true, :rel => "tooltip", :title => "Ingresar nuevo Producto", :class => "btn btn-link boton-oculto-moviles " %>
+</div>
+<br />
+<br />
+<div align="center">
+  <%= will_paginate @products, :previous_label => '&laquo; Anterior', :next_label => 'Siguiente
+  &raquo;' %>
+</div>
+  Total products : <%= @products.total_entries %>
+</div>
+
+
+
+
+

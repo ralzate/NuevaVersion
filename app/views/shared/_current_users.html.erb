@@ -1,0 +1,10 @@
+<% if current_user.present? && current_user.rol_id == "1" %>
+<div>
+  <h3>Usuarios activos actualmente:</h3>
+  <ul>
+    <% current_users.each do |user| %>
+      <li style="display: inline"><%= user.first_name %></li>
+    <% end %>
+  </ul>
+</div>
+<% end %>
