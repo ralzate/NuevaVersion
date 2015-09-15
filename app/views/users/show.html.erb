@@ -1,28 +1,194 @@
-<%= image_tag @user.picture.url if @user.picture? %>
-<p>
-  <strong>Nombre:</strong>
-  <%= @user.first_name %>
-</p>
-<p>
-  <strong>Email:</strong>
-  <%= @user.email %>
-</p>
-<p>
-  <% if @user.picture? %>
-  <strong>Imagen:</strong>
-  <td><%= image_tag(@user.picture, size:'40x40') %></td>
-  <strong>Imagen:</strong>
-  <% else  %>
-    <%= image_tag("default.jpg") %>
 
-  <% end %>
-</p>
-<% if logged_in? %>
-  <% if @user == current_user || current_user.admin %>
-    <%= link_to 'Editar', edit_user_path(@user) %> |
-  <% end %>
-  <% if @user != current_user %>
-    <%= link_to 'Send message', new_message_path(:user => @user.id) %>|
-  <% end %>
-<% end %>
-<%= link_to 'Atras', users_path %>
+
+<script type="text/javascript">
+  $(document).ready(function() {
+    var panels = $('.user-infos');
+    var panelsButton = $('.dropdown-user');
+    panels.hide();
+
+    //Click dropdown
+    panelsButton.click(function() {
+        //get data-for attribute
+        var dataFor = $(this).attr('data-for');
+        var idFor = $(dataFor);
+
+        //current button
+        var currentButton = $(this);
+        idFor.slideToggle(400, function() {
+            //Completed slidetoggle
+            if(idFor.is(':visible'))
+            {
+                currentButton.html('<i class="glyphicon glyphicon-chevron-up text-muted"></i>');
+            }
+            else
+            {
+                currentButton.html('<i class="glyphicon glyphicon-chevron-down text-muted"></i>');
+            }
+        })
+    });
+
+
+    $('[data-toggle="tooltip"]').tooltip();
+
+    $('button').click(function(e) {
+        e.preventDefault();
+        alert("This is a demo.\n :-)");
+    });
+});
+</script>
+
+<style type="text/css">
+  
+  .user-row {
+    margin-bottom: 14px;
+}
+
+.user-row:last-child {
+    margin-bottom: 0;
+}
+
+.dropdown-user {
+    margin: 13px 0;
+    padding: 5px;
+    height: 100%;
+}
+
+.dropdown-user:hover {
+    cursor: pointer;
+}
+
+.table-user-information > tbody > tr {
+    border-top: 1px solid rgb(221, 221, 221);
+}
+
+.table-user-information > tbody > tr:first-child {
+    border-top: 0;
+}
+
+
+.table-user-information > tbody > tr > td {
+    border-top: 0;
+}
+.toppad
+{margin-top:20px;
+}
+
+</style>
+
+<div class="container">
+      <div class="row">
+      <div class="col-md-5  toppad  pull-right col-md-offset-3 ">
+        <%= link_to 'Actualizar mis Datos', edit_user_path(@user), class: 'btn btn-sm btn-info' %>
+        <%= link_to 'Cerrar Sesión', logout_path, method: :delete, class: 'btn btn-sm btn-info' %>
+       <br>
+      <p class=" text-info"><%=  Date.current.to_s %></p>
+      </div>
+        <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6 col-xs-offset-0 col-sm-offset-0 col-md-offset-3 col-lg-offset-3 toppad" >
+   
+   
+          <div class="panel panel-info">
+            <div class="panel-heading">
+              <h3 class="panel-title">Datos de <%=  @user.first_name %></h3>
+            </div>
+            <div class="panel-body">
+              <div class="row">
+                <div class="col-md-3 col-lg-3 " align="center">
+                <% if @user.picture? %>
+                <%= image_tag(@user.picture,:class => "img-thumbnail img-responsive") %> 
+                <% else %>
+                  <%=  image_tag('default.jpg',:class => "img-thumbnail img-responsive") %>
+
+                <% end %>
+
+                </div>
+                
+                <!--<div class="col-xs-10 col-sm-10 hidden-md hidden-lg"> <br>
+                  <dl>
+                    <dt>DEPARTMENT:</dt>
+                    <dd>Administrator</dd>
+                    <dt>HIRE DATE</dt>
+                    <dd>11/12/2013</dd>
+                    <dt>DATE OF BIRTH</dt>
+                       <dd>11/12/2013</dd>
+                    <dt>GENDER</dt>
+                    <dd>Male</dd>
+                  </dl>
+                </div>-->
+                <div class=" col-md-9 col-lg-9 "> 
+                  <table class="table table-user-information">
+                    <tbody>
+                      <tr>
+                        <td><b>Nombres:</b></td>
+                        <% if @user.first_name? and @user.second_name %>
+                        <td><%= @user.first_name %>  <%= @user.second_name %></td>
+                        <% else %>
+                        <td>Dato no ingresado</td>
+                        <% end %>
+                      </tr>
+                      <tr>
+                        <td><b>Apellidos:</b></td>
+                        <% if @user.first_surname? and @user.first_surname %>
+                        <td><%= @user.first_surname %> <%= @user.first_surname %></td>
+                        <% else %>
+                        <td>Dato no ingresado</td>
+                        <% end %>               
+                      </tr>
+                      <tr>
+                        <td><b>Identificacioón</b></td>
+                        <% if @user.identification? %>
+                        <td><%= @user.identification %></td>
+                        <% else %>
+                        <td>Dato no ingresado</td>
+                        <% end %>  
+                      </tr>
+                      <tr>
+                        <td><b>Dirección</b></td>
+                        <% if @user.address? %>
+                        <td><%= @user.address %></td>
+                        <% else %>
+                        <td>Dato no ingresado</td>
+                        <% end %>                        
+                      </tr>
+                      <tr>
+                        <td><b>Telefono</b></td>
+                        <% if @user.phone? %>
+                        <td><%= @user.phone %></td>
+                        <% else %>
+                        <td>Dato no ingresado</td>
+                        <% end %>   
+                      </tr>
+                      <tr>
+                        <td>Celular</td>
+                        <% if @user.cell_phone? %>
+                        <td><%= @user.cell_phone %></td>
+                        <% else %>
+                        <td>Dato no ingresado</td>
+                        <% end %> 
+                      </tr>
+                      <tr>
+                        <td>Email</td>
+                        <% if @user.email? %>
+                        <td><%= @user.email %></td>
+                        <% else %>
+                        <td>Dato no ingresado</td>
+                        <% end %>                           
+                      </tr>
+                     
+                    </tbody>
+                  </table>
+                  <%= link_to 'Mis Productos', products_path, class: 'btn btn-sm btn-primary', title: '', data: { toggle: 'tooltip', placement: 'top', original_title: 'Ver mis Productos' } %>
+                </div>
+              </div>
+            </div>
+                 <div class="panel-footer">
+                        <%= link_to 'Mensaje', root_path, class: 'btn btn-sm btn-primary', title: '', data: { toggle: 'tooltip', placement: 'top', original_title: 'Enviar Mensaje' } %>
+                        <span class="pull-right">
+                            <%= link_to 'Editar', edit_user_path(@user), class: 'btn btn-sm btn-warning', title: '', data: { toggle: 'tooltip', placement: 'top', original_title: 'Editar mi Perfil' } %>
+                            <%= link_to 'Atras', root_path, class: 'btn btn-sm btn-danger', title: '', data: { toggle: 'tooltip', placement: 'top', original_title: 'Regresar a inicio' } %>
+                        </span>
+                    </div>
+            
+          </div>
+        </div>
+      </div>
+    </div>

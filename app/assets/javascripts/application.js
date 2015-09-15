@@ -11,6 +11,7 @@
 // about supported directives.
 //
 //= require jquery
+//= require best_in_place
 //= require jquery_ujs
 //= require bootstrap
 //= require lazybox
@@ -61,8 +62,16 @@ var character = String.fromCharCode(code);
 }
 
 
-
-
+/* Activating Best In Place */
+$(document).ready(function() {
+  jQuery(".best_in_place").best_in_place();
+  $(".best_in_place")
+  $(function() {
+  $('.whatever-you-like .best-in-place').live('ajax:success', function(event, data, status, xhr) {
+    alert("Got a callback!");
+  });
+});
+});
 
 
 

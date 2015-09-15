@@ -113,8 +113,9 @@
                         <li class="dropdown">
                             <a data-toggle="dropdown" class="dropdown-toggle" href="#">Bienvenido <%= current_user.first_name %> <b class="caret"></b></a>
                             <ul role="menu" class="dropdown-menu">
-                            <li><% link_to 'Inbox', conversations_path %></li>
-                            <li><%= link_to 'Cerrar Sesión', logout_path, method: :delete %></li>
+                                <li><% link_to 'Inbox', conversations_path %></li>
+                                <li><%= link_to 'Mis Datos', current_user %></li>
+                                <li><%= link_to 'Cerrar Sesión', logout_path, method: :delete %></li>
                             </ul>
                         </li>
                     <% end %>

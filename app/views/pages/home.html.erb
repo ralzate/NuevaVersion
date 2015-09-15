@@ -922,22 +922,181 @@ function prevTab(elem) {
 }
 </style>
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+<style type="text/css">
+    .coupon {
+    border: 3px dashed #bcbcbc;
+    border-radius: 10px;
+    font-family: "HelveticaNeue-Light", "Helvetica Neue Light", 
+    "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif; 
+    font-weight: 300;
+}
+
+.coupon #head {
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
+}
+
+.coupon #footer {
+    border-bottom-left-radius: 10px;
+    border-bottom-right-radius: 10px;
+}
+
+.coupon #title img {
+    font-size: 30px;
+    height: 30px;
+    margin-top: 5px;
+}
+
+.coupon #title span {
+    float: right;
+    margin-top: 5px;
+    font-weight: 700;
+    text-transform: uppercase;
+}
+
+.coupon-img {
+    width: 100%;
+    margin-bottom: 15px;
+    padding: 0;
+}
+
+.items {
+    margin: 15px 0;
+}
+
+.usd, .cents {
+    font-size: 20px;
+}
+
+.number {
+    font-size: 40px;
+    font-weight: 700;
+}
+
+sup {
+    top: -15px;
+}
+
+#business-info ul {
+    margin: 0;
+    padding: 0;
+    list-style-type: none;
+    text-align: center;
+}
+
+#business-info ul li { 
+    display: inline;
+    text-align: center;
+}
+
+#business-info ul li span {
+    text-decoration: none;
+    padding: .2em 1em;
+}
+
+#business-info ul li span i {
+    padding-right: 5px;
+}
+
+.disclosure {
+    padding-top: 15px;
+    font-size: 11px;
+    color: #bcbcbc;
+    text-align: center;
+}
+
+.coupon-code {
+    color: #333333;
+    font-size: 11px;
+}
+
+.exp {
+    color: #f34235;
+}
+
+.print {
+    font-size: 14px;
+    float: right;
+}
+
+
+
+
+
+#quicknav ul {
+    margin: 0;
+    padding: 0;
+    list-style-type: none;
+    text-align: center;
+}
+
+#quicknav ul li { 
+    display: inline; 
+}
+
+#quicknav ul li a {
+    text-decoration: none;
+    padding: .2em 1em;
+}
+
+.btn-danger, 
+.btn-success, 
+.btn-info, 
+.btn-warning, 
+.btn-primary {
+    width: 105px;
+}
+
+.btn-default {
+    margin-bottom: 40px;
+}
+/*-------------------------------------------------------------*/
+</style>
+
+
+   
+
+<style type="text/css">
+.center {
+    margin: auto;
+    width: 100%;
+    padding: 10px;
+}
+</style>
+
+
+
+
+
 <style type="text/css">
     
 
-
-
-/* Definiomos los estilos generales*/
-.vista {
-    width: 300px;
-    height: 200px;
-    margin: 20px;
+  .vista {
+    width: 200px !important;
+    height: 200px !important;
+    margin-left: 2px !important;
     float: left;
     overflow: hidden;
     position: relative;
     text-align: center;
     cursor: default;
-}
+  }
+
+
+
 .vista .mascara, .vista .contenido {
     width: 205px;
     height: 200px;
@@ -1070,110 +1229,730 @@ function prevTab(elem) {
     -ms-transition-delay: 0.5s;
     transition-delay: 0.5s;
 }
+
 </style>
 
 
 
-
-<div class="container">
-        <div class="row">
-            <div class="col-md-9">
-                <h1>
-                    Ultimos Productos Ofertados</h1>
-            </div>
-        </div>
-    <div class="row">
-        <div class="col-md-12">
-        <% @products.each do |product| %>
-            <div class="col-sm-3 col-md-3">
-                <div class="thumbnail" style="height:420px;">
-                            <% if product.name? %>
-                                <h4 class="text-center"><span class="label label-info">
-                                <%= truncate(product.name, :length =>28) %></span></h4>
-                            <% else %>
-                                <h4 class="text-center"><span class="label label-info">
-                                ------- </span></h4>
-                            <% end %>
-                  
-                            
-                            <center>
-                            <div class="vista">  
-                            <% if product.avatar? %>
-                                <%= link_to image_tag(product.avatar.url(:thumb)), @product, :remote => true,  :rel => "tooltip", :title => "Mostrar", :class => 'btn btn-link img-responsive zoomIt' %>
-                            <% else  %>
-
-                                <%= link_to image_tag('default.jpg'), @product, :remote => true,  :rel => "tooltip", :title => "Mostrar", :class => 'btn btn-link zoomIt' %>
-                                                            <% end %>
-
-                                <div class="mascara">
-                                <% if product.name? %>
-                                <h2 class="text-center">
-                                <%= truncate(product.name, :length =>28) %></h2>
-                                <% else %>
-                                    <h2 class="text-center">
-                                    ------- </h2>
-                                <% end %> 
-                                <% if product.description? %>
-                                <p style="text-align : justify;"><%= truncate(product.description, :length =>28) %></p>  
-                                <% else %>
-                                <p style="text-align : justify;">Lorem Ipsum es simplemente el texto de relleno de las imprentas y archivos de texto. Lorem Ipsum ha sido el texto</p> 
-                                <% end %>
-                                <div style="margin-top:-10px;">
-                                <%= link_to 'Ver Mas ', product, class: 'btn btn-primary btn-sm' %> 
-                                </div>
-                            </div>  
-                        </div>
-                            </center>
-                        <div class="caption">
-                            <div class="row">
-
-                                <div class="col-md-8 col-xs-8">
-                                    <h3 style="font-size:18px; margin-top:-10px;">Articulo <%= product.label_new_used %></h3>
-                                </div>
-                                <div class="col-md-4 col-xs-4 price">
-                                    <h3 style="font-size:16px; margin-top:-10px;">
-                                    <label>$<%= product.unit_price %></label></h3>
-                                </div>
-                            </div>
-                            <p><%= truncate(product.description, :length =>100) %></p>
-                            <div class="row">
-                                <div class="col-md-6" style="margin-top:-10px;">
-                                    <%= link_to 'Ver Mas <i class="glyphicon glyphicon-search"></i>'.html_safe, product, class: 'btn btn-primary btn-sm' %>
-                                </div>
-                                <div class="col-md-6" style="margin-top:-10px;">
-                                    <%= link_to 'Interesado! <i class="glyphicon glyphicon-ok"></i>'.html_safe, product, class: 'btn btn-success btn-sm' %>
-                                </div>
-                            </div>
-                            <div align="center">
-                            <div class="row">
-                                <center>Contacto:</center>
-                                <div class="col-md-12">
-                                    <%= product.user.email %>
-                                </div>
-                            </div>
-                            </div>
-                        </div>
-                </div>
-            </div>
-
-        <% end %>
-        </div>
-
+<br/>
+<div class="row">
+    <div class="col-md-12 col-md-offset-3">
+        <h1>
+            Ultimos Productos Ofertados
+        </h1>
     </div>
+</div>
+<br/>
+<div class="row center">
+ <% @products.each do |product| %>
+    <div class="col-md-3" >
+        <div class="panel panel-default coupon" > 
+          <div class="panel-heading" id="head" >
+            <div class="panel-title" id="title">
+                <img src="https://cdn4.iconfinder.com/data/icons/ballicons-2-free/100/box-128.png">
+                <% if product.new_used? %>
+                <span>Articulo: <%= product.label_new_used %></span>
+                <% else %>
+                <span>Articulo no especificado</span>
+                <% end %>
+            </div>
+          </div>    
+          <div class="panel-body" >
+          <div class="row">
+              <div class="col-md-12 col-md-offset-1" >
+                <div class="vista">  
+                    <% if product.avatar? %>
+                        <%= link_to image_tag(product.avatar.url(:medium)), @product, :remote => true,  :rel => "tooltip", :title => "Mostrar", :class => 'btn btn-link img-responsive zoomIt' %>
+                    <% else  %>
+
+                        <%= link_to image_tag('default.jpg', :size => "200x200"), @product, :remote => true,  :rel => "tooltip", :title => "Mostrar", :class => 'btn btn-link zoomIt' %>
+                                                    <% end %>
+
+                        <div class="mascara">
+                        <% if product.name? %>
+                        <h2 class="text-center">
+                        <%= truncate(product.name, :length =>28) %></h2>
+                        <% else %>
+                            <h2 class="text-center">
+                            ------- </h2>
+                        <% end %> 
+                        <% if product.description? %>
+                        <p style="text-align : justify;"><%= truncate(product.description, :length =>28) %></p>  
+                        <% else %>
+                        <p style="text-align : justify;">Lorem Ipsum es simplemente el texto de relleno de las imprentas y archivos de texto. Lorem Ipsum ha sido el texto</p> 
+                        <% end %>
+                        <div style="margin-top:-10px;">
+                        <%= link_to 'Ver Mas ', product, class: 'btn btn-primary btn-sm' %> 
+                        </div>
+                    </div>  
+                </div>
+              </div>          
+            </div>
+                <div class="col-md-12 ">
+                    <div class="panel panel-default">
+                     
+                      <div class="panel-heading">Datos del Producto</div>
+                        <table class="table">
+                            <thead>
+                              <tr>
+                                <th>Nombre:</th>
+                                <td><%= truncate(product.name, :length =>28) %></td>
+                              </tr>
+                            </thead>
+                            <tbody>
+                              <tr>
+                                <th scope="row">Stock:</th>
+                                <td><%= product.stock %></td>
+                              </tr>
+                              <tr>
+                                <th scope="row">Precio:</th>
+                                <td><%= product.unit_price %></td>
+                              </tr>
+                              <tr>
+                                <th scope="row">Tipo Producto:</th>
+                                <td><%= product.type_product.name %></td>
+                              </tr>
+                            </tbody>
+                          </table>
+                    </div>
+                </div>  
+            <div class="col-md-12">
+                <p class="disclosure"><%= product.description %></p>
+            </div>
+          </div>
+            <div id="quicknav">
+                <ul>
+                    <li><%= link_to 'Ver Mas <i class="glyphicon glyphicon-search"></i>'.html_safe, product, class: 'btn btn-success' %></li>
+                    <li><%= link_to 'Interesado! <i class="glyphicon glyphicon-ok"></i>'.html_safe, product, class: 'btn btn-primary' %></li>
+                </ul>
+                </div>
+            <br/>
+
+
+
+          <div class="panel-footer">
+            <div class="coupon-code">
+                Referencia: <%= product.reference %>
+                <span class="print">
+                    <a href="#" class="btn btn-link"><i class="fa fa-lg fa-print"></i> Print Coupon</a>
+                </span>
+            </div>
+            <% if product.stock != 0 %>
+              <div class="product-stock" style="font-size:12px;">Hay <%= product.quantity.to_i %> unidades disponibles</div>
+              <% else %>
+              <div class="product-stock danger" style="font-size:12px;">No hay unidades disponibles</div>
+              <% end %>
+          </div>
+        </div>
+      
+    </div>
+  <% end %>
 
 </div>
+<br/>
+
+<div class="row">
+    <div class="col-md-12 col-md-offset-4">                
+        Mostrando 3 Articulos de : <%= @products.total_entries %>  
+    </div>
+    <div class="col-md-12 col-md-offset-4">
+        <%= will_paginate @products, :previous_label => '&laquo; Anterior', :next_label => 'Siguiente &raquo;', renderer: BootstrapPagination::Rails %>
+    </div>    
+</div>
+<br/>
 
 
-
-
-        <div class="row">
-            <div class="col-md-12 col-md-offset-5">                
-                Mostrando 3 Articulos de : <%= @products.total_entries %>  
+<div class="slider-area" id="hide3">
+    <div class="zigzag-bottom"></div>
+        <div id="slide-list" class="carousel carousel-fade slide" data-ride="carousel">
+        <div class="slide-bulletz">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <ol class="carousel-indicators slide-indicators">
+                                <li data-target="#slide-list" data-slide-to="0" class="active"></li>
+                                <li data-target="#slide-list" data-slide-to="1"></li>
+                                <li data-target="#slide-list" data-slide-to="2"></li>
+                            </ol>
+                        </div>
+                    </div>
+                </div>
             </div>
-            <div class="col-md-12 col-md-offset-5">
-                <%= will_paginate @products, :previous_label => '&laquo; Anterior', :next_label => 'Siguiente &raquo;' %>
-            </div>    
+            <div class="carousel-inner" role="listbox">
+                <div class="item active">
+                    <div class="single-slide">
+                        <div class="slide-bg slide-one"></div>
+                        <div class="slide-text-wrapper">
+                            <div class="slide-text">
+                                <div class="container">
+                                    <div class="row">
+                                        <div class="col-md-6 col-md-offset-6">
+                                            <div class="slide-content">
+                                                <h2>Siempre Listo, Siempre conectado y Siempre rapido</h2>
+                                                <p>El Portal de trueque de Productos Lider en Colombia</p>
+                                                
+                                                <a href="" class="readmore">Leer más</a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="item">
+                    <div class="single-slide">
+                        <div class="slide-bg slide-two"></div>
+                        <div class="slide-text-wrapper">
+                            <div class="slide-text">
+                                <div class="container">
+                                    <div class="row">
+                                        <div class="col-md-6 col-md-offset-6">
+                                            <div class="slide-content">
+                                                <h2>¿De que se trata?</h2>
+                                                <p> Sistema muy sencillo de trueque, sin dinero de por medio. Porque a través de su potente buscador puedes encontrar rápidamente el articulo que buscas, </p>
+                                                
+                                                <a href="" class="readmore">Leer más</a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="item">
+                    <div class="single-slide">
+                        <div class="slide-bg slide-three"></div>
+                        <div class="slide-text-wrapper">
+                            <div class="slide-text">
+                                <div class="container">
+                                    <div class="row">
+                                        <div class="col-md-6 col-md-offset-6">
+                                            <div class="slide-content">
+                                                <h2>Sencillez y facilidad</h2>
+                                                <p>Porque gracias a su sencillo manejo cualquier persona sin ningún conocimiento previo puede usarlo ya que su utilización es muy intuitiva. Basta con registrarse y seguir un sencillo formulario. </p>
+                                                <a href="" class="readmore">Leer más</a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
+    </div> <!-- End slider area -->
+    <div class="promo-area">
+        <div align="center">    
+            <h1>Nuestros Servicios</h1>
+        </div>
+        <br/>
+        <div class="zigzag-bottom"></div>
+        <div class="container">
+            <div class="row">
+                <div class="col-md-3 col-sm-6">
+                    <div class="single-promo">
+                        <i class="fa fa-wrench"></i>
+                        <p>Ingeniería Mecánica</p>
+                    </div>
+                </div>
+                <div class="col-md-3 col-sm-6">
+                    <div class="single-promo">
+                        <i class="fa fa-plug"></i>
+                        <p>Ingeniería Eléctrica</p>
+                    </div>
+                </div>
+                <div class="col-md-3 col-sm-6">
+                    <div class="single-promo">
+                        <i class="fa fa-cogs"></i>
+                        <p>Automatización y Control</p>
+                    </div>
+                </div>
+                <div class="col-md-3 col-sm-6">
+                    <div class="single-promo">
+                        <i class="fa fa-building"></i>
+                        <p>Ingeniería  Telecomunicaciones</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div> <!-- End promo area -->
+</div>    
+<style>
+.col-item
+{
+    border: 2px solid #1ABC9C;
+    border-radius: 5px;
+    background: #FFF;
+}
+.col-item .photo img
+{
+    margin: 0 auto;
+    width: 100%;
+}
+
+.col-item .info
+{
+    padding: 10px;
+    border-radius: 0 0 5px 5px;
+    margin-top: 1px;
+}
+.col-item:hover .info {
+    background-color: rgba(215, 215, 244, 0.5);
+}
+.col-item .price
+{
+    /*width: 50%;*/
+    float: left;
+    margin-top: 5px;
+}
+
+.col-item .price h5
+{
+    line-height: 20px;
+    margin: 0;
+}
+
+.price-text-color
+{
+    color: #00990E;
+}
+
+.col-item .info .rating
+{
+    color: #003399;
+}
+
+.col-item .rating
+{
+    /*width: 50%;*/
+    float: left;
+    font-size: 17px;
+    text-align: right;
+    line-height: 52px;
+    margin-bottom: 10px;
+    height: 52px;
+}
+
+.col-item .separator
+{
+    border-top: 1px solid #FFCCCC;
+}
+
+.clear-left
+{
+    clear: left;
+}
+
+.col-item .separator p
+{
+    line-height: 20px;
+    margin-bottom: 0;
+    margin-top: 10px;
+    text-align: center;
+}
+
+.col-item .separator p i
+{
+    margin-right: 5px;
+}
+.col-item .btn-add
+{
+    width: 50%;
+    float: left;
+}
+
+.col-item .btn-add
+{
+    border-right: 1px solid #CC9999;
+}
+
+.col-item .btn-details
+{
+    width: 50%;
+    float: left;
+    padding-left: 10px;
+}
+.controls
+{
+    margin-top: 20px;
+}
+[data-slide="prev"]
+{
+    margin-right: 10px;
+}
+</style>
+
+
+    <div class="product-widget-area">
+        <div class="zigzag-bottom"></div>
+        <div class="container">
+            <div class="row">
+                <div class="col-md-4">
+                    <div class="single-product-widget">
+                        <h2 class="product-wid-title">Top Sellers</h2>
+                        <a href="" class="wid-view-more">View All</a>
+                        <div class="single-wid-product">
+                            <a href="single-product.html"><img src="img/product-thumb-1.jpg" alt="" class="product-thumb"></a>
+                            <h2><a href="single-product.html">Sony Smart TV - 2015</a></h2>
+                            <div class="product-wid-rating">
+                                <i class="fa fa-star"></i>
+                                <i class="fa fa-star"></i>
+                                <i class="fa fa-star"></i>
+                                <i class="fa fa-star"></i>
+                                <i class="fa fa-star"></i>
+                            </div>
+                            <div class="product-wid-price">
+                                <ins>$400.00</ins> <del>$425.00</del>
+                            </div>
+                        </div>
+                        <div class="single-wid-product">
+                            <a href="single-product.html"><img src="img/product-thumb-2.jpg" alt="" class="product-thumb"></a>
+                            <h2><a href="single-product.html">Apple new mac book 2015</a></h2>
+                            <div class="product-wid-rating">
+                                <i class="fa fa-star"></i>
+                                <i class="fa fa-star"></i>
+                                <i class="fa fa-star"></i>
+                                <i class="fa fa-star"></i>
+                                <i class="fa fa-star"></i>
+                            </div>
+                            <div class="product-wid-price">
+                                <ins>$400.00</ins> <del>$425.00</del>
+                            </div>
+                        </div>
+                        <div class="single-wid-product">
+                            <a href="single-product.html"><img src="img/product-thumb-3.jpg" alt="" class="product-thumb"></a>
+                            <h2><a href="single-product.html">Apple new i phone 6</a></h2>
+                            <div class="product-wid-rating">
+                                <i class="fa fa-star"></i>
+                                <i class="fa fa-star"></i>
+                                <i class="fa fa-star"></i>
+                                <i class="fa fa-star"></i>
+                                <i class="fa fa-star"></i>
+                            </div>
+                            <div class="product-wid-price">
+                                <ins>$400.00</ins> <del>$425.00</del>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="single-product-widget">
+                        <h2 class="product-wid-title">Recently Viewed</h2>
+                        <a href="#" class="wid-view-more">View All</a>
+                        <div class="single-wid-product">
+                            <a href="single-product.html"><img src="img/product-thumb-4.jpg" alt="" class="product-thumb"></a>
+                            <h2><a href="single-product.html">Sony playstation microsoft</a></h2>
+                            <div class="product-wid-rating">
+                                <i class="fa fa-star"></i>
+                                <i class="fa fa-star"></i>
+                                <i class="fa fa-star"></i>
+                                <i class="fa fa-star"></i>
+                                <i class="fa fa-star"></i>
+                            </div>
+                            <div class="product-wid-price">
+                                <ins>$400.00</ins> <del>$425.00</del>
+                            </div>
+                        </div>
+                        <div class="single-wid-product">
+                            <a href="single-product.html"><img src="img/product-thumb-1.jpg" alt="" class="product-thumb"></a>
+                            <h2><a href="single-product.html">Sony Smart Air Condtion</a></h2>
+                            <div class="product-wid-rating">
+                                <i class="fa fa-star"></i>
+                                <i class="fa fa-star"></i>
+                                <i class="fa fa-star"></i>
+                                <i class="fa fa-star"></i>
+                                <i class="fa fa-star"></i>
+                            </div>
+                            <div class="product-wid-price">
+                                <ins>$400.00</ins> <del>$425.00</del>
+                            </div>
+                        </div>
+                        <div class="single-wid-product">
+                            <a href="single-product.html"><img src="img/product-thumb-2.jpg" alt="" class="product-thumb"></a>
+                            <h2><a href="single-product.html">Samsung gallaxy note 4</a></h2>
+                            <div class="product-wid-rating">
+                                <i class="fa fa-star"></i>
+                                <i class="fa fa-star"></i>
+                                <i class="fa fa-star"></i>
+                                <i class="fa fa-star"></i>
+                                <i class="fa fa-star"></i>
+                            </div>
+                            <div class="product-wid-price">
+                                <ins>$400.00</ins> <del>$425.00</del>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="single-product-widget">
+                        <h2 class="product-wid-title">Top New</h2>
+                        <a href="#" class="wid-view-more">View All</a>
+                        <div class="single-wid-product">
+                            <a href="single-product.html"><img src="img/product-thumb-3.jpg" alt="" class="product-thumb"></a>
+                            <h2><a href="single-product.html">Apple new i phone 6</a></h2>
+                            <div class="product-wid-rating">
+                                <i class="fa fa-star"></i>
+                                <i class="fa fa-star"></i>
+                                <i class="fa fa-star"></i>
+                                <i class="fa fa-star"></i>
+                                <i class="fa fa-star"></i>
+                            </div>
+                            <div class="product-wid-price">
+                                <ins>$400.00</ins> <del>$425.00</del>
+                            </div>
+                        </div>
+                        <div class="single-wid-product">
+                            <a href="single-product.html"><img src="img/product-thumb-4.jpg" alt="" class="product-thumb"></a>
+                            <h2><a href="single-product.html">Samsung gallaxy note 4</a></h2>
+                            <div class="product-wid-rating">
+                                <i class="fa fa-star"></i>
+                                <i class="fa fa-star"></i>
+                                <i class="fa fa-star"></i>
+                                <i class="fa fa-star"></i>
+                                <i class="fa fa-star"></i>
+                            </div>
+                            <div class="product-wid-price">
+                                <ins>$400.00</ins> <del>$425.00</del>
+                            </div>
+                        </div>
+                        <div class="single-wid-product">
+                            <a href="single-product.html"><img src="img/product-thumb-1.jpg" alt="" class="product-thumb"></a>
+                            <h2><a href="single-product.html">Sony playstation microsoft</a></h2>
+                            <div class="product-wid-rating">
+                                <i class="fa fa-star"></i>
+                                <i class="fa fa-star"></i>
+                                <i class="fa fa-star"></i>
+                                <i class="fa fa-star"></i>
+                                <i class="fa fa-star"></i>
+                            </div>
+                            <div class="product-wid-price">
+                                <ins>$400.00</ins> <del>$425.00</del>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div> <!-- End product widget area -->
+    <div class="brands-area">
+        <div class="zigzag-bottom"></div>
+            <div class="container" id="hide3">
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="brand-wrapper">
+                            <h2 class="section-title">Brands</h2>
+                            <div class="brand-list">
+                                <img src="img/services_logo__1.jpg" alt="">
+                                <img src="img/services_logo__2.jpg" alt="">
+                                <img src="img/services_logo__3.jpg" alt="">
+                                <img src="img/services_logo__4.jpg" alt="">
+                                <img src="img/services_logo__1.jpg" alt="">
+                                <img src="img/services_logo__2.jpg" alt="">
+                                <img src="img/services_logo__3.jpg" alt="">
+                                <img src="img/services_logo__4.jpg" alt="">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div> <!-- End brands area -->
+        <div class="product-widget-area">
+            <div class="zigzag-bottom"></div>
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-4">
+                        <div class="single-product-widget">
+                            <h2 class="product-wid-title">Top Sellers</h2>
+                            <a href="" class="wid-view-more">View All</a>
+                            <div class="single-wid-product">
+                                <a href="single-product.html"><img src="img/product-thumb-1.jpg" alt="" class="product-thumb"></a>
+                                <h2><a href="single-product.html">Sony Smart TV - 2015</a></h2>
+                                <div class="product-wid-rating">
+                                    <i class="fa fa-star"></i>
+                                    <i class="fa fa-star"></i>
+                                    <i class="fa fa-star"></i>
+                                    <i class="fa fa-star"></i>
+                                    <i class="fa fa-star"></i>
+                                </div>
+                                <div class="product-wid-price">
+                                    <ins>$400.00</ins> <del>$425.00</del>
+                                </div>
+                            </div>
+                            <div class="single-wid-product">
+                                <a href="single-product.html"><img src="img/product-thumb-2.jpg" alt="" class="product-thumb"></a>
+                                <h2><a href="single-product.html">Apple new mac book 2015</a></h2>
+                                <div class="product-wid-rating">
+                                    <i class="fa fa-star"></i>
+                                    <i class="fa fa-star"></i>
+                                    <i class="fa fa-star"></i>
+                                    <i class="fa fa-star"></i>
+                                    <i class="fa fa-star"></i>
+                                </div>
+                                <div class="product-wid-price">
+                                    <ins>$400.00</ins> <del>$425.00</del>
+                                </div>
+                            </div>
+                            <div class="single-wid-product">
+                                <a href="single-product.html"><img src="img/product-thumb-3.jpg" alt="" class="product-thumb"></a>
+                                <h2><a href="single-product.html">Apple new i phone 6</a></h2>
+                                <div class="product-wid-rating">
+                                    <i class="fa fa-star"></i>
+                                    <i class="fa fa-star"></i>
+                                    <i class="fa fa-star"></i>
+                                    <i class="fa fa-star"></i>
+                                    <i class="fa fa-star"></i>
+                                </div>
+                                <div class="product-wid-price">
+                                    <ins>$400.00</ins> <del>$425.00</del>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="single-product-widget">
+                            <h2 class="product-wid-title">Recently Viewed</h2>
+                            <a href="#" class="wid-view-more">View All</a>
+                            <div class="single-wid-product">
+                                <a href="single-product.html"><img src="img/product-thumb-4.jpg" alt="" class="product-thumb"></a>
+                                <h2><a href="single-product.html">Sony playstation microsoft</a></h2>
+                                <div class="product-wid-rating">
+                                    <i class="fa fa-star"></i>
+                                    <i class="fa fa-star"></i>
+                                    <i class="fa fa-star"></i>
+                                    <i class="fa fa-star"></i>
+                                    <i class="fa fa-star"></i>
+                                </div>
+                                <div class="product-wid-price">
+                                    <ins>$400.00</ins> <del>$425.00</del>
+                                </div>
+                            </div>
+                            <div class="single-wid-product">
+                                <a href="single-product.html"><img src="img/product-thumb-1.jpg" alt="" class="product-thumb"></a>
+                                <h2><a href="single-product.html">Sony Smart Air Condtion</a></h2>
+                                <div class="product-wid-rating">
+                                    <i class="fa fa-star"></i>
+                                    <i class="fa fa-star"></i>
+                                    <i class="fa fa-star"></i>
+                                    <i class="fa fa-star"></i>
+                                    <i class="fa fa-star"></i>
+                                </div>
+                                <div class="product-wid-price">
+                                    <ins>$400.00</ins> <del>$425.00</del>
+                                </div>
+                            </div>
+                            <div class="single-wid-product">
+                                <a href="single-product.html"><img src="img/product-thumb-2.jpg" alt="" class="product-thumb"></a>
+                                <h2><a href="single-product.html">Samsung gallaxy note 4</a></h2>
+                                <div class="product-wid-rating">
+                                    <i class="fa fa-star"></i>
+                                    <i class="fa fa-star"></i>
+                                    <i class="fa fa-star"></i>
+                                    <i class="fa fa-star"></i>
+                                    <i class="fa fa-star"></i>
+                                </div>
+                                <div class="product-wid-price">
+                                    <ins>$400.00</ins> <del>$425.00</del>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="single-product-widget">
+                            <h2 class="product-wid-title">Top New</h2>
+                            <a href="#" class="wid-view-more">View All</a>
+                            <div class="single-wid-product">
+                                <a href="single-product.html"><img src="img/product-thumb-3.jpg" alt="" class="product-thumb"></a>
+                                <h2><a href="single-product.html">Apple new i phone 6</a></h2>
+                                <div class="product-wid-rating">
+                                    <i class="fa fa-star"></i>
+                                    <i class="fa fa-star"></i>
+                                    <i class="fa fa-star"></i>
+                                    <i class="fa fa-star"></i>
+                                    <i class="fa fa-star"></i>
+                                </div>
+                                <div class="product-wid-price">
+                                    <ins>$400.00</ins> <del>$425.00</del>
+                                </div>
+                            </div>
+                            <div class="single-wid-product">
+                                <a href="single-product.html"><img src="img/product-thumb-4.jpg" alt="" class="product-thumb"></a>
+                                <h2><a href="single-product.html">Samsung gallaxy note 4</a></h2>
+                                <div class="product-wid-rating">
+                                    <i class="fa fa-star"></i>
+                                    <i class="fa fa-star"></i>
+                                    <i class="fa fa-star"></i>
+                                    <i class="fa fa-star"></i>
+                                    <i class="fa fa-star"></i>
+                                </div>
+                                <div class="product-wid-price">
+                                    <ins>$400.00</ins> <del>$425.00</del>
+                                </div>
+                            </div>
+                            <div class="single-wid-product">
+                                <a href="single-product.html"><img src="img/product-thumb-1.jpg" alt="" class="product-thumb"></a>
+                                <h2><a href="single-product.html">Sony playstation microsoft</a></h2>
+                                <div class="product-wid-rating">
+                                    <i class="fa fa-star"></i>
+                                    <i class="fa fa-star"></i>
+                                    <i class="fa fa-star"></i>
+                                    <i class="fa fa-star"></i>
+                                    <i class="fa fa-star"></i>
+                                </div>
+                                <div class="product-wid-price">
+                                    <ins>$400.00</ins> <del>$425.00</del>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div> <!-- End product widget area -->
+        <div class="footer-top-area">
+            <div class="zigzag-bottom"></div>
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-3 col-sm-6">
+                        <div class="footer-menu">
+                            <h2 class="footer-wid-title">Nuestros Servicios</h2>
+                            <ul>
+                                <li><%= link_to 'Ingeniería Mecánica', login_path, :class => "links_footer" %></li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="col-md-3 col-sm-6">
+                        <div class="footer-menu">
+                            <h2 class="footer-wid-title">Registrarte </h2>
+                            <ul>
+                                <li><%= link_to 'Registra tus Datos', login_path, :class => "links_footer" %></li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="col-md-3 col-sm-6">
+                        <div class="footer-menu">
+                            <h2 class="footer-wid-title">Ingresa</h2>
+                            <ul>
+                                <li><%= link_to 'Ingresa para Continuar', login_path, :class => "links_footer" %></li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="col-md-3 col-sm-6">
+                        <div class="footer-newsletter">
+                            <h2 class="footer-wid-title">Newsletter</h2>
+                            <p>Sign up to our newsletter and get exclusive deals you wont find anywhere else straight to your inbox!</p>
+                            <div class="newsletter-form">
+                                <form action="#">
+                                    <input type="email" placeholder="Type your email">
+                                    <input type="submit" value="Subscribe">
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div> 
 
 
 

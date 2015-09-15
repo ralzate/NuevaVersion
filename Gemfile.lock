@@ -58,6 +58,9 @@ GEM
       execjs
       json
     bcrypt (3.1.10)
+    best_in_place (3.0.3)
+      actionpack (>= 3.2)
+      railties (>= 3.2)
     better_errors (2.1.1)
       coderay (>= 1.0.0)
       erubis (>= 2.6.6)
@@ -450,6 +453,7 @@ PLATFORMS
 DEPENDENCIES
   active_decorator
   annotate
+  best_in_place
   better_errors
   bootstrap-sass
   brakeman

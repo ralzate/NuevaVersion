@@ -1,8 +1,8 @@
 class PagesController < ApplicationController
   skip_before_filter :require_login, only: [:home, :contact, :help]
   def home
-    @products = Product.search(params[:search]).page(params[:page]).per_page(3)
-    @users = User.search(params[:search]).page(params[:page]).per_page(3)
+    @products = Product.search(params[:search]).page(params[:page]).per_page(9)
+    @users = User.search(params[:search]).page(params[:page]).per_page(9)
     @user = User.new
   end
   def treeview

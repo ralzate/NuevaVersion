@@ -1630,6 +1630,9 @@ html,body
 }
 
 
+.navbar-collapse{
+  width: 102%;
+}
 
 
 

@@ -1,10 +1,27 @@
 <tr id=<%= "product_#{product.id}" %>>
-    <td><%= link_to image_tag(product.avatar, size:'40x40'), product, :remote => true,  :rel => "tooltip", :title => "Mostrar", :class => 'btn btn-link' %></td>
-    <td><%= truncate(product.name, :length => 20) %></td>
-	<td><%= product.quantity %></td>
+    <td>
+    <% if product.avatar? %>
+    <%= link_to image_tag(product.avatar, size:'40x40'), product, :remote => true,  :rel => "tooltip", :title => "Mostrar", :class => 'btn btn-link' %>
+    <% else %>
+    <%= link_to image_tag('default.jpg', :size => "40x40"), @product, :remote => true,  :rel => "tooltip", :title => "Mostrar", :class => 'btn btn-link zoomIt' %>
+    <% end %></td>
+    <td><%= best_in_place  product, :name, :nil => "El Nombre no debe estar en blanco", :ok_button => 'Guardar', :cancel_button => 'Cancelar' %>
+    </td>
+    <style type="text/css">
+	    input[type="button"] {
+	    border: medium none;
+	    color: #fff;
+	    padding: 11px 20px;
+	    text-transform: capitalize;
+		}
+	    input[type="button"]:hover {
+	    background-color: #222;
+	    	}
+	</style>
+	<td><%=  product.quantity %></td>
 	<td>$<%= product.unit_price %></td>
-	<td><%= product.label_new_used %></td>
-	<td><%= product.total %></td>
+	<td><%=  product.label_new_used %></td>
+	<td><%=  product.total %></td>
 	<td>
 		<%= link_to  image_tag('Options/show.png', :size => "25x25"), product, :rel => "tooltip", :title => "Mostrar", :class => 'btn btn-link'%>
 
@@ -14,3 +31,5 @@
 		<% end %>
 	</td>
 </tr>
+
+
