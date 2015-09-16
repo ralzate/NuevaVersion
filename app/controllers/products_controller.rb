@@ -32,10 +32,21 @@ class ProductsController < ApplicationController
     end
   end
   # Update Products
+  #def update
+    #@product = Product.find(params[:id])
+    #@product.update_attributes(product_params)
+    #respond_with @user
+  #end
   def update
-    @product = Product.find(params[:id])
-    @product.update_attributes(product_params)
-    respond_with @user
+    respond_to do |format|
+      if @product.update(product_params)
+        format.html { redirect_to @product, notice: 'Producto actualizado correctamente.' }
+        format.json { render :show, status: :ok, location: @product }
+      else
+        format.html { render :edit }
+        format.json { render json: @product.errors, status: :unprocessable_entity }
+      end
+    end
   end
   # Destroy Products
   def destroy

@@ -1,66 +1,5 @@
 
 
-
-
-
-
-
-
-
-
-<script src="http://mymaplist.com/js/vendor/TweenLite.min.js"></script>
-<!-- This is a very simple parallax effect achieved by simple CSS 3 multiple backgrounds, made by http://twitter.com/msurguy -->
-
-<div class="fondo">
-<div class="container ">
-    <div class="row vertical-offset-100">
-    <script type="text/javascript">
-    $(function(){
-    
-    // Checking for CSS 3D transformation support
-    $.support.css3d = supportsCSS3D();
-    
-    var formContainer = $('#formContainer');
-    
-    // Listening for clicks on the ribbon links
-    $('.flipLink').click(function(e){
-        
-        // Flipping the forms
-        formContainer.toggleClass('flipped');
-        
-        // If there is no CSS3 3D support, simply
-        // hide the login form (exposing the recover one)
-        if(!$.support.css3d){
-            $('#login').toggle();
-        }
-        e.preventDefault();
-    });
-    
-    formContainer.find('form').submit(function(e){
-        // Preventing form submissions. If you implement
-        // a backend, you might want to remove this code
-        e.preventDefault();
-    });
-    
-    
-    // A helper function that checks for the 
-    // support of the 3D CSS3 transformations.
-    function supportsCSS3D() {
-        var props = [
-            'perspectiveProperty', 'WebkitPerspective', 'MozPerspective'
-        ], testDom = document.createElement('a');
-          
-        for(var i=0; i<props.length; i++){
-            if(props[i] in testDom.style){
-                return true;
-            }
-        }
-        
-        return false;
-    }
-});
-
-</script>
 <style type="text/css">
 
 .form-signin {
@@ -349,230 +288,423 @@
     box-shadow:2px 2px 10px rgba(0,0,0,0.8);
   }
 }
-
+.panel-heading{
+    background-color: #1abc9c !important;
+}
 </style>
-<!--Inspired by http://tutorialzine.com/2012/02/apple-like-login-form/ - Apple-like Login Form with CSS 3D Transforms -->
 
-<div class="container">
-    <div class="row">
-        <div class="container" id="formContainer">
-        <div class="col-md-12  col-xs-offset-2 col-sm-offset-1 col-md-offset-1  col-lg-offset-1">
+
+
+<div class="fondo">
+    <div class="container ">
+        <div class="row vertical-offset-100">
         <% if current_user.type_user == "Persona" %>
-
-                <%= form_for(@user, html: { multipart: true}) do |f| %>
-                    <div id = "login" class="form-signin">
-                    <div class="user">
-                      <div class="modal-header">
-                        <h4 class="modal-title"><h3>Datos para personas</h3></h4>
-                      </div><br>
-                        <div class="row">
-                            <div class="col-md-4">
-                                <div class="col-sm-10">
-                                    <%= f.label :Primer_Nombre %>
-                                    <%= f.text_field :first_name, class: "form-control" %>
-                                </div>
-                            </div>
-                            <div class="col-md-4">
-                                <div class="col-sm-10">
-                                    <%= f.label :Segundo_Nombre %>
-                                    <%= f.text_field :second_name, class: "form-control" %>
-                                </div>
-                            </div>
-                            <div class="col-md-4">
-                                <div class="col-sm-10">
-                                    <%= f.label :Identificacion %>
-                                    <%= f.text_field :identification, class: "form-control" %>
-                                </div>
-                            </div>
+        <div class="container">    
+            <div id="loginbox" style="margin-top:-50px;" class="mainbox col-md-12 col-sm-12 "> 
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <div class="panel-title">Actualiza tus Datos</div>
+                        <div style="float:right; font-size: 80%; position: relative; top:-10px; "><a href="#" style="color:white;">Olvidaste tu Contraseña?</a></div>
+                    </div>     
+                    <div style="padding-top:30px" class="panel-body" >
+                        <div style="display:none" id="login-alert" class="alert alert-danger col-sm-12">
                         </div>
-                        <div class="row">
-                            <div class="col-md-4">
-                                <div class="col-sm-10">
-                                    <%= f.label :Primer_Apellido %>
-                                    <%= f.text_field :first_surname, class: "form-control" %>
+                        <%= form_for(@user, html: { multipart: true, :class => 'form-horizontal', :id => "loginform" }) do |f| %>
+                            <div class="panel panel-default">
+                                <!-- Default panel contents -->
+                                <div class="panel-heading">Datos personales</div>
+                                <div class="panel-body">
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <%= f.label "Primer Nombre" %><br />
+                                            <div class="col-sm-12 input-group">
+                                                <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
+                                                <%= f.text_field :first_name, class: "form-control", :placeholder => "Nombre 1"  %>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <%= f.label "Segundo Nombre" %><br />
+                                            <div class="col-sm-12 input-group">
+                                                <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
+                                                <%= f.text_field :second_name, class: "form-control" , :placeholder => "Nombre 2" %>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <br/>
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <%= f.label "Primer Apellido" %><br />
+                                            <div class="col-sm-12 input-group">
+                                                <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
+                                                <%= f.text_field :first_surname, class: "form-control", :placeholder => "Primer Apellido" %>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <%= f.label "Segundo Apellido" %><br />
+                                            <div class="col-sm-12 input-group">
+                                                <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
+                                                <%= f.text_field :second_surname, class: "form-control", :placeholder => "Segundo Apellido"  %>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <br/>
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <%= f.label "Telefono" %><br />
+                                            <div class="col-sm-12 input-group">
+                                                <span class="input-group-addon"><i class="glyphicon glyphicon-earphone"></i></span>
+                                                <%= f.text_field :phone, class: "form-control", :placeholder => "Numero de Telefono" %>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <%= f.label "Identificación" %><br />
+                                            <div class="col-sm-12 input-group">
+                                                <span class="input-group-addon"><i class="glyphicon glyphicon-credit-card"></i></span>
+                                                <%= f.text_field :identification, class: "form-control", :placeholder => "Numero de identificación" %>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <br/>
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <%= f.label "Celular" %><br />
+                                            <div class="col-sm-12 input-group">
+                                                <span class="input-group-addon"><i class="glyphicon glyphicon-phone"></i></span>
+                                                <%= f.text_field :cell_phone, class: "form-control" %>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <br/>
                                 </div>
                             </div>
-                            <div class="col-md-4">
-                                <div class="col-sm-10">
-                                    <%= f.label :Segundo_Apellido %>
-                                    <%= f.text_field :second_surname, class: "form-control"  %>
+                            <div class="panel panel-default">
+                                <!-- Default panel contents -->
+                                <div class="panel-heading">Actualiza tu Foto</div>
+                                <div class="panel-body">
+                                    
+                                        <div class="row">
+                                            <div class="col-md-6">
+                                                <% if @user.picture? %>
+                                                <center><%= image_tag @user.picture, class:"img-thumbnail", :size => "180x180" %></center>
+                                                <% else %>
+                                                <center><%= image_tag('default.jpg',:class => "img-thumbnail img-responsive", :size => "180x180")  %></center>
+                                                <% end %>
+                                            </div>
+                                            <br/>        
+                                            <div class="col-md-6"> 
+                                                <div class="form-group">
+                                                    <div class="input-container">
+                                                        <div class="fileinput fileinput-new" data-provides="fileinput">
+                                                          <div class="fileinput-preview thumbnail" data-trigger="fileinput" style="width: 200px; height: 150px;"></div>
+                                                          <div>
+                                                            <span class="btn btn-default btn-file"><span class="fileinput-new"><%= f.file_field :picture, class: "form-control", id: 'button' %></span><span class="fileinput-exists">Cambiar</span><input type="file" name="..."></span>
+                                                            <a href="#" class="btn btn-default fileinput-exists" data-dismiss="fileinput">Eliminar</a>
+                                                          </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div> 
                                 </div>
                             </div>
-                            <div class="col-md-4">
-                                <div class="col-sm-10">
-                                    <%= f.label :Telefono %>
-                                    <%= f.text_field :phone, class: "form-control" %>
+                            <div class="panel panel-default">
+                                <div class="panel-heading">Datos Empresa</div>
+                                <div class="panel-body">
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <%= f.label "Razón Social" %><br />
+                                            <div class="col-sm-12 input-group">
+                                                <span class="input-group-addon"><i class="glyphicon glyphicon-file"></i></span>
+                                                <%= f.text_field :business_name, class: "form-control valid",  id: 'business_name', onblur: "validate('business_name')", :required => true, :placeholder => "Por Favor ingresa la razón social" %>
+                                            </div>
+                                        </div>    
+                                        <div class="col-md-6">
+                                            <%= f.label "Rut" %><br />
+                                            <div class="col-sm-12 input-group">
+                                                <span class="input-group-addon"><i class="glyphicon glyphicon-file"></i></span>
+                                                <%= f.text_field :rut, class: "form-control valid",  id: 'Rut', onblur: "validate('Rut')", :required => true, :placeholder => "Por Favor ingresa el rut"  %>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <br/>
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                        <%= f.label "Dirección" %><br />
+                                            <div class="col-sm-12 input-group">
+                                                <span class="input-group-addon"><i class="glyphicon glyphicon-home"></i></span>
+                                                <%= f.text_field :address, class: "form-control", :placeholder => "Por Favor ingresa la dirección" %>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                        <%= f.label "Pagina Web" %><br />
+                                            <div class="col-sm-12 input-group">
+                                                <span class="input-group-addon"><i class="glyphicon glyphicon-file"></i></span>
+                                                <%= f.text_field :web_page, class: "form-control", :label => "Pagina Web:", :placeholder => "Por Favor ingresa la pagina web"  %>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <br/>
+                                    <div class="row">
+                                        <div class="col-md-12">
+                                        <%= f.label "Descripción Empresa" %><br />
+                                            <div class="col-sm-12 input-group">
+                                                <span class="input-group-addon"><i class="glyphicon glyphicon-file"></i></span>        
+                                                <%= f.text_field :description, class: "form-control valid",  id: 'DescripcionCompañia', onblur: "validate('DescripcionCompañia')", :required => true, :placeholder => "Por Favor ingresa la Descripción" %>
+                                            </div>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-md-4">
-                                <div class="col-sm-10">
-                                    <%= f.label :Direccion %>
-                                    <%= f.text_field :address, class: "form-control" %>
+                            <div class="panel panel-default">
+                                <div class="panel-heading">Datos Acceso</div>
+                                <div class="panel-body">
+                                    <div class="row">
+                                        <div class="col-md-4">
+                                            <%= f.label "Email" %><br />
+                                            <div class="col-sm-12 input-group">
+                                                <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
+                                                <%= f.email_field :email, class: "form-control"  %>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-4">
+                                            <%= f.label "Clave 1" %><br />
+                                            <div class="col-sm-12 input-group">
+                                                <span class="input-group-addon"><i class="glyphicon glyphicon-lock"></i></span>
+                                                <%= f.password_field :password, class: "form-control" %>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-4">
+                                            <%= f.label "Clave 2" %><br />
+                                            <div class="col-sm-12 input-group">
+                                                <span class="input-group-addon"><i class="glyphicon glyphicon-lock"></i></span>
+                                                <%= f.password_field :password_confirmation, class: "form-control" %>
+                                            </div>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
-                            <div class="col-md-4">
-                                <div class="col-sm-10">
-                                    <%= f.label :Celular %>
-                                    <%= f.text_field :cell_phone, class: "form-control" %>
-                                </div>
-                            </div>
-                            <div class="col-md-4">
-                                <div class="col-sm-10">
-                                    <%= f.label :Rut %>
-                                    <%= f.text_field :rut, class: "form-control" %>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-md-4">
-                                <div class="col-sm-10">
-                                    <%= f.label :Pagina_Web %>
-                                    <%= f.text_field :web_page, class: "form-control", :label => "Pagina Web:" %>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-md-3">
-                                <div class="col-sm-10">
-                                    <%= f.label :Primer_Nombre %>
-                                    <%= f.text_field :first_name_of_contact_person, class: "form-control", autofocus: true, :label => "Primer nombre:" %>
-                                </div>
-                            </div>
-                            <div class="col-md-3">
-                                <div class="col-sm-10">
-                                    <%= f.label :Primer_Nombre %>
-                                    <%= f.text_field :second_name_of_contact_person, class: "form-control", :label => "Segundo nombre:"  %>
-                                </div>
-                            </div>
-                            <div class="col-md-3">
-                                <div class="col-sm-10">
-                                    <%= f.label :Primer_Apellido %>
-                                    <%= f.text_field :first_surname_of_contact_person, class: "form-control", :label => "Primer Apellido:" %>
-                                </div>
-                            </div>
-                            <div class="col-md-3">
-                                <div class="col-sm-10">
-                                    <%= f.label :Segundo_Apellido %>
-                                    <%= f.text_field :second_surname_of_contact_person, class: "form-control", :label => "Segundo Apellido:" %>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-md-4">
-                                <div class="col-sm-10">
-                                    <%= f.label :Email %>
-                                    <%= f.email_field :email, class: "form-control"  %>
-                                </div>
-                            </div>
-                            <div class="col-md-4">
-                                <div class="col-sm-10">
-                                    <%= f.label :Clave %>
-                                    <%= f.password_field :password, class: "form-control" %>
-                                </div>
-                            </div>
-                            <div class="col-md-4">
-                                <div class="col-sm-10">
-                                    <%= f.label :Confirmar_clave %>
-                                    <%= f.password_field :password_confirmation, class: "form-control" %>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-md-6">
-                                <div class="col-sm-10">
-                                    <%= f.label :Primer_Telefono %>
-                                    <%= f.text_field :first_phone_of_contact_person, class: "form-control" %>
-                                </div>
-                            </div>
-                            <div class="col-md-6">
-                                <div class="col-sm-10">
-                                    <%= f.label :Segundo_Telefono %>
-                                    <%= f.text_field :second_phone_of_contact_person, class: "form-control"  %>
-                                </div>
-                            </div>
-
-                            <%= f.label :Roles %>
-                            <%= f.collection_select :rol_id, Rol.all, :id, :name, { prompt: "Por favor selecciona uno", :selected => params[:search], hide_label: :true }, class: "input-sm" %> 
-                            
-                            <%= f.file_field :picture, accept: 'image/jpeg,image/gif,image/png'  %>
-
-                            <%= f.hidden_field :type_user, value: "Persona" %>
-
-                        </div>
-                        <br/><br/>
-                    </div>
-                    <a href="#" id="flipToRecover" class="flipLink btn btn-lg btn-primary btn-block" style="margin-top:120px; right: 100px; width:180px;">
-                  Suiguiente Pagina
-                    </a>
-
-                <% end %>
-
-          <form class="form-signin" id="recover" role="form">
-            <h3 class="form-signin-heading">Enter email address</h3>
-            <a href="#" id="flipToLogin" class="flipLink">
-              <div id="triangle-topleft"></div>
-            </a>
-            <input type="email" class="form-control" name="loginEmail" id="loginEmail" placeholder="Email address" required autofocus>
-            <button class="btn btn-lg btn-primary btn-block" type="submit">Recover password</button>
-          </form>
-
-                    <div id="recover" class="form-signin">
-                    <div class="col-md-6">
-                            <div class="col-sm-10">
-                            </div>
-                        </div>
-
-                    <a href="#" id="flipToLogin" class="flipLink btn btn-lg btn-primary btn-block" style="margin-top:120px; right: 100px; width:180px;">
-                      Regresar
-                    </a>
-                    </div>
-
-
-
-      
-
-        <% end %>
-
-
-
-        <% if current_user.type_user == "Empresa" %>
-
-          <form class="form-signin " id="login" role="form">
-            <h3 class="form-signin-heading"><br/>Please sign in</h3>
-            <a href="#" id="flipToRecover" class="flipLink">
-              <div id="triangle-topright"></div>
-            </a>
-            <input type="email" class="form-control" name="loginEmail" id="loginEmail" placeholder="Email address" required autofocus>
-            <input type="password" class="form-control" name="loginPass" id="loginPass" placeholder="Password" required>
-            <button class="btn btn-lg btn-primary btn-block" type="submit">Sign in</button>
-          </form>
-    
-          <form class="form-signin" id="recover" role="form">
-            <h3 class="form-signin-heading" >Enter email address</h3>
-            <a href="#" id="flipToLogin" class="flipLink">
-              <div id="triangle-topleft"></div>
-            </a>
-            <input type="email" class="form-control" name="loginEmail" id="loginEmail" placeholder="Email address" required autofocus>
-            <button class="btn btn-lg btn-primary btn-block" type="submit">Recover password</button>
-          </form>
-        <% end %>
-
-
-
+                            <br/>   
+                            <%= f.submit 'Enviar!', class: 'btn btn-primary btn-lg' %>
+                        <% end %>
+                    </div>                     
+                </div>  
+            </div>
         </div>
-        </div> <!-- /container -->
-    </div>
+        <% end %>
+        <% if current_user.type_user == "Empresa" %>
+        <div class="container">    
+            <div id="loginbox" style="margin-top:-50px;" class="mainbox col-md-12 col-sm-12 "> 
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <div class="panel-title">Actualiza tus Datos</div>
+                        <div style="float:right; font-size: 80%; position: relative; top:-10px; "><a href="#" style="color:white;">Olvidaste tu Contraseña?</a></div>
+                    </div>     
+                    <div style="padding-top:30px" class="panel-body" >
+                        <div style="display:none" id="login-alert" class="alert alert-danger col-sm-12">
+                        </div>
+                        <%= form_for(@user, html: { multipart: true, :class => 'form-horizontal', :id => "loginform" }) do |f| %>
+                            <div class="panel panel-default">
+                                <!-- Default panel contents -->
+                                <div class="panel-heading">Datos empresa</div>
+                                <div class="panel-body">
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <%= f.label "Primer Nombre" %><br />
+                                            <div class="col-sm-12 input-group">
+                                                <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
+                                                <%= f.text_field :first_name, class: "form-control", :placeholder => "Nombre 1"  %>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <%= f.label "Dirección" %><br />
+                                            <div class="col-sm-12 input-group">
+                                                <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
+                                                <%= f.text_field :address, class: "form-control" , :placeholder => "Dirección" %>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <br/>
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <%= f.label "Telefono" %><br />
+                                            <div class="col-sm-12 input-group">
+                                                <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
+                                                <%= f.text_field :phone, class: "form-control", :placeholder => "Telefono" %>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <%= f.label "Celular" %><br />
+                                            <div class="col-sm-12 input-group">
+                                                <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
+                                                <%= f.text_field :cell_phone, class: "form-control", :placeholder => "Celular"  %>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <br/>
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <%= f.label "Razón Social" %><br />
+                                            <div class="col-sm-12 input-group">
+                                                <span class="input-group-addon"><i class="glyphicon glyphicon-earphone"></i></span>
+                                                <%= f.text_field :business_name, class: "form-control", :placeholder => "Razón Social" %>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <%= f.label "Pagina Web" %><br />
+                                            <div class="col-sm-12 input-group">
+                                                <span class="input-group-addon"><i class="glyphicon glyphicon-credit-card"></i></span>
+                                                <%= f.text_field :web_page, class: "form-control", :placeholder => "Pagina Web" %>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <br/>
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <%= f.label "Nit" %><br />
+                                            <div class="col-sm-12 input-group">
+                                                <span class="input-group-addon"><i class="glyphicon glyphicon-phone"></i></span>
+                                                <%= f.text_field :nit, class: "form-control", :placeholder => "Nit" %>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <br/>
+                                    <div class="row">
+                                        <div class="col-md-12">
+                                            <%= f.label "Breve Descripción" %><br />
+                                            <div class="col-sm-12 input-group">
+                                                <span class="input-group-addon"><i class="glyphicon glyphicon-phone"></i></span>
+                                                <%= f.text_field :description, class: "form-control", :placeholder => "Descripción" %>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="panel panel-default">
+                                <!-- Default panel contents -->
+                                <div class="panel-heading">Actualiza tu logo</div>
+                                <div class="panel-body">
+                                    
+                                        <div class="row">
+                                            <div class="col-md-6">
+                                                <% if @user.logo? %>
+                                                <center><%= image_tag @user.logo, class:"img-thumbnail", :size => "180x180" %></center>
+                                                <% else %>
+                                                <center><%= image_tag('default.jpg',:class => "img-thumbnail img-responsive", :size => "180x180")  %></center>
+                                                <% end %>
+                                            </div>
+                                            <br/>        
+                                            <div class="col-md-6"> 
+                                                <div class="form-group">
+                                                    <div class="input-container">
+                                                        <div class="fileinput fileinput-new" data-provides="fileinput">
+                                                          <div class="fileinput-preview thumbnail" data-trigger="fileinput" style="width: 200px; height: 150px;"></div>
+                                                          <div>
+                                                            <span class="btn btn-default btn-file"><span class="fileinput-new"><%= f.file_field :picture, class: "form-control", id: 'button' %></span><span class="fileinput-exists">Cambiar</span><input type="file" name="..."></span>
+                                                            <a href="#" class="btn btn-default fileinput-exists" data-dismiss="fileinput">Eliminar</a>
+                                                          </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div> 
+                                </div>
+                            </div>
+                            <div class="panel panel-default">
+                                <div class="panel-heading">Datos Persona de Conctacto</div>
+                                <div class="panel-body">
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <%= f.label "Primer Nombre"%><br />
+                                            <div class="col-sm-10 input-group">
+                                                <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
+                                                <%= f.text_field :first_name_of_contact_person, class: "form-control valid",  id: 'business_name', onblur: "validate('business_name')", :required => true, :placeholder => "Por Favor ingresa la razón social" %>
+                                            </div>
+                                        </div>    
+                                        <div class="col-md-6">
+                                            <%= f.label "Segundo Nombre" %><br />
+                                            <div class="col-sm-10 input-group">
+                                                <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
+                                                <%= f.text_field :second_name_of_contact_person, class: "form-control valid",  id: 'Rut', onblur: "validate('Rut')", :required => true, :placeholder => "Por Favor ingresa el rut"  %>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <br/>
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                        <%= f.label "Primer Apellido" %><br />
+                                            <div class="col-sm-10 input-group">
+                                                <span class="input-group-addon"><i class="glyphicon glyphicon-home"></i></span>
+                                                <%= f.text_field :first_surname_of_contact_person, class: "form-control", :placeholder => "Por Favor ingresa la dirección" %>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                        <%= f.label "Segundo Apellido" %><br />
+                                            <div class="col-sm-10 input-group">
+                                                <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
+                                                <%= f.text_field :second_surname_of_contact_person, class: "form-control", :label => "Pagina Web:", :placeholder => "Por Favor ingresa la pagina web"  %>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <br/>
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                        <%= f.label "Primer Telefono" %><br />
+                                            <div class="col-sm-10 input-group">
+                                                <span class="input-group-addon"><i class="glyphicon glyphicon-earphone"></i></span>        
+                                                <%= f.text_field :first_phone_of_contact_person, class: "form-control valid",  id: 'DescripcionCompañia', onblur: "validate('DescripcionCompañia')", :required => true, :placeholder => "Por Favor ingresa la Descripción" %>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                        <%= f.label "Segundo Telefono" %><br />
+                                            <div class="col-sm-10 input-group">
+                                                <span class="input-group-addon"><i class="glyphicon glyphicon-earphone"></i></span>        
+                                                <%= f.text_field :second_phone_of_contact_person, class: "form-control valid",  id: 'DescripcionCompañia', onblur: "validate('DescripcionCompañia')", :required => true, :placeholder => "Por Favor ingresa la Descripción" %>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="panel panel-default">
+                                <div class="panel-heading">Datos Acceso</div>
+                                <div class="panel-body">
+                                    <div class="row">
+                                        <div class="col-md-4">
+                                            <%= f.label "Email" %><br />
+                                            <div class="col-sm-10 input-group">
+                                                <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
+                                                <%= f.email_field :email, class: "form-control"  %>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-4">
+                                            <%= f.label "Clave 1" %><br />
+                                            <div class="col-sm-10 input-group">
+                                                <span class="input-group-addon"><i class="glyphicon glyphicon-lock"></i></span>
+                                                <%= f.password_field :password, class: "form-control" %>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-4">
+                                            <%= f.label "Clave 2" %><br />
+                                            <div class="col-sm-10 input-group">
+                                                <span class="input-group-addon"><i class="glyphicon glyphicon-lock"></i></span>
+                                                <%= f.password_field :password_confirmation, class: "form-control" %>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <br/>   
+                            <%= f.submit 'Enviar!', class: 'btn btn-primary btn-lg' %>
+                        <% end %>
+                    </div>                     
+                </div>  
+            </div>
+        </div>
+        <% end %>
+        </div>
+    </div> 
 </div>
+    
 
-
-  <br/><br/><br/><br/><br/><br/>
-  <br/><br/><br/><br/><br/><br/>
-  <br/><br/><br/><br/><br/><br/>
-    </div>
-</div>
-</div>
 
 <style type="text/css">
     .fondo{

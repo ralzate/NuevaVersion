@@ -302,6 +302,7 @@ GEM
       cocaine (~> 0.5.5)
       mime-types
       mimemagic (= 0.3.0)
+    pg (0.18.3)
     polyamorous (1.2.0)
       activerecord (>= 3.0)
     populator (1.0.0)
@@ -420,7 +421,6 @@ GEM
       actionpack (>= 3.0)
       activesupport (>= 3.0)
       sprockets (>= 2.8, < 4.0)
-    sqlite3 (1.3.10)
     temple (0.7.6)
     terminal-table (1.4.5)
     therubyracer (0.12.2)
@@ -475,6 +475,7 @@ DEPENDENCIES
   mini_magick
   minitest-reporters
   paperclip
+  pg
   populator
   pry-rails
   rails (= 4.2.3)
@@ -489,7 +490,6 @@ DEPENDENCIES
   simple_form_fancy_uploads
   sorcery
   spring
-  sqlite3
   therubyracer
   turbolinks
   twitter-bootstrap-rails!
