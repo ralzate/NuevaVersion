@@ -13,7 +13,6 @@
 //= require jquery
 //= require best_in_place
 //= require jquery_ujs
-//= require bootstrap
 //= require lazybox
 //= require jasny-bootstrap.min
 //= require turbolinks
