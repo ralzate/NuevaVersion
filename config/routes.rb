@@ -12,8 +12,10 @@ Rails.application.routes.draw do
   get 'pages/contact'
   get 'pages/help'
   get 'pages/treeview'
+  get 'pages/nosotros'
+  get 'quienes_somos' => 'pages#nosotros', as: 'quienes_somos'
   get 'mapa_sitio' => 'pages#treeview', as: 'mapa_sitio'
-    match 'pages/home', to: 'pages#home', via: :post
+  match 'pages/home', to: 'pages#home', via: :post
 
   root to: 'pages#home'
   resources :users do

@@ -3,6 +3,7 @@ class PagesController < ApplicationController
   def home
     @products = Product.search(params[:search]).page(params[:page]).per_page(9)
     @users = User.search(params[:search]).page(params[:page]).per_page(9)
+    @type_products = TypeProduct.search(params[:search]).page(params[:page]).per_page(9)
     @user = User.new
   end
   def treeview
@@ -10,6 +11,8 @@ class PagesController < ApplicationController
   def contact
   end
   def help
+  end
+  def nosotros
   end
   
   def create

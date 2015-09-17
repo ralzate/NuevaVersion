@@ -2,30 +2,31 @@
         <div class="header_top"><!--header_top-->
             <div class="container">
                 <div class="row">
-                    <div class="col-sm-6">
+                    <div class="col-sm-5">
                         <div class="contactinfo">
                             <ul class="nav nav-pills">
                                 <li><a href="#"><i class="fa fa-user"></i> My Account</a></li>
                                 <li><a href="#"><i class="fa fa-heart"></i> Wishlist</a></li>
-                                <li><a href="cart.html"><i class="fa fa-user"></i> My Cart</a></li>
-                                <li><a href="checkout.html"><i class="fa fa-user"></i> Checkout</a></li>
+                                <li><%= link_to "Acerca de Nosotros", quienes_somos_path %></li>
                                 <li><%= link_to "Mapa del Sitio", mapa_sitio_path %></li>
                             </ul>
                         </div>
                     </div>
-                    <div class="col-sm-6">
+                    <% if not current_user %>
+                    <div class="col-sm-7">
                         <%= form_tag sessions_path, :method => :post, :class => 'navbar-form navbar-right'   do %>
                             <div class="input-group">
                                 <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
-                                <%= email_field_tag :email, nil, class: 'form-control', required: true %>                                        
+                                <%= email_field_tag :email, nil, class: 'form-control', required: true, :placeholder => "Ingresa tu Email" %>                                        
                             </div>
                             <div class="input-group">
                                 <span class="input-group-addon"><i class="glyphicon glyphicon-lock"></i></span>
-                                <%= password_field_tag :password, nil, class: 'form-control', required: true %>                                        
+                                <%= password_field_tag :password, nil, class: 'form-control', required: true, :placeholder => "Ingresa tu Clave" %>                                        
                             </div>
-                            <%= submit_tag 'Login', class: 'btn btn-primary btn-sm' %>
+                            <%= submit_tag 'Ingresar', class: 'btn btn-primary' %>
                         <% end %>
                     </div>
+                    <% end %>
                 </div>
             </div>
         </div><!--/header_top-->
@@ -95,7 +96,7 @@
                             <ul class="nav navbar-nav collapse navbar-collapse">
                                 <li><%= link_to 'Inicio', root_path, :class => "active" %></li>
                                 <% if not current_user %>
-                                    <li><%= link_to 'Registrarme', "#", data: {toggle: "modal", target: "#myModal"} %></li>
+                                    <li><%= link_to "Registrarme", signup_path %></li>
                                 <% end %>  
 
                                 <% if current_user %>
@@ -105,9 +106,8 @@
                                         </ul>
                                     </li> 
 
-                                    <li class="dropdown">
-                                        <a data-toggle="dropdown" class="dropdown-toggle" href="#">Bienvenido <%= current_user.first_name %> <b class="caret"></b></a>
-                                        <ul role="menu" class="dropdown-menu">
+                                    <li class="dropdown"><a href="#">Bienvenido <%= current_user.first_name %> <i class="fa fa-angle-down"></i></a>
+                                        <ul role="menu" class="sub-menu">
                                             <li><% link_to 'Inbox', conversations_path %></li>
                                             <li><%= link_to 'Mis Datos', current_user %></li>
                                             <li><%= link_to 'Cerrar Sesión', logout_path, method: :delete %></li>
