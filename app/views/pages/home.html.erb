@@ -22,7 +22,6 @@
 
 <body>
 
-
     
     <section>
         <div class="container">
@@ -99,6 +98,10 @@
 					<div class="features_items"><!--features_items-->
 						<h2 class="title text-center">Ultimos Productos</h2>
 						<% @products.each do |product| %>
+
+
+
+
 						<div class="col-sm-4">
 							<div class="product-image-wrapper">
 								<div class="single-products">
@@ -114,8 +117,15 @@
 										</div>
 										<div class="product-overlay">
 											<div class="overlay-content">
+							
 												<h2>$<%= product.unit_price %></h2>
-												<p><%= product.description %></p>
+											<% if current_user %>
+												<% if product.user.id != current_user.id %>
+												    <%= link_to 'Enviar Mensaje', new_message_path(:user => product.user.id), :class => 'btn btn-info color-blanco' %><br/><br/>
+												<% end %>
+											<% else %>
+												<h4>Necesitas loguarte para Preguntar</h4>
+	                                        <% end %>
 												<%= link_to 'Ver Mas <i class="glyphicon glyphicon-search"></i>'.html_safe, product, class: 'btn btn-default add-to-cart' %>
 												<a class="btn btn-primary btn-sm add-to-cart color-blanco" data-toggle="modal" data-target="#myModal" style="background-color:#FFFFFF;">Contacto</a>
 
@@ -135,6 +145,9 @@
 		                                        <hr>
 		                                        <div class="alert alert-success"><h4 class="color-blanco" style="color:black !important;">Gracias por usar SinStock!!</h4>		                                        
 		                                        <div align="center">
+												
+		
+
 		                                        <button type="button" class="btn btn-primary" data-dismiss="modal" aria-label="Close">Cerrar</button>
 		                                        </div>
 		                                        </div>
@@ -150,9 +163,7 @@
                                         <li><a href="#"><span class="glyphicon glyphicon-user"></span><%= product.user.email %></a></li>
                                         <li><a href="#"><span class="glyphicon glyphicon-earphone"></span><%= product.user.phone %></a></li>
                                     </ul>
-                                    <div align="center">
-                                    
-                                    </div>
+
                                 </div>
 							</div>
 						</div>

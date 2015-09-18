@@ -14,6 +14,7 @@
 //= require best_in_place
 //= require jquery_ujs
 //= require lazybox
+//= require garlic
 //= require bootstrap
 //= require jasny-bootstrap.min
 //= require turbolinks
@@ -26,7 +27,8 @@ $(document).ready(function() {
   $('a[rel*=lazybox]').lazybox({close: false, modal: false, opacity: 0.7, klass: 'lazybox', speed: 200});
   $.lazybox.settings = {cancelClass: "button green", submitClass: 'button red', closeImg: false, niceClose: false}
   $.rails.allowAction = $.lazybox.confirm;
- 
+
+
 });
 
 $('#teams').tooltip('show')
@@ -45,16 +47,6 @@ $(document).mousemove(function(e){
 
 
 
-
-// Validate Only Numbers
-function numbersonly(e){
-    var unicode=e.charCode? e.charCode : e.keyCode
-    if (unicode!=8){ //if the key isn't the backspace key (which we should allow)
-        if (unicode<48||unicode>57) //if not a number
-            return false //disable key press
-    }
-}
-
 /* Activating Best In Place */
 $(document).ready(function() {
   jQuery(".best_in_place").best_in_place();
@@ -65,6 +57,24 @@ $(document).ready(function() {
   });
 });
 });
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

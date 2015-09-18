@@ -10,6 +10,10 @@
 	<td><%= user.identification %></td>
 	<td><%= user.phone %></td>
 	<td><%= user.email %></td>
+	<td><% if user != current_user %>
+    <%= link_to 'Send message', new_message_path(:user => user.id) %>|
+  	<% end %></td>
+
 	<td>
 		<%= link_to  image_tag('Options/show.png', :size => "25x25"), user, :remote => true,  :rel => "tooltip", :title => "Mostrar", :class => 'btn btn-link' %>
 		<%= link_to image_tag('Options/edit.png', :size => "25x25"), edit_user_path(user), :title => "Mostrar", :class => 'btn btn-link' %>

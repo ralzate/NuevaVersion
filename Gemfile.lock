@@ -70,6 +70,7 @@ GEM
     bootstrap-sass (3.3.5.1)
       autoprefixer-rails (>= 5.0.0.1)
       sass (>= 3.3.0)
+    bootstrap_form (2.3.0)
     brakeman (3.1.0)
       erubis (~> 2.6)
       fastercsv (~> 1.5)
@@ -223,6 +224,8 @@ GEM
     foreigner (1.7.4)
       activerecord (>= 3.0.0)
     formatador (0.2.5)
+    garlicjs-rails (1.2.2)
+      railties (>= 3.1)
     globalid (0.3.6)
       activesupport (>= 4.1.0)
     guard-compat (1.2.1)
@@ -259,6 +262,7 @@ GEM
     letter_opener (1.4.1)
       launchy (~> 2.2)
     libv8 (3.16.14.11)
+    localstorageshim-rails (1.0.2)
     loofah (2.0.3)
       nokogiri (>= 1.5.9)
     mail (2.6.3)
@@ -456,6 +460,7 @@ DEPENDENCIES
   best_in_place
   better_errors
   bootstrap-sass
+  bootstrap_form
   brakeman
   byebug
   carrierwave
@@ -463,6 +468,7 @@ DEPENDENCIES
   delayed_job_active_record
   faker
   fog
+  garlicjs-rails
   guard-minitest
   jasny-bootstrap-rails
   jbuilder (~> 2.0)
@@ -470,6 +476,7 @@ DEPENDENCIES
   lazybox (= 0.2.3)
   less-rails
   letter_opener
+  localstorageshim-rails
   mailboxer
   mini_backtrace
   mini_magick

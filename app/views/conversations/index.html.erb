@@ -22,9 +22,9 @@
     <td class="emailsenderTD">
     <% conversation.participants.each do |participant| %>
       <% if participant != current_user %>
-          <% if conversation.is_read?(current_user) %> <%= participant.name %>
+          <% if conversation.is_read?(current_user) %> <%= %>
              <% else %>
-             <b> <%= participant.name %> </b>
+             <b> <%= %> </b>
           <% end %>
         <% end %>
       <% end %>

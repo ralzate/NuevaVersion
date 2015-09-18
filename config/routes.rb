@@ -16,7 +16,11 @@ Rails.application.routes.draw do
   get 'quienes_somos' => 'pages#nosotros', as: 'quienes_somos'
   get 'mapa_sitio' => 'pages#treeview', as: 'mapa_sitio'
   match 'pages/home', to: 'pages#home', via: :post
-
+  resources :messages do
+    member do
+      post :new
+    end
+  end
   root to: 'pages#home'
   resources :users do
     member do

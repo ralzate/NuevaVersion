@@ -13,6 +13,7 @@
  *= require_tree .
  *= require_self
  *= require jasny-bootstrap.min
+ *= require rails_bootstrap_forms
  *= require lazybox
  */
 
@@ -155,7 +156,13 @@ body.modal-open #wrap{
 }
 
 
+.Error{
+ color: red;
+}
 
+.Correcto{
+ color: green;                                    
+}
 
 
 

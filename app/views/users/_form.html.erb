@@ -430,13 +430,282 @@ function SimulateSubmit() {
 }
 </script>
 
-<style type="text/css">
-    .err, .suc {
-    display: none;
-}
-.err { color: red;}
-.suc { color: green;}
-</style>
+
+<script type="text/javascript">
+  $(document).ready(function () {
+
+
+      //  Input Primer Nombre                                        
+      $("#Primer_Nombre").keypress(function (e) {
+         //if the letter is not digit then display error and don't type anything
+         if ($('#Primer_Nombre').val() != ''){
+            //display error message
+            $("#correctoPrimer_Nombre").html("Dato Ingresado correctamente").show();
+            $("#Error").hide();
+            return true;
+        }
+          
+       });
+
+
+
+      //  Input Segundo Nombre                                        
+      $("#Segundo_Nombre").keypress(function (e) {
+         //if the letter is not digit then display error and don't type anything
+         if ($('#Segundo_Nombre').val() != ''){
+            //display error message
+            $("#correctoSegundo_Nombre").html("Dato Ingresado correctamente").show();
+            return true;
+        }
+          
+       });
+
+
+
+       //  Input Primer Apellido                                        
+      $("#Primer_Apellido").keypress(function (e) {
+         //if the letter is not digit then display error and don't type anything
+         if ($('#Primer_Apellido').val() != ''){
+            //display error message
+            $("#correctoPrimer_Apellido").html("Dato Ingresado correctamente").show();
+            $("#Error2").hide();
+            return true;
+        }
+          
+       });
+
+
+       //  Input Segundo Apellido                                        
+      $("#Segundo_Apellido").keypress(function (e) {
+         //if the letter is not digit then display error and don't type anything
+         if ($('#Segundo_Apellido').val() != ''){
+            //display error message
+            $("#CorrectoSegundo_Apellido").html("Dato Ingresado correctamente").show();
+            return true;
+        }
+          
+       });
+
+      //  Input Telefono                                        
+      $("#Telefono").keypress(function (e) {
+         //if the letter is not digit then display error and don't type anything
+         if (e.which != 8 && e.which != 0 && (e.which < 48 || e.which > 57))  {
+            //display error message
+            return false;
+
+        }
+        else{
+            return true;
+
+          }
+       });
+
+       //  Input Telefono                                       
+      $("#Telefono").keypress(function (e) {
+         //if the letter is not digit then display error and don't type anything
+         if ($('#Telefono').val() != ''){
+            $("#CorrectoTelefono").html("Dato Ingresado correctamente").show();
+            $("#Error3").hide();
+        }
+          
+       });
+
+
+
+      //  Input Telefono                                        
+      $("#Identificación").keypress(function (e) {
+         //if the letter is not digit then display error and don't type anything
+         if (e.which != 8 && e.which != 0 && (e.which < 48 || e.which > 57))  {
+            //display error message
+            return false;
+
+        }
+        else{
+            return true;
+
+          }
+       });
+
+       //  Input Telefono                                       
+      $("#Identificación").keypress(function (e) {
+         //if the letter is not digit then display error and don't type anything
+         if ($('#Identificación').val() != ''){
+            $("#CorrectoIdentificación").html("Dato Ingresado correctamente").show();
+            $("#Error4").hide();
+        }
+          
+       });
+
+      //  Input Celular                                        
+      $("#Celular").keypress(function (e) {
+         //if the letter is not digit then display error and don't type anything
+         if (e.which != 8 && e.which != 0 && (e.which < 48 || e.which > 57))  {
+            //display error message
+            return false;
+
+        }
+        else{
+            return true;
+
+          }
+       });
+
+       //  Input Celular                                       
+      $("#Celular").keypress(function (e) {
+         //if the letter is not digit then display error and don't type anything
+         if ($('#Celular').val() != ''){
+            $("#CorrectoCelular").html("Dato Ingresado correctamente").show();
+            $("#Error5").hide();
+        }
+          
+       });
+
+
+       //  Input Razon Social                                       
+      $("#Razon_Social").keypress(function (e) {
+         //if the letter is not digit then display error and don't type anything
+         if ($('#Razon_Social').val() != ''){
+            $("#CorrectoRazonSocial").html("Dato Ingresado correctamente").show();
+            $("#Error6").hide();
+        }
+          
+       });
+
+       //  Input Rut                                       
+      $("#Rut").keypress(function (e) {
+         //if the letter is not digit then display error and don't type anything
+         if ($('#Rut').val() != ''){
+            $("#CorrectoRut").html("Dato Ingresado correctamente").show();
+            $("#Error7").hide();
+        }
+          
+       });
+
+       //  Input Direccion                                       
+      $("#Direccion").keypress(function (e) {
+         //if the letter is not digit then display error and don't type anything
+         if ($('#Direccion').val() != ''){
+            $("#CorrectoDireccion").html("Dato Ingresado correctamente").show();
+            $("#Error8").hide();
+        }
+          
+       });
+
+       //  Input Pagina Web                                       
+      $("#Pagina_Web").keypress(function (e) {
+         //if the letter is not digit then display error and don't type anything
+         if ($('#Pagina_Web').val() != ''){
+            $("#CorrectoPaginaWeb").html("Dato Ingresado correctamente").show();
+            $("#Error9").hide();
+        }
+          
+       });   
+
+      //  Input Pagina Web                                       
+      $("#Descripcion").keypress(function (e) {
+         //if the letter is not digit then display error and don't type anything
+         if ($('#Descripcion').val() != ''){
+            $("#CorrectoDescripcion").html("Dato Ingresado correctamente").show();
+            $("#Error10").hide();
+        }
+          
+       });   
+
+      //  Input Primer Nombre contacto                                       
+      $("#Primer_Nombre_Contacto").keypress(function (e) {
+         //if the letter is not digit then display error and don't type anything
+         if ($('#Primer_Nombre_Contacto').val() != ''){
+            $("#CorrectoPrimer_Nombre_Contacto").html("Dato Ingresado correctamente").show();
+            $("#Error11").hide();
+        }
+          
+       });  
+      
+            //  Input Primer Nombre contacto                                       
+      $("#Segundo_Nombre_Contacto").keypress(function (e) {
+         //if the letter is not digit then display error and don't type anything
+         if ($('#Segundo_Nombre_Contacto').val() != ''){
+            $("#CorrectoSegundo_Nombre_Contacto").html("Dato Ingresado correctamente").show();
+            $("#Error12").hide();
+        }
+          
+       });  
+                  //  Input Primer Nombre contacto                                       
+      $("#Primer_Apellido_Contacto").keypress(function (e) {
+         //if the letter is not digit then display error and don't type anything
+         if ($('#Primer_Apellido_Contacto').val() != ''){
+            $("#CorrectoPrimer_Apellido_Contacto").html("Dato Ingresado correctamente").show();
+            $("#Error13").hide();
+        }
+          
+       });  
+
+      $("#Segundo_Apellido_Contacto").keypress(function (e) {
+         //if the letter is not digit then display error and don't type anything
+         if ($('#Segundo_Apellido_Contacto').val() != ''){
+            $("#CorrectoSegundo_Apellido_Contacto").html("Dato Ingresado correctamente").show();
+            $("#Error14").hide();
+        }
+          
+       }); 
+
+
+      $("#Primer_Telefono_Contacto").keypress(function (e) {
+         //if the letter is not digit then display error and don't type anything
+         if ($('#Primer_Telefono_Contacto').val() != ''){
+            $("#CorrectoPrimer_Telefono_Contacto").html("Dato Ingresado correctamente").show();
+            $("#Error15").hide();
+        }
+          
+       }); 
+
+      $("#Segundo_Telefono_Contacto").keypress(function (e) {
+         //if the letter is not digit then display error and don't type anything
+         if ($('#Segundo_Telefono_Contacto').val() != ''){
+            $("#CorrectoSegundo_Telefono_Contacto").html("Dato Ingresado correctamente").show();
+            $("#Error16").hide();
+        }
+          
+       }); 
+
+
+
+      $("#Email").keypress(function (e) {
+         //if the letter is not digit then display error and don't type anything
+         if ($('#Email').val() != ''){
+            $("#CorrectoEmail").html("Dato Ingresado correctamente").show();
+            $("#Error17").hide();
+        }
+          
+       }); 
+
+      $("#password1").keypress(function (e) {
+         //if the letter is not digit then display error and don't type anything
+         if ($('#password1').val() != ''){
+            $("#Correctopassword1").html("Dato Ingresado correctamente").show();
+            $("#Error18").hide();
+        }
+          
+       });    
+
+      $("#password2").keypress(function (e) {
+         //if the letter is not digit then display error and don't type anything
+         if ($('#password2').val() != ''){
+            $("#Correctopassword2").html("Dato Ingresado correctamente").show();
+            $("#Error19").hide();
+        }
+          
+       }); 
+
+      
+      
+  
+
+});
+
+</script>
+
+
 
 <div class="fondo">
     <div class="container ">
@@ -469,200 +738,265 @@ function SimulateSubmit() {
                               <p>Datos De Contacto</p>
                           </div>
                           <div class="stepwizard-step">
-                              <a href="#step-6" type="button" class="btn btn-default btn-circle" disabled="disabled">5</a>
+                              <a href="#step-6" type="button" class="btn btn-default btn-circle" disabled="disabled">6</a>
                               <p>Datos Acceso</p>
                           </div>
                       </div>
                   </div>
-                  <%= form_for(@user, html: { multipart: true, :class => 'form-horizontal', :id => "loginform" }) do |f| %>
+                  <%= form_for(@user, html: { multipart: true, :class => 'form-horizontal', :id => "loginform", data: { persist: '' } }) do |f| %>
                   <form role="form">
                           <div class="row setup-content" id="step-1">
                             <div class="col-xs-12">
                               <div class="col-md-11">
-                              
-                                  <div class="container">  
-                                    <h3>Datos Personales</h3>
-                                    <div class="row">
 
+                              <style type="text/css">
+                              .panel {
+                                  border-color: #1abc9c;
+                              }
+                              .panel-heading{
+                                background-color:#1abc9c;
+                              }
+                              </style>
+                              <br/><br/>
 
-                                        <div class="col-md-6">                                            
-                                            <%= f.label "Primer Nombre" %><br />
-                                            <div class="col-sm-12 form-group">
-                                                <%= f.text_field :first_name, class: "form-control" , :placeholder => "Segundo Nombre", id: 'Segundo_Nombre', onblur: "validate('Segundo_Nombre')" %>
-                                            </div>
-                                        </div>
+                               <div class="panel">
+                                  <div class="panel-heading">
+                                      <div class="panel-title color-blanco">Por Favor Ingresa todos tus Datos</div>
+                                      <div style="float:right; font-size: 80%; position: relative; top:-20px; "><a href="#" style="color:white;">Olvidaste tu Contraseña?</a></div>
+                                  </div>     
+                                  <div style="padding-top:10px" class="panel-body" >
 
-                                        <div class="col-md-6">
-                                            <%= f.label "Primer Nombre" %><br />
-                                            <div class="col-sm-12 form-group">
-                                                <%= f.text_field :second_name, class: "form-control" , :placeholder => "Segundo Nombre", id: 'Segundo_Nombre', onblur: "validate('Segundo_Nombre')" %>
-                                            </div>
-                                        </div>
-
-
-                                    </div>   
-                                    <div class="row">
-                                        <div class="col-md-6">
-                                          <div class="form-group">
-                                            <label class="control-label">Primer Apellido</label>
-                                                <%= f.text_field :first_surname, class: "form-control", :placeholder => "Primer Apellido", id: 'Primer_Apellido', onblur: "validate('Primer_Apellido')" %>
+                                      <h3>Datos Personales</h3>
+                                      <div class="row">
+                                          <div class="col-md-6">   
+                                          <div class="col-sm-12 form-group">                                         
+                                              <%= f.label "Primer Nombre" %><br />
+                                              
+                                                  <%= f.text_field :first_name, class: "form-control" , :placeholder => "Primer Nombre", id: 'Primer_Nombre' %>
+                                                  <span id="correctoPrimer_Nombre" class="Correcto"></span>
+                                                  <span id="Error" class="Error">Campo Obligatorio</span>
+                                              </div>
                                           </div>
-                                            <span id="Primer_ApellidoError" class="err">Por Favor ingresa tu Primer Apellido</span>
-                                            <span id="Primer_ApellidoSuccess" class="suc">Dato ingresado correctamente</span>                                          
-                                        </div>
-                                        <div class="col-md-6">
-                                            <div class="form-group">
-                                                <label class="control-label">Segundo Apellido</label>
-                                                <%= f.text_field :second_name, class: "form-control" , :placeholder => "Segundo Nombre", id: 'Segundo_Nombre', onblur: "validate('Segundo_Nombre')" %>
-                                            </div>
-                                            <span id="Segundo_NombreSuccess" class="suc">Dato ingresado correctamente</span>     
-                                        </div>
-                                    </div>
-                                    <div class="row">
-                                        <div class="col-md-6">
-                                          <div class="form-group">
-                                            <label class="control-label">Telefono</label>
-                                                <%= f.text_field :phone, class: "form-control", :placeholder => "Primer Apellido", id: 'Primer_Apellido', onblur: "validate('Primer_Apellido')" %>
+
+                                          <div class="col-md-6">
+                                          <div class="col-sm-12 form-group">
+                                              <%= f.label "Segundo Nombre" %><br />
+                                                  <%= f.text_field :second_name, class: "form-control" , :placeholder => "Segundo Nombre", id: 'Segundo_Nombre' %>
+                                                  <span id="correctoSegundo_Nombre"  class="Correcto"></span>
+                                              </div>
                                           </div>
-                                            <span id="Primer_ApellidoError" class="err">Por Favor ingresa tu Primer Apellido</span>
-                                            <span id="Primer_ApellidoSuccess" class="suc">Dato ingresado correctamente</span>                                          
-                                        </div>
-                                        <div class="col-md-6">
-                                            <div class="form-group">
-                                                <label class="control-label">Identificación</label>
-                                                <%= f.text_field :identification, class: "form-control" , :placeholder => "Segundo Nombre", id: 'Identificación', onblur: "validate('Identificación')" %>
+
+
+                                      </div>   
+                                      <div class="row">
+                                          <div class="col-md-6">
+                                              <%= f.label "Primer Apellido" %><br />
+                                              <div class="col-sm-12 form-group">
+                                                  <%= f.text_field :first_surname, class: "form-control", :placeholder => "Primer Apellido", id: 'Primer_Apellido', onblur: "validate('Primer_Apellido')" %>
+                                                  <span id="correctoPrimer_Apellido"  class="Correcto"></span>  
+                                                  <span id="Error2" class="Error">Campo Obligatorio</span>
+                                              </div>
+                                                                                      
+                                          </div>
+                                          <div class="col-md-6">
+                                              <%= f.label "Segundo Apellido" %><br />
+                                              <div class="col-sm-12 form-group">
+                                                  <%= f.text_field :second_surname, class: "form-control" , :placeholder => "Segundo Apellido", id: 'Segundo_Apellido' %>
+                                                  <span id="CorrectoSegundo_Apellido"  class="Correcto"></span> 
+                                              </div>
+                                                  
+                                          </div>
+                                      </div>
+                                      <div class="row">
+                                          <div class="col-md-6">
+                                              <%= f.label "Telefono" %><br />
+                                              <div class="col-sm-12 form-group">
+                                                  <%= f.text_field :phone, class: "form-control", :placeholder => "Primer Apellido", id: 'Telefono', onblur: "validate('Telefono')" %>
+                                                  <span id="CorrectoTelefono" class="Correcto"></span>
+                                                  <span id="Error3" class="Error">Campo Obligatorio</span>
                                             </div>
-                                            <span id="Primer_ApellidoError" class="err">Por Favor ingresa tu Identificación</span>
-                                            <span id="IdentificaciónSuccess" class="suc">Dato ingresado correctamente</span>     
-                                        </div>
-                                    </div>       
-                                    <div class="row">
-                                        <div class="col-md-6">
-                                            <div class="form-group">
-                                                <label class="control-label">Celular</label>
-                                                <%= f.text_field :cell_phone, class: "form-control", :placeholder => "Primer Apellido", id: 'Celular', onblur: "validate('Celular')" %>
-                                            </div>
-                                            <span id="CelularError" class="err">Por Favor ingresa tu Celular</span>
-                                            <span id="CelularSuccess" class="suc">Dato ingresado correctamente</span>                                          
-                                        </div>
-                                        <div class="col-md-6">
-                                            <div class="form-group">
-                                                <label class="control-label"></label>
-                                            </div>  
-                                        </div>
-                                    </div> 
-               
-                                    <br/>
-                                    <button class="btn btn-primary nextBtn btn-lg pull-right" type="button" >Siguiente</button>
-                                 </div>   
+                                                                                      
+                                          </div>
+                                          <div class="col-md-6">
+                                                  <%= f.label "Identificación" %><br />
+                                                  <div class="col-sm-12 form-group">
+                                                  <%= f.text_field :identification, class: "form-control" , :placeholder => "Identificación", id: 'Identificación', onblur: "validate('Identificación')" %>
+                                                  <span id="CorrectoIdentificación" class="Correcto"></span>
+                                                  <span id="Error4" class="Error">Campo Obligatorio</span>
+                                              </div>
+                                          </div>
+                                      </div>       
+                                      <div class="row">
+                                          <div class="col-md-6">
+                                                  <%= f.label "Celular" %><br />
+                                                  <div class="col-sm-12 form-group">
+                                                  <%= f.text_field :cell_phone, class: "form-control", :placeholder => "Primer Apellido", id: 'Celular', onblur: "validate('Celular')" %><span id="CorrectoCelular" class="Correcto"></span>
+                                                  <span id="Error5" class="Error">Campo Obligatorio</span>
+                                              </div>
+                                          </div>
+                                          <div class="col-md-6">
+                                              <div class="form-group">
+                                              </div>  
+                                              
+
+                                          </div>
+                                      </div> 
+                                      <div class="row">
+                                           <div class="col-md-10">
+                                             
+                                           </div>        
+
+                                           <div class="col-md-2">
+                                            <button class="btn btn-primary nextBtn btn-lg " type="button" >Siguiente</button>
+                                             
+                                           </div>        
+                                       
+                                      </div>
+                                        
+                                      <br/>
+
+
+                                  </div>
+
+                              </div>
                               </div>
                             </div>
                           </div>
-                      <div class="row setup-content" id="step-2">
+                          <div class="row setup-content" id="step-2">
+                            <div class="col-xs-12">
+                              <div class="col-md-11">
+                                 
+                                    <br/><br/><!-- Default panel contents -->
 
-
-                            <div class="panel panel-success">
-                                <!-- Default panel contents -->
-                                <div class="panel-heading">Actualiza tu Foto Personal</div>
-                                <div class="panel-body">
-                                        <div class="row">
-                                            <div class="col-md-6">
-                                                <% if @user.picture? %>
-                                                <center><%= image_tag @user.picture, class:"img-thumbnail", :size => "180x180" %></center>
-                                                <% else %>
-                                                <center><%= image_tag('default.jpg',:class => "img-thumbnail img-responsive", :size => "180x180")  %></center>
-                                                <% end %>
-                                            </div>
-                                            <br/>        
-                                            <div class="col-md-6"> 
-                                                <div class="form-group">
-                                                    <div class="input-container">
-                                                        <div class="fileinput fileinput-new" data-provides="fileinput">
-                                                          <div class="fileinput-preview thumbnail" data-trigger="fileinput" style="width: 200px; height: 150px;"></div>
-                                                          <div>
-                                                            <span class="btn btn-default btn-file"><span class="fileinput-new"><%= f.file_field :picture, class: "form-control", id: 'button' %></span><span class="fileinput-exists">Cambiar</span><input type="file" name="..."></span>
-                                                            <a href="#" class="btn btn-default fileinput-exists" data-dismiss="fileinput">Eliminar</a>
-                                                          </div>
+                                <div class="panel">
+                                    
+                                    <div class="panel-heading color-blanco"  style="background-color:#1abc9c;">Actualiza tu Foto Personal</div>
+                                    <div class="panel-body">
+                                            <div class="row">
+                                                <div class="col-md-6">
+                                                    <% if @user.picture? %>
+                                                    <center><%= image_tag @user.picture, class:"img-thumbnail", :size => "180x180" %></center>
+                                                    <% else %>
+                                                    <center><%= image_tag('default.jpg',:class => "img-thumbnail img-responsive", :size => "180x180")  %></center>
+                                                    <% end %>
+                                                </div>
+                                                <br/>        
+                                                <div class="col-md-6"> 
+                                                    <div class="form-group">
+                                                        <div class="input-container">
+                                                            <div class="fileinput fileinput-new" data-provides="fileinput">
+                                                              <div class="fileinput-preview thumbnail" data-trigger="fileinput" style="width: 200px; height: 150px;"></div>
+                                                              <div>
+                                                                <span class="btn btn-default btn-file"><span class="fileinput-new"><%= f.file_field :picture, class: "form-control", id: 'button' %></span><span class="fileinput-exists">Cambiar</span><input type="file" name="..."></span>
+                                                                <a href="#" class="btn btn-default fileinput-exists" data-dismiss="fileinput">Eliminar</a>
+                                                              </div>
+                                                            </div>
                                                         </div>
                                                     </div>
                                                 </div>
-                                            </div>
-                                        </div> 
+                                                <div class="row">
+                                                   <div class="col-md-10">
+                                                     
+                                                   </div>        
+
+                                                   <div class="col-md-2">
+                                                    <button class="btn btn-primary nextBtn btn-lg " type="button" >Siguiente</button>
+                                                     
+                                                   </div>        
+                                               
+                                              </div>
+                                            </div> 
+                                    </div>
                                 </div>
-                            </div>
-                                    <button class="btn btn-primary nextBtn btn-lg pull-right" type="button" >Siguiente</button>
 
 
-
-                      </div>
+                              </div></div>              
+                          </div>
                       <div class="row setup-content" id="step-3">
-                        
-                            <div class="panel panel-success">
-                                <div class="panel-heading">Datos Empresa</div>
-                                <div class="panel-body">
-                                    <div class="row">
-                                        <div class="col-md-6">
-                                            <%= f.label "Razón Social" %><br />
-                                            <div class="col-sm-12 input-group">
-                                                <span class="input-group-addon"><i class="glyphicon glyphicon-file"></i></span>
-                                                <%= f.text_field :business_name, class: "form-control valid",  id: 'business_name', onblur: "validate('business_name')", :required => true, :placeholder => "Por Favor ingresa la razón social", id: 'Razon_Social', onblur: "validate('Razon_Social')"  %>
-                                            </div>
-                                            <span id="Razon_SocialError" class="err">Por Favor ingresa una Razón Social</span>
-                                            <span id="Razon_SocialSuccess" class="suc">Dato ingresado correctamente</span>
-                                        </div>    
-                                        <div class="col-md-6">
-                                          <%= f.label "Rut" %><br />
-                                            <div class="col-sm-12 input-group">
-                                                <span class="input-group-addon"><i class="glyphicon glyphicon-home"></i></span>
-                                                <%= f.text_field :rut, class: "form-control", id: 'Rut', onblur: "validate('Rut')"  %>                            
-                                            </div>
-                                            <span id="RutSuccess" class="suc">Dato ingresado correctamente</span>
-                                        </div>
-                                    </div>
-                                    <br/>
-                                    <div class="row">
-                                        <div class="col-md-6">
-                                        <%= f.label "Dirección" %><br />
-                                            <div class="col-sm-12 input-group">
-                                                <span class="input-group-addon"><i class="glyphicon glyphicon-home"></i></span>
-                                                <%= f.text_field :address, class: "form-control", :placeholder => "Por Favor ingresa la dirección", id: 'Direccion', onblur: "validate('Direccion')"  %>
+                        <div class="col-xs-12">
+                        <div class="col-md-11">
+                                                    <br/><br/>
 
+                            <div class="panel">
+                                <div class="panel-heading color-blanco" style="background-color:#1abc9c;">Datos Empresa</div>
+                                <div class="panel-body">
+                                      <div class="row">
+                                        <div class="col-md-6">   
+                                        <div class="col-sm-12 form-group">                                         
+                                            <%= f.label "Razón Social" %><br />
+                                                <%= f.text_field :business_name, class: "form-control" , :placeholder => "Razón Social", id: 'Razon_Social' %>
+                                                <span id="CorrectoRazonSocial" class="Correcto"></span>
+                                                <span id="Error6" class="Error">Campo Obligatorio</span>
                                             </div>
-                                            <span id="DireccionError" class="err">Por Favor ingresa una Dirección</span>
-                                            <span id="DireccionSuccess" class="suc">Dato ingresado correctamente</span>
                                         </div>
+
                                         <div class="col-md-6">
-                                        <%= f.label "Pagina Web" %><br />
-                                            <div class="col-sm-12 input-group">
-                                                <span class="input-group-addon"><i class="glyphicon glyphicon-file"></i></span>
-                                                <%= f.text_field :web_page, class: "form-control", :label => "Pagina Web:", :placeholder => "Por Favor ingresa la pagina web" , id: 'Pagina_Web', onblur: "validate('Pagina_Web')" %>
+                                        <div class="col-sm-12 form-group">
+                                            <%= f.label "Rut" %><br />
+                                                <%= f.text_field :rut, class: "form-control" , :placeholder => "Rut", id: 'Rut' %>
+                                                <span id="CorrectoRut"  class="Correcto"></span>
+                                                <span id="Error7" class="Error">Campo Obligatorio</span>
                                             </div>
-                                            <span id="Pagina_WebSuccess" class="suc">Dato ingresado correctamente</span>
                                         </div>
-                                    </div>
-                                    <br/>
+                                    </div> 
+                                      
                                     <div class="row">
-                                        <div class="col-md-12">
-                                        <%= f.label "Descripción Empresa" %><br />
-                                            <div class="col-sm-12 input-group">
-                                                <span class="input-group-addon"><i class="glyphicon glyphicon-file"></i></span>        
-                                                <%= f.text_field :description, class: "form-control valid",  id: 'DescripcionCompañia', onblur: "validate('DescripcionCompañia')", :required => true, :placeholder => "Por Favor ingresa la Descripción" %>
+                                        <div class="col-md-6">   
+                                        <div class="col-sm-12 form-group">                                         
+                                            <%= f.label "Dirección" %><br />
+                                                <%= f.text_field :address, class: "form-control" , :placeholder => "Direccion", id: 'Direccion' %>
+                                                <span id="CorrectoDireccion" class="Correcto"></span>
+                                                <span id="Error8" class="Error">Campo Obligatorio</span>
                                             </div>
-                                            <span id="DescripcionCompañiaError" class="err">Por Favor ingresa una Breve Descripción</span>
-                                            <span id="DescripcionCompañiaSuccess" class="suc">Dato ingresado correctamente</span>
                                         </div>
+
+                                        <div class="col-md-6">
+                                        <div class="col-sm-12 form-group">
+                                            <%= f.label "Pagina Web" %><br />
+                                                <%= f.text_field :web_page, class: "form-control" , :placeholder => "Tienes Pagina Web?", id: 'Pagina_Web' %>
+                                                <span id="CorrectoPaginaWeb"  class="Correcto"></span>
+                                                <span id="Error9" class="Error">Campo Obligatorio</span>
+                                            </div>
+                                        </div>
+                                    </div> 
+
+                                    
+
+                                    <div class="row">
+                                        <div class="col-md-12">   
+                                        <div class="col-sm-12 form-group">                                         
+                                            <%= f.label "Descripción" %><br />
+                                                <%= f.text_area :description, class: "form-control" , :placeholder => "Por Favor ingresa una Descripcion de la Empresa", id: 'Descripcion' %>
+                                                <span id="CorrectoDescripcion" class="Correcto"></span>
+                                                <span id="Error10" class="Error">Campo Obligatorio</span>
+                                            </div>
+                                        </div>
+
                                     </div>
+                                      <div class="row">
+                                           <div class="col-md-10">
+                                             
+                                           </div>        
+
+                                           <div class="col-md-2">
+                                            <button class="btn btn-primary nextBtn btn-lg " type="button" >Siguiente</button>
+                                             
+                                           </div>        
+                                       
+                                      </div> 
                                 </div>
                             </div>
-                            <button class="btn btn-primary nextBtn btn-lg pull-right" type="button" >Siguiente</button>
+                        </div>  
+                        </div>
                       </div>
                       <div class="row setup-content" id="step-4">
-                          
+                        <div class="col-xs-12">
+                        <div class="col-md-11">
+                                                  <br/><br/>
 
-
-                            <div class="panel panel-success">
+                            <div class="panel">
                                 <!-- Default panel contents -->
-                                <div class="panel-heading">Actualiza el Logo de la empresa</div>
+                                <div class="panel-heading  color-blanco"  style="background-color:#1abc9c;">Actualiza el Logo de la empresa</div>
                                 <div class="panel-body">
                                     
                                         <div class="row">
@@ -688,128 +1022,193 @@ function SimulateSubmit() {
                                                 </div>
                                             </div>
                                         </div> 
-                                                                            <button class="btn btn-primary nextBtn btn-lg pull-right" type="button" >Siguiente</button>
+                                      <div class="row">
+                                           <div class="col-md-10">
+                                             
+                                           </div>        
 
+                                           <div class="col-md-2">
+                                            <button class="btn btn-primary nextBtn btn-lg " type="button" >Siguiente</button>
+                                             
+                                           </div>        
+                                       
+                                      </div>
                                 </div>
                             </div>
 
-
+                            </div>
+                            </div>
                       </div>
                       <div class="row setup-content" id="step-5">
                           
+                        <div class="col-xs-12">
+                        <div class="col-md-11">
 
 
-
-                            <div class="panel panel-success">
-                                <div class="panel-heading">Datos De Contacto</div>
+                            <div class="panel">
+                                <div class="panel-heading color-blanco">Datos De Contacto</div>
                                 <div class="panel-body">
-                                    <div class="row">
-                                        <div class="col-md-6">
-                                            <%= f.label "Primer Nombre" %><br />
-                                            <div class="col-sm-12 input-group">
-                                                <span class="input-group-addon"><i class="glyphicon glyphicon-file"></i></span>
-                                                <%= f.text_field :first_name_of_contact_person, class: "form-control valid",  id: 'Primer_Nombre_Conctacto', onblur: "validate('Primer_Nombre_Conctacto')", :required => true, :placeholder => "Por Favor ingresa el primer nombre" %>
+                                    
+
+                                      <div class="row">
+                                        <div class="col-md-6">   
+                                        <div class="col-sm-12 form-group">                                         
+                                            <%= f.label "Primer Nombre Persona de Contacto" %><br />
+                                                <%= f.text_field :first_name_of_contact_person, class: "form-control" , :placeholder => "Primer Nombre Contacto", id: 'Primer_Nombre_Contacto' %>
+                                                <span id="CorrectoPrimer_Nombre_Contacto" class="Correcto"></span>
+                                                <span id="Error11" class="Error">Campo Obligatorio</span>
                                             </div>
-                                            <span id="Primer_Nombre_ConctactoError" class="err">Por Favor ingresa un Nombre</span>
-                                            <span id="Primer_Nombre_ConctactoSuccess" class="suc">Dato ingresado correctamente</span>
-                                        </div>    
+                                        </div>
+
                                         <div class="col-md-6">
-                                            <%= f.label "Segundo Nombre" %><br />
-                                            <div class="col-sm-12 input-group">
-                                                <span class="input-group-addon"><i class="glyphicon glyphicon-file"></i></span>
-                                                <%= f.text_field :second_name_of_contact_person, class: "form-control valid",  id: 'Segundo_Nombre_Contacto', onblur: "validate('Segundo_Nombre_Contacto')", :required => true, :placeholder => "Por Favor ingresa el segundo nombre"  %>
+                                        <div class="col-sm-12 form-group">
+                                            <%= f.label "Segundo Nombre Persona de Contacto" %><br />
+                                                <%= f.text_field :second_name_of_contact_person, class: "form-control" , :placeholder => "Segundo Nombre Contacto", id: 'Segundo_Nombre_Contacto' %>
+                                                <span id="CorrectoSegundo_Nombre_Contacto" class="Correcto"></span>
+                                                <span id="Error12" class="Error">Campo Obligatorio</span>
                                             </div>
-                                            <span id="Segundo_NombreSuccess" class="suc">Dato ingresado correctamente</span>
+                                        </div>
+                                    </div> 
+
+
+                                      <div class="row">
+                                        <div class="col-md-6">   
+                                        <div class="col-sm-12 form-group">                                         
+                                            <%= f.label "Primer Apellido Persona de Contacto" %><br />
+                                                <%= f.text_field :first_surname_of_contact_person, class: "form-control" , :placeholder => "Primer Apellido Contacto", id: 'Primer_Apellido_Contacto' %>
+                                                <span id="CorrectoPrimer_Apellido_Contacto" class="Correcto"></span>
+                                                <span id="Error13" class="Error">Campo Obligatorio</span>
+                                            </div>
+                                        </div>
+
+                                        <div class="col-md-6">
+                                        <div class="col-sm-12 form-group">
+                                            <%= f.label "Segundo Apellido Persona de Contacto" %><br />
+                                                <%= f.text_field :second_surname_of_contact_person, class: "form-control" , :placeholder => "Segundo Apellido Contacto", id: 'Segundo_Apellido_Contacto' %>
+                                                <span id="CorrectoSegundo_Apellido_Contacto" class="Correcto"></span>
+                                                <span id="Error14" class="Error">Campo Obligatorio</span>
+                                            </div>
                                         </div>
                                     </div>
-                                    <br/>
+
                                     <div class="row">
-                                        <div class="col-md-6">
-                                        <%= f.label "Primer Apellido" %><br />
-                                            <div class="col-sm-12 input-group">
-                                                <span class="input-group-addon"><i class="glyphicon glyphicon-home"></i></span>
-                                                <%= f.text_field :first_surname_of_contact_person, class: "form-control", :placeholder => "Por Favor ingresa el primer apellido",  id: 'Primer_Apellido_Contacto', onblur: "validate('Primer_Apellido_Contacto')" %>
+                                        <div class="col-md-6">   
+                                        <div class="col-sm-12 form-group">                                         
+                                            <%= f.label "Primer Telefono Persona de Contacto" %><br />
+                                                <%= f.text_field :first_phone_of_contact_person, class: "form-control" , :placeholder => "Primer Telefono Contacto", id: 'Primer_Telefono_Contacto' %>
+                                                <span id="CorrectoPrimer_Telefono_Contacto" class="Correcto"></span>
+                                                <span id="Error15" class="Error">Campo Obligatorio</span>
                                             </div>
-                                            <span id="Primer_Apellido_ContactoError" class="err">Por Favor ingresa un Apellido</span>
-                                            <span id="Primer_Apellido_ContactoSuccess" class="suc">Dato ingresado correctamente</span>
                                         </div>
+
                                         <div class="col-md-6">
-                                        <%= f.label "Segundo Apellido" %><br />
-                                            <div class="col-sm-12 input-group">
-                                                <span class="input-group-addon"><i class="glyphicon glyphicon-file"></i></span>
-                                                <%= f.text_field :second_surname_of_contact_person, class: "form-control", :placeholder => "Por Favor ingresa el segundo apellido" ,  id: 'Segundo_Apellido_Contacto', onblur: "validate('Segundo_Apellido_Contacto')" %>
+                                        <div class="col-sm-12 form-group">
+                                            <%= f.label "Segundo Telefono Persona de Contacto" %><br />
+                                                <%= f.text_field :second_phone_of_contact_person, class: "form-control" , :placeholder => "Segundo Telefono Contacto", id: 'Segundo_Telefono_Contacto' %>
+                                                <span id="CorrectoSegundo_Telefono_Contacto" class="Correcto"></span>
+                                                <span id="Error16" class="Error">Campo Obligatorio</span>
                                             </div>
-                                            <span id="PSegundo_Apellido_ContactoSuccess" class="suc">Dato ingresado correctamente</span>
                                         </div>
                                     </div>
-                                    <br/>
-                                    <div class="row">
-                                        <div class="col-md-6">
-                                        <%= f.label "Primer Telefono Para Contacto" %><br />
-                                            <div class="col-sm-12 input-group">
-                                                <span class="input-group-addon"><i class="glyphicon glyphicon-file"></i></span>        
-                                                <%= f.text_field :first_phone_of_contact_person, class: "form-control valid",  id: 'Telefono_Uno_Contacto', onblur: "validate('Telefono_Uno_Contacto')", :required => true, :placeholder => "Por Favor ingresa un Telefono" %>
-                                            </div>
-                                            <span id="Telefono_Uno_ContactoError" class="err">Por Favor ingresa un Telefono</span>
-                                            <span id="Telefono_Uno_ContactoSuccess" class="suc">Dato ingresado correctamente</span>
-                                        </div>
-                                        <div class="col-md-6">
-                                        <%= f.label "Segundo Telefono Para Contacto" %><br />
-                                            <div class="col-sm-12 input-group">
-                                                <span class="input-group-addon"><i class="glyphicon glyphicon-file"></i></span>        
-                                                <%= f.text_field :second_phone_of_contact_person, class: "form-control valid",  id: 'Telefono_Dos_Contacto', onblur: "validate('Telefono_Dos_Contacto')", :required => true, :placeholder => "Por Favor ingresa un Telefono" %>
-                                            </div>
-                                            <span id="Telefono_Dos_ContactoSuccess" class="suc">Dato ingresado correctamente</span>
-                                        </div>
-                                    </div>
+
+
+                                      <div class="row">
+                                           <div class="col-md-10">
+                                             
+                                           </div>        
+
+                                           <div class="col-md-2">
+                                            <button class="btn btn-primary nextBtn btn-lg " type="button" >Siguiente</button>
+                                             
+                                           </div>        
+                                       
+                                      </div>
+
+
                                 </div>
                             </div>
 
-
+                          </div>
+                        </div>
 
                       </div>
                       <div class="row setup-content" id="step-6">
-                                                     <div class="panel panel-success">
-                                <div class="panel-heading">Datos Acceso</div>
+                                                  <div class="col-xs-12">
+                              <div class="col-md-11">
+                              <div class="panel">
+                                <div class="panel-heading color-blanco">Datos Acceso</div>
                                 <div class="panel-body">
-                                    <div class="row">
-                                        <div class="col-md-4">
+
+
+
+                                      <div class="row">
+                                        <div class="col-md-4">   
+                                        <div class="col-sm-12 form-group">                                         
                                             <%= f.label "Email" %><br />
-                                            <div class="col-sm-12 input-group">
-                                                <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
-                                                <%= f.email_field :email, class: "form-control", :placeholder => "Email",  id: 'Email', onblur: "validate('Email')"  %>
+                                                <%= f.text_field :email, class: "form-control" , :placeholder => "Primer Apellido Contacto", id: 'Email' %>
+                                                <span id="CorrectoEmail" class="Correcto"></span>
+                                                <span id="Error17" class="Error">Campo Obligatorio</span>
                                             </div>
-                                            <span id="EmailError" class="err">Por Favor ingresa un Email</span>
-                                            <span id="EmailSuccess" class="suc">Dato ingresado correctamente</span>
                                         </div>
+
                                         <div class="col-md-4">
-                                            <%= f.label "Clave" %><br />
-                                            <div class="col-sm-12 input-group">
-                                                <span class="input-group-addon"><i class="glyphicon glyphicon-lock"></i></span>
-                                                <%= f.password_field :password, class: "form-control", id: "password1", :placeholder => "Clave" %>
+                                        <div class="col-sm-12 form-group">
+                                            <%= f.label "Contraseña" %><br />
+                                                <%= f.password_field :password, class: "form-control" , :placeholder => "Segundo Apellido Contacto", id: 'password1' %>
+                                                 <span id="8char" class="glyphicon glyphicon-remove" style="color:#FF0004;"></span> <span>Minimo 8 Caracteres</span><br>
+                                                <span id="ucase" class="glyphicon glyphicon-remove" style="color:#FF0004;"></span> <span>Una letra mayuscula</span><br>
+                                                <span id="lcase" class="glyphicon glyphicon-remove" style="color:#FF0004;"></span> <span>Una letra minuscula</span><br>
+                                                <span id="num" class="glyphicon glyphicon-remove" style="color:#FF0004;"></span> <span>Un Numero</span><br>
+                                                <span id="Correctopassword1" class="Correcto"></span>
+                                                <span id="Error18" class="Error">Campo Obligatorio</span>
                                             </div>
-
-                                            <span id="8char" class="glyphicon glyphicon-remove" style="color:#FF0004;"></span> <span>Minimo 8 Caracteres</span><br>
-                                            <span id="ucase" class="glyphicon glyphicon-remove" style="color:#FF0004;"></span> <span>Una letra mayuscula</span><br>
-                                            <span id="lcase" class="glyphicon glyphicon-remove" style="color:#FF0004;"></span> <span>Una letra minuscula</span><br>
-                                            <span id="num" class="glyphicon glyphicon-remove" style="color:#FF0004;"></span> <span>Un Numero</span><br>
-
                                         </div>
 
 
-
                                         <div class="col-md-4">
-                                            <%= f.label "Confirmación Clave" %><br />
-                                            <div class="col-sm-12 input-group">
-                                                <span class="input-group-addon"><i class="glyphicon glyphicon-lock"></i></span>
-                                                <%= f.password_field :password_confirmation, class: "form-control", id: "password2", :placeholder => "Confirmación Clave" %>
+                                        <div class="col-sm-12 form-group">
+                                            <%= f.label "Confirmación Contraseña" %><br />
+                                                <%= f.password_field :password_confirmation, class: "form-control" , :placeholder => "Segundo Apellido Contacto", id: 'password2' %>
+                                                <span id="Correctopassword2" class="Correcto"></span>
+                                                <span id="Error19" class="Error">Campo Obligatorio</span><br/>
+                                                <span id="pwmatch" class="glyphicon glyphicon-remove" style="color:#FF0004;"></span>Las contraseñas concuerdan
                                             </div>
-                                            <span id="pwmatch" class="glyphicon glyphicon-remove" style="color:#FF0004;"></span>Las contraseñas concuerdan
+                                        </div>
+
+                                    </div>
+
+
+                                    <div class="row">
+
+
+                                        <div class="col-md-8">
+     
+                                        </div>
+
+
+                                        <div class="col-md-2">
+                                            <%= f.submit 'Enviar!', class: 'btn btn-primary nextBtn btn-lg' %>
+
+                                        </div>
+
+                                    </div>
+
+
+                                            
+                     
+                                           
+
+
+
+
+                                            </div>
                                         </div>
                                         
 
                                     </div>
                                 </div>
+                            </div>
+                            </div>
                             </div>
                       </div>
                   </form>
@@ -821,11 +1220,7 @@ function SimulateSubmit() {
 
 
 
-                    <div class="panel-heading" style="background-color:#1abc9c;">
-                        <div class="panel-title color-blanco">Por Favor Ingresa todos tus Datos</div>
-                        <div style="float:right; font-size: 80%; position: relative; top:-20px; "><a href="#" style="color:white;">Olvidaste tu Contraseña?</a></div>
-                    </div>     
-                    <div style="padding-top:30px" class="panel-body" >
+
                         <div style="display:none" id="login-alert" class="alert alert-danger col-sm-12">
                         </div>
                         <%= form_for(@user, html: { multipart: true, :class => 'form-horizontal', :id => "loginform" }) do |f| %>
@@ -900,7 +1295,6 @@ function SimulateSubmit() {
 
 
 
-                            <%= f.submit 'Enviar!', class: 'btn btn-primary btn-lg' %>
                         <% end %>
                     </div>                     
                 </div>  
