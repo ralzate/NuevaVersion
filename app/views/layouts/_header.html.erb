@@ -80,80 +80,652 @@
             </div>
         </div><!--/header-middle-->
     
-        <div class="header-bottom"><!--header-bottom-->
-            <div class="container">
-                <div class="row">
-                    <div class="col-sm-8">
-                        <div class="navbar-header">
-                            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
-                                <span class="sr-only">Toggle navigation</span>
-                                <span class="icon-bar"></span>
-                                <span class="icon-bar"></span>
-                                <span class="icon-bar"></span>
-                            </button>
-                        </div>
-                        <div class="mainmenu pull-left">
-                            <ul class="nav navbar-nav collapse navbar-collapse">
-                                <li><%= link_to 'Inicio', root_path, :class => "active" %></li>
-                                <% if not current_user %>
-                                    <li><%= link_to "Registrarte", signup_path %></li>
-                                <% end %>  
 
-                                <% if current_user %>
-                                    <li class="dropdown"><a href="#">Mis Productos<i class="fa fa-angle-down"></i></a>
-                                        <ul role="menu" class="sub-menu">
-                                            <li><%= link_to 'Ver Productos', products_path %></li>
+
+
+
+
+
+<!DOCTYPE html>
+<html lang="en" class="no-js">
+    <head>
+        <meta charset="UTF-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"> 
+        <meta name="viewport" content="width=device-width, initial-scale=1.0"> 
+        <title>Blueprint: Horizontal Slide Out Menu</title>
+        <meta name="description" content="Blueprint: Horizontal Slide Out Menu" />
+        <meta name="keywords" content="horizontal, slide out, menu, navigation, responsive, javascript, images, grid" />
+        <meta name="author" content="Codrops" />
+        <link rel="shortcut icon" href="../favicon.ico">
+
+<style type="text/css">
+    
+    @font-face {
+    font-family: 'bpmenu';
+    src:url('../fonts/bpmenu/bpmenu.eot');
+    src:url('../fonts/bpmenu/bpmenu.eot?#iefix') format('embedded-opentype'),
+        url('../fonts/bpmenu/bpmenu.woff') format('woff'),
+        url('../fonts/bpmenu/bpmenu.ttf') format('truetype'),
+        url('../fonts/bpmenu/bpmenu.svg#bpmenu') format('svg');
+    font-weight: normal;
+    font-style: normal;
+}
+
+/* Main menu wrapper */
+.cbp-hsmenu-wrapper {
+    position: relative;
+}
+
+/* Common style for all lists */
+.cbp-hsmenu-wrapper ul {
+    list-style: none;
+    padding: 0;
+    margin: 0 auto;
+}
+
+/* 100% width bar for menu */
+.cbp-hsinner {
+    background: #1ABC9C;
+    position: relative;
+    z-index: 100;
+}
+
+/* Main menu style */
+.cbp-hsmenu-wrapper .cbp-hsmenu {
+    width: 90%;
+    max-width: 69em;
+    margin: 0 auto;
+    padding: 0 1.875em;
+}
+
+.cbp-hsmenu > li {
+    margin-left: 4em;
+    display: inline-block;
+}
+
+.cbp-hsmenu > li:first-child {
+    margin-left: 0;
+}
+
+/* Main menu link style */
+.cbp-hsmenu > li > a {
+    color: #fff;
+    font-size: 1.2em;
+    line-height: 3em;
+    display: inline-block;
+    position: relative;
+    z-index: 10000;
+    outline: none;
+}
+
+.no-touch .cbp-hsmenu > li > a:hover,
+.no-touch .cbp-hsmenu > li > a:focus,
+.cbp-hsmenu > li.cbp-hsitem-open > a {
+    color: #02639d;
+}
+
+/* Add an arrow to the main menu link if it has a submenu (not the only child) */
+.cbp-hsmenu > li > a:not(:only-child):before {
+    display: inline-block;
+    font-family: 'bpmenu';
+    speak: none;
+    font-style: normal;
+    font-weight: normal;
+    font-variant: normal;
+    text-transform: none;
+    line-height: 1;
+    -webkit-font-smoothing: antialiased;
+    font-size: 80%;
+    margin-right: 0.3em;
+    opacity: 0.4;
+    vertical-align: middle;
+}
+
+.cbp-hsmenu > li.cbp-hsitem-open > a:not(:only-child):before {
+    content: "\f106";
+}
+
+/* Add a triangle to currently open menu item link */
+.cbp-hsmenu > li.cbp-hsitem-open > a:after {
+    top: 100%;
+    border: solid transparent;
+    content: " ";
+    height: 0;
+    width: 0;
+    position: absolute;
+    pointer-events: none;
+    border-color: transparent;
+    border-top-color: #1ABC9C;
+    border-width: 10px;
+    left: 50%;
+    margin-left: -10px;
+}
+
+/* Submenu style */
+.cbp-hssubmenu {
+    position: absolute;
+    left: 0;
+    top: 100%;
+    width: 100%;
+    z-index: 0;
+    text-align: center; /* for aligning the sub items */
+    visibility: hidden;
+}
+
+.cbp-hssubmenu:before, 
+.cbp-hssubmenu:after { 
+    content: " "; 
+    display: table; 
+}
+.cbp-hssubmenu:after { 
+    clear: both; 
+}
+
+/* Let's allow 6 item in a row */
+.cbp-hssubmenu > li {
+    width: 16.2%;
+    display: inline-block;
+    vertical-align: top;
+    box-shadow: -28px 0 0 -27px #ddd, 0 -28px 0 -27px #ddd;
+    opacity: 0;
+    -webkit-transition: opacity 0.1s 0s;
+    -moz-transition: opacity 0.1s 0s;
+    transition: opacity 0.1s 0s;
+}
+
+/* First 6 items don't have upper box shadow */
+.cbp-hssubmenu > li:nth-child(-n+6) {
+    box-shadow: -28px 0 0 -27px #ddd;
+} 
+
+/* Every 7th item does not have a left box shadow */
+.cbp-hssubmenu > li:nth-child(6n+1) {
+    box-shadow:  0 -28px 0 -27px #ddd;
+}
+
+/* The first one does not have any box shadow */
+.cbp-hssubmenu > li:first-child {
+    box-shadow: none;
+}
+
+.cbp-hssubmenu > li a {
+    display: block;
+    text-align: center;
+    color: #a2a2a2;
+    outline: none;
+    padding: 2em 1em 1em 1em;
+}
+
+.no-touch .cbp-hssubmenu > li a:hover,
+.no-touch .cbp-hssubmenu > li a:focus {
+    color: #888;
+}
+
+.cbp-hssubmenu > li a img {
+    border: none;
+    outline: none;
+    display: inline-block;
+    margin: 0;
+    max-width: 100%;
+    -webkit-transition: opacity 0.2s;
+    -moz-transition: opacity 0.2s;
+    transition: opacity 0.2s;
+}
+
+.no-touch .cbp-hssubmenu > li a:hover img {
+    opacity: 0.5;
+}
+
+.cbp-hssubmenu > li a span {
+    display: block;
+    min-height: 3em;
+    margin-top: 0.4em;
+}
+
+.cbp-hsmenu > li.cbp-hsitem-open .cbp-hssubmenu {
+    z-index: 1000;
+    visibility: visible;
+}
+
+.cbp-hsmenu > li.cbp-hsitem-open .cbp-hssubmenu > li {
+    opacity: 1;
+    -webkit-transition: opacity 0.5s 0.1s;
+    -moz-transition: opacity 0.5s 0.1s;
+    transition: opacity 0.5s 0.1s;
+}
+
+/* Helper div for animating the background */
+.cbp-hsmenubg {
+    background: #f7f7f7;
+    position: absolute;
+    width: 100%;
+    top: 100%;
+    left: 0;
+    z-index: 0;
+    height: 0px;
+}
+
+.no-touch .cbp-hsmenubg {
+    -webkit-transition: height 0.3s;
+    -moz-transition: height 0.3s;
+    transition: height 0.3s;
+}
+
+@media screen and (max-width: 65em){
+    .cbp-hsmenu-wrapper {
+        font-size: 80%;
+    }
+}
+
+@media screen and (max-width: 51.4375em){
+    .cbp-hsmenu-wrapper {
+        font-size: 100%;
+    }
+
+    .cbp-hsmenu-wrapper .cbp-hsmenu {
+        padding: 0;
+        max-width: none;
+        width: 100%;
+    }
+
+    .cbp-hsmenu > li {
+        border-top: 1px solid rgba(255,255,255,0.5);
+        text-align: center;
+        margin: 0 auto;
+        display: block;
+    }
+
+    .cbp-hsmenu > li:first-child {
+        border-top: none;
+    }
+
+    .cbp-hsmenu > li > a {
+        display: block;
+    }
+
+    .cbp-hsmenu > li > a:not(:only-child):before {
+        line-height: 1.8;
+        right: 0;
+        position: absolute;
+        font-size: 200%;
+    }
+
+    .cbp-hsmenubg {
+        display: none;
+    }
+
+    .cbp-hssubmenu {
+        background: #f7f7f7;
+        position: relative;
+        overflow: hidden;
+        height: 0;
+    }
+
+    .cbp-hsmenu > li.cbp-hsitem-open .cbp-hssubmenu {
+        height: auto;
+    }
+
+    /* Let's only allow 3 item in a row now */
+    .cbp-hssubmenu > li {
+        width: 30%;
+    }
+
+    /* Reset box shadows for the 6 items in row case */
+    .cbp-hssubmenu > li:nth-child(-n+6),
+    .cbp-hssubmenu > li:nth-child(6n+1) {
+        box-shadow: -28px 0 0 -27px #ddd, 0 -28px 0 -27px #ddd;
+    }
+
+    /* First 4 items don't have upper box shadow */
+    .cbp-hssubmenu > li:nth-child(-n+3) {
+        box-shadow: -28px 0 0 -27px #ddd;
+    } 
+
+    /* Every 5th item does not have a left box shadow */
+    .cbp-hssubmenu > li:nth-child(3n+1) {
+        box-shadow:  0 -28px 0 -27px #ddd;
+    }
+
+}
+
+@media screen and (max-width: 25em){
+    /* Let's only allow 1 item in a row now */
+    .cbp-hssubmenu > li {
+        width: 100%;
+        display: block;
+    }
+
+    .cbp-hsmenu-wrapper .cbp-hssubmenu > li {
+        box-shadow: 0 1px #cecece;
+        text-align: left;
+    }
+
+    .cbp-hssubmenu > li a {
+        text-align: left;
+        line-height: 50px;
+        padding: 0.4em 1em;
+    }
+
+    .cbp-hssubmenu > li a img {
+        float: left;
+        max-height: 50px;
+    }
+
+    .cbp-hssubmenu > li a span {
+        min-height: 0;
+        margin: 0;
+    }
+}
+
+/* General Blueprint Style */
+@import url(http://fonts.googleapis.com/css?family=Lato:300,400,700);
+@font-face {
+    font-family: 'bpicons';
+    src:url('../fonts/bpicons/bpicons.eot');
+    src:url('../fonts/bpicons/bpicons.eot?#iefix') format('embedded-opentype'),
+        url('../fonts/bpicons/bpicons.woff') format('woff'),
+        url('../fonts/bpicons/bpicons.ttf') format('truetype'),
+        url('../fonts/bpicons/bpicons.svg#bpicons') format('svg');
+    font-weight: normal;
+    font-style: normal;
+} /* Made with http://icomoon.io/ */
+
+*, *:after, *:before { -webkit-box-sizing: border-box; -moz-box-sizing: border-box; box-sizing: border-box; }
+body, html { font-size: 100%; padding: 0; margin: 0;}
+
+/* Clearfix hack by Nicolas Gallagher: http://nicolasgallagher.com/micro-clearfix-hack/ */
+.clearfix:before, .clearfix:after { content: " "; display: table; }
+.clearfix:after { clear: both; }
+
+body {
+    font-family: 'Lato', Calibri, Arial, sans-serif;
+    color: #1ABC9C;
+    font-weight: 400;
+    min-height: 900px;
+}
+
+a {
+    color: #f0f0f0;
+    text-decoration: none;
+}
+
+.ItemMenu:hover {
+    color: #FFFFFF !important;
+    background-color: #1abc9c;
+}
+
+.container > header {
+    width: 90%;
+    max-width: 69em;
+    margin: 0 auto;
+    padding: 2.875em 1.875em 1.875em;
+}
+
+.container > header h1 {
+    font-size: 2.125em;
+    line-height: 1.3;
+    margin: 0 0 0.6em 0;
+    float: left;
+    font-weight: 400;
+}
+
+.container > header > span {
+    display: block;
+    position: relative;
+    z-index: 9999;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.5em;
+    padding: 0 0 0.6em 0.1em;
+}
+
+.container > header > span span:after {
+    width: 30px;
+    height: 30px;
+    left: -12px;
+    font-size: 50%;
+    top: -8px;
+    font-size: 75%;
+    position: relative;
+}
+
+.container > header > span span:hover:before {
+    content: attr(data-content);
+    text-transform: none;
+    text-indent: 0;
+    letter-spacing: 0;
+    font-weight: 300;
+    font-size: 110%;
+    padding: 0.8em 1em;
+    line-height: 1.2;
+    text-align: left;
+    left: auto;
+    margin-left: 4px;
+    position: absolute;
+    color: #fff;
+    background: #1ABC9C;
+}
+
+.container > header nav {
+    float: right;
+    text-align: center;
+}
+
+.container > header nav a {
+    display: inline-block;
+    position: relative;
+    text-align: left;
+    width: 2.5em;
+    height: 2.5em;
+    background: #fff;
+    border-radius: 50%;
+    margin: 0 0.1em;
+    border: 4px solid #1ABC9C;
+}
+
+.container > header nav a > span {
+    display: none;
+}
+
+.container > header nav a:hover:before {
+    content: attr(data-info);
+    color: #1ABC9C;
+    position: absolute;
+    width: 600%;
+    top: 120%;
+    text-align: right;
+    right: 0;
+    pointer-events: none;
+}
+
+.container > header nav a:hover {
+    background: #1ABC9C;
+}
+
+.bp-icon:after {
+    font-family: 'bpicons';
+    speak: none;
+    font-style: normal;
+    font-weight: normal;
+    font-variant: normal;
+    text-transform: none;
+    text-align: center;
+    color: #1ABC9C;
+    -webkit-font-smoothing: antialiased;
+}
+
+.container > header nav .bp-icon:after {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    line-height: 2;
+    text-indent: 0;
+}
+
+.container > header nav a:hover:after {
+    color: #fff;
+}
+
+.bp-icon-next:after {
+    content: "\e000";
+}
+.bp-icon-drop:after {
+    content: "\e001";
+}
+.bp-icon-archive:after {
+    content: "\e002";
+}
+.bp-icon-about:after {
+    content: "\e003";
+}
+.bp-icon-prev:after {
+    content: "\e004";
+}
+
+@media screen and (max-width: 55em) {
+
+    .container > header h1,
+    .container > header nav {
+        float: none;
+    }
+
+    .container > header > span,
+    .container > header h1 {
+        text-align: center;
+    }
+
+    .container > header nav {
+        margin: 0 auto;
+    }
+
+    .container > header > span {
+        text-indent: 30px;
+    }
+}
+
+</style>
+
+        <script type="text/javascript">
+/* Modernizr 2.6.2 (Custom Build) | MIT & BSD
+ * Build: http://modernizr.com/download/#-generatedcontent-touch-shiv-cssclasses-teststyles-prefixes-load
+ */
+;window.Modernizr=function(a,b,c){function x(a){j.cssText=a}function y(a,b){return x(n.join(a+";")+(b||""))}function z(a,b){return typeof a===b}function A(a,b){return!!~(""+a).indexOf(b)}function B(a,b,d){for(var e in a){var f=b[a[e]];if(f!==c)return d===!1?a[e]:z(f,"function")?f.bind(d||b):f}return!1}var d="2.6.2",e={},f=!0,g=b.documentElement,h="modernizr",i=b.createElement(h),j=i.style,k,l=":)",m={}.toString,n=" -webkit- -moz- -o- -ms- ".split(" "),o={},p={},q={},r=[],s=r.slice,t,u=function(a,c,d,e){var f,i,j,k,l=b.createElement("div"),m=b.body,n=m||b.createElement("body");if(parseInt(d,10))while(d--)j=b.createElement("div"),j.id=e?e[d]:h+(d+1),l.appendChild(j);return f=["&#173;",'<style id="s',h,'">',a,"</style>"].join(""),l.id=h,(m?l:n).innerHTML+=f,n.appendChild(l),m||(n.style.background="",n.style.overflow="hidden",k=g.style.overflow,g.style.overflow="hidden",g.appendChild(n)),i=c(l,a),m?l.parentNode.removeChild(l):(n.parentNode.removeChild(n),g.style.overflow=k),!!i},v={}.hasOwnProperty,w;!z(v,"undefined")&&!z(v.call,"undefined")?w=function(a,b){return v.call(a,b)}:w=function(a,b){return b in a&&z(a.constructor.prototype[b],"undefined")},Function.prototype.bind||(Function.prototype.bind=function(b){var c=this;if(typeof c!="function")throw new TypeError;var d=s.call(arguments,1),e=function(){if(this instanceof e){var a=function(){};a.prototype=c.prototype;var f=new a,g=c.apply(f,d.concat(s.call(arguments)));return Object(g)===g?g:f}return c.apply(b,d.concat(s.call(arguments)))};return e}),o.touch=function(){var c;return"ontouchstart"in a||a.DocumentTouch&&b instanceof DocumentTouch?c=!0:u(["@media (",n.join("touch-enabled),("),h,")","{#modernizr{top:9px;position:absolute}}"].join(""),function(a){c=a.offsetTop===9}),c},o.generatedcontent=function(){var a;return u(["#",h,"{font:0/0 a}#",h,':after{content:"',l,'";visibility:hidden;font:3px/1 a}'].join(""),function(b){a=b.offsetHeight>=3}),a};for(var C in o)w(o,C)&&(t=C.toLowerCase(),e[t]=o[C](),r.push((e[t]?"":"no-")+t));return e.addTest=function(a,b){if(typeof a=="object")for(var d in a)w(a,d)&&e.addTest(d,a[d]);else{a=a.toLowerCase();if(e[a]!==c)return e;b=typeof b=="function"?b():b,typeof f!="undefined"&&f&&(g.className+=" "+(b?"":"no-")+a),e[a]=b}return e},x(""),i=k=null,function(a,b){function k(a,b){var c=a.createElement("p"),d=a.getElementsByTagName("head")[0]||a.documentElement;return c.innerHTML="x<style>"+b+"</style>",d.insertBefore(c.lastChild,d.firstChild)}function l(){var a=r.elements;return typeof a=="string"?a.split(" "):a}function m(a){var b=i[a[g]];return b||(b={},h++,a[g]=h,i[h]=b),b}function n(a,c,f){c||(c=b);if(j)return c.createElement(a);f||(f=m(c));var g;return f.cache[a]?g=f.cache[a].cloneNode():e.test(a)?g=(f.cache[a]=f.createElem(a)).cloneNode():g=f.createElem(a),g.canHaveChildren&&!d.test(a)?f.frag.appendChild(g):g}function o(a,c){a||(a=b);if(j)return a.createDocumentFragment();c=c||m(a);var d=c.frag.cloneNode(),e=0,f=l(),g=f.length;for(;e<g;e++)d.createElement(f[e]);return d}function p(a,b){b.cache||(b.cache={},b.createElem=a.createElement,b.createFrag=a.createDocumentFragment,b.frag=b.createFrag()),a.createElement=function(c){return r.shivMethods?n(c,a,b):b.createElem(c)},a.createDocumentFragment=Function("h,f","return function(){var n=f.cloneNode(),c=n.createElement;h.shivMethods&&("+l().join().replace(/\w+/g,function(a){return b.createElem(a),b.frag.createElement(a),'c("'+a+'")'})+");return n}")(r,b.frag)}function q(a){a||(a=b);var c=m(a);return r.shivCSS&&!f&&!c.hasCSS&&(c.hasCSS=!!k(a,"article,aside,figcaption,figure,footer,header,hgroup,nav,section{display:block}mark{background:#FF0;color:#000}")),j||p(a,c),a}var c=a.html5||{},d=/^<|^(?:button|map|select|textarea|object|iframe|option|optgroup)$/i,e=/^(?:a|b|code|div|fieldset|h1|h2|h3|h4|h5|h6|i|label|li|ol|p|q|span|strong|style|table|tbody|td|th|tr|ul)$/i,f,g="_html5shiv",h=0,i={},j;(function(){try{var a=b.createElement("a");a.innerHTML="<xyz></xyz>",f="hidden"in a,j=a.childNodes.length==1||function(){b.createElement("a");var a=b.createDocumentFragment();return typeof a.cloneNode=="undefined"||typeof a.createDocumentFragment=="undefined"||typeof a.createElement=="undefined"}()}catch(c){f=!0,j=!0}})();var r={elements:c.elements||"abbr article aside audio bdi canvas data datalist details figcaption figure footer header hgroup mark meter nav output progress section summary time video",shivCSS:c.shivCSS!==!1,supportsUnknownElements:j,shivMethods:c.shivMethods!==!1,type:"default",shivDocument:q,createElement:n,createDocumentFragment:o};a.html5=r,q(b)}(this,b),e._version=d,e._prefixes=n,e.testStyles=u,g.className=g.className.replace(/(^|\s)no-js(\s|$)/,"$1$2")+(f?" js "+r.join(" "):""),e}(this,this.document),function(a,b,c){function d(a){return"[object Function]"==o.call(a)}function e(a){return"string"==typeof a}function f(){}function g(a){return!a||"loaded"==a||"complete"==a||"uninitialized"==a}function h(){var a=p.shift();q=1,a?a.t?m(function(){("c"==a.t?B.injectCss:B.injectJs)(a.s,0,a.a,a.x,a.e,1)},0):(a(),h()):q=0}function i(a,c,d,e,f,i,j){function k(b){if(!o&&g(l.readyState)&&(u.r=o=1,!q&&h(),l.onload=l.onreadystatechange=null,b)){"img"!=a&&m(function(){t.removeChild(l)},50);for(var d in y[c])y[c].hasOwnProperty(d)&&y[c][d].onload()}}var j=j||B.errorTimeout,l=b.createElement(a),o=0,r=0,u={t:d,s:c,e:f,a:i,x:j};1===y[c]&&(r=1,y[c]=[]),"object"==a?l.data=c:(l.src=c,l.type=a),l.width=l.height="0",l.onerror=l.onload=l.onreadystatechange=function(){k.call(this,r)},p.splice(e,0,u),"img"!=a&&(r||2===y[c]?(t.insertBefore(l,s?null:n),m(k,j)):y[c].push(l))}function j(a,b,c,d,f){return q=0,b=b||"j",e(a)?i("c"==b?v:u,a,b,this.i++,c,d,f):(p.splice(this.i++,0,a),1==p.length&&h()),this}function k(){var a=B;return a.loader={load:j,i:0},a}var l=b.documentElement,m=a.setTimeout,n=b.getElementsByTagName("script")[0],o={}.toString,p=[],q=0,r="MozAppearance"in l.style,s=r&&!!b.createRange().compareNode,t=s?l:n.parentNode,l=a.opera&&"[object Opera]"==o.call(a.opera),l=!!b.attachEvent&&!l,u=r?"object":l?"script":"img",v=l?"script":u,w=Array.isArray||function(a){return"[object Array]"==o.call(a)},x=[],y={},z={timeout:function(a,b){return b.length&&(a.timeout=b[0]),a}},A,B;B=function(a){function b(a){var a=a.split("!"),b=x.length,c=a.pop(),d=a.length,c={url:c,origUrl:c,prefixes:a},e,f,g;for(f=0;f<d;f++)g=a[f].split("="),(e=z[g.shift()])&&(c=e(c,g));for(f=0;f<b;f++)c=x[f](c);return c}function g(a,e,f,g,h){var i=b(a),j=i.autoCallback;i.url.split(".").pop().split("?").shift(),i.bypass||(e&&(e=d(e)?e:e[a]||e[g]||e[a.split("/").pop().split("?")[0]]),i.instead?i.instead(a,e,f,g,h):(y[i.url]?i.noexec=!0:y[i.url]=1,f.load(i.url,i.forceCSS||!i.forceJS&&"css"==i.url.split(".").pop().split("?").shift()?"c":c,i.noexec,i.attrs,i.timeout),(d(e)||d(j))&&f.load(function(){k(),e&&e(i.origUrl,h,g),j&&j(i.origUrl,h,g),y[i.url]=2})))}function h(a,b){function c(a,c){if(a){if(e(a))c||(j=function(){var a=[].slice.call(arguments);k.apply(this,a),l()}),g(a,j,b,0,h);else if(Object(a)===a)for(n in m=function(){var b=0,c;for(c in a)a.hasOwnProperty(c)&&b++;return b}(),a)a.hasOwnProperty(n)&&(!c&&!--m&&(d(j)?j=function(){var a=[].slice.call(arguments);k.apply(this,a),l()}:j[n]=function(a){return function(){var b=[].slice.call(arguments);a&&a.apply(this,b),l()}}(k[n])),g(a[n],j,b,n,h))}else!c&&l()}var h=!!a.test,i=a.load||a.both,j=a.callback||f,k=j,l=a.complete||f,m,n;c(h?a.yep:a.nope,!!i),i&&c(i)}var i,j,l=this.yepnope.loader;if(e(a))g(a,0,l,0);else if(w(a))for(i=0;i<a.length;i++)j=a[i],e(j)?g(j,0,l,0):w(j)?B(j):Object(j)===j&&h(j,l);else Object(a)===a&&h(a,l)},B.addPrefix=function(a,b){z[a]=b},B.addFilter=function(a){x.push(a)},B.errorTimeout=1e4,null==b.readyState&&b.addEventListener&&(b.readyState="loading",b.addEventListener("DOMContentLoaded",A=function(){b.removeEventListener("DOMContentLoaded",A,0),b.readyState="complete"},0)),a.yepnope=k(),a.yepnope.executeStack=h,a.yepnope.injectJs=function(a,c,d,e,i,j){var k=b.createElement("script"),l,o,e=e||B.errorTimeout;k.src=a;for(o in d)k.setAttribute(o,d[o]);c=j?h:c||f,k.onreadystatechange=k.onload=function(){!l&&g(k.readyState)&&(l=1,c(),k.onload=k.onreadystatechange=null)},m(function(){l||(l=1,c(1))},e),i?k.onload():n.parentNode.insertBefore(k,n)},a.yepnope.injectCss=function(a,c,d,e,g,i){var e=b.createElement("link"),j,c=i?h:c||f;e.href=a,e.rel="stylesheet",e.type="text/css";for(j in d)e.setAttribute(j,d[j]);g||(n.parentNode.insertBefore(e,n),m(c,0))}}(this,document),Modernizr.load=function(){yepnope.apply(window,[].slice.call(arguments,0))};
+        </script>
+
+    </head>
+    <body>
+    <div class="header_top" style="background-color:#1ABC9C;">
+        <div class="container">
+  
+            <div class="main">
+                <nav class="cbp-hsmenu-wrapper" id="cbp-hsmenu-wrapper">
+                    <div class="cbp-hsinner">
+                        <ul class="cbp-hsmenu">
+                            <li>
+                                <%= link_to 'Inicio', root_path, :class => "ItemMenu" %>
+                
+                            </li>
+                            
+                                <% if not current_user %>
+                                    <li><%= link_to "Registrarte", signup_path, :class => "ItemMenu" %>
+                                    </li>
+                                <% end %> 
+
+
+                                <style type="text/css">
+                                    .SubItemMenu{
+                                        color: white !important;
+                                        font-size: 100%;
+                                    }
+                                    .SubItemMenu:hover{
+                                        background-color: transparent !important;
+                                    }
+                                </style>       
+                                <% if  current_user %>
+
+                                <li><a href="#" class="ItemMenu">Mis Productos</a>
+                                        <ul class="cbp-hssubmenu" style="background-color:#000000;">
+                                            <li style="font-size:20px; margin-top:-20px;"><%= link_to 'Ver Productos', products_path, :class => "SubItemMenu" %></li>
                                         </ul>
                                     </li> 
 
-                                    <li class="dropdown"><a href="#">Bienvenido <%= current_user.first_name %> <i class="fa fa-angle-down"></i></a>
-                                        <ul role="menu" class="sub-menu">
-                                            <li><%= link_to 'Inbox', conversations_path %></li>
-                                            <li><%= link_to 'Mis Datos', current_user %></li>
-                                            <li><%= link_to 'Cerrar Sesión', logout_path, method: :delete %></li>
-                                        </ul>
-                                    </li>
-                                
-                                    <% if current_user %>
-                                        <% if current_user.rol_id == 1 %>
-                                        <li class="dropdown"><a href="#">Admin<i class="fa fa-angle-down"></i></a>
-                                            <ul role="menu" class="sub-menu">
-                                                <li><%= link_to "Users", users_path %></li>
-                                                <li><%= link_to "Roles", roles_path %></li>
-                                                <li><%= link_to 'Productos', products_path %></li>
-                                                <li><%= link_to "categori",sector_categories_path %></li>
-                                                <li><%= link_to "tipo pro", type_products_path %></li>
-                                                <li><%= link_to "Tipo use", type_users_path %></li>
+           
+
+                                <li><a href="#" class="ItemMenu">Bienvenido <%= current_user.first_name %></a>
+
+                                        <ul class="cbp-hssubmenu" style="background-color:#000000;">
+                                            <li style="font-size:20px; margin-top:-20px;"><%= link_to 'Inbox', conversations_path, :class => "SubItemMenu" %></li>
+                                            <li style="font-size:20px; margin-top:-20px;"><%= link_to 'Mis Datos', current_user, :class => "SubItemMenu" %></li>
+                                            <li style="font-size:20px; margin-top:-20px;"><%= link_to 'Cerrar Sesión', logout_path, method: :delete, :class => "SubItemMenu" %></li>                        
                                             </ul>
-                                        </li> 
+                                </li> 
+
+                                <% if current_user %>
+                                        <% if current_user.rol_id == 1 %>
+                                            <li><a href="#" class="ItemMenu">Admin</a>
+                                                        <ul class="cbp-hssubmenu">
+                                                            <li><a href="#"><img src="images/10.png" alt="img10"/><span>Fresh Juice</span></a></li>
+                                                            <li><a href="#"><img src="images/6.png" alt="img06"/><span>Sweet Rum</span></a></li>
+                                                            <li><a href="#"><img src="images/9.png" alt="img09"/><span>Eggy Liquor</span></a></li>
+                                                        </ul>
+                                            </li> 
                                         <% end %>
                                     <% end %>
-                                <% end %>
-                            </ul>
-                        </div>
-                    </div>
 
-                    <style type="text/css">
-/* Esconde en Moviles */
-@media (max-width: 1000px) and (min-width: 50px) {
-  .navbar-lefta {
-    text-align: center;
-    margin-top: 50px;
-  }
-}
 
-                    </style>
-                    <div class="col-sm-4">
-                        <%= form_tag request.path, :method => 'get', :class => 'navbar-form navbar-left' do %>
-                        <%= content_tag :label do %>
-                        <%= text_field_tag :search, params[:search], :placeholder => "Encuentre su Producto", :class => 'form-control navbar-lefta' %>
-                        <%= submit_tag "Consultar", :name => nil, :class => 'btn btn-primary' %>
-                        <% end %>
-                        <% end %>
+                            <% end %>
+
+                                    
+                             
+                            <li>                    
+                                <style type="text/css">
+                                    /* Esconde en Moviles */
+                                    @media (max-width: 1000px) and (min-width: 50px) {
+                                      .nav-l {
+                                        text-align: center;
+                                        margin-top: 50px;
+                                      }
+                                    }
+                                </style>
+                                <div>
+                                    <%= form_tag request.path, :method => 'get', :class => 'navbar-form navb-l' do %>
+                                    <%= content_tag :label do %>
+                                    <%= text_field_tag :search, params[:search], :placeholder => "Encuentre su Producto", :class => 'form-control navbar-lefta' %>
+                                    <%= submit_tag "Consultar", :name => nil, :class => 'btn btn-primary' %>
+                                    <% end %>
+                                    <% end %>
+                                </div>
+                            </li>
+                        </ul>
                     </div>
-                </div>
+                </nav>
             </div>
-        </div><!--/header-bottom-->
+        </div>
+    </div>
+<script type="text/javascript">
+    /**
+ * cbpHorizontalSlideOutMenu.min.js v1.0.0
+ * http://www.codrops.com
+ *
+ * Licensed under the MIT license.
+ * http://www.opensource.org/licenses/mit-license.php
+ * 
+ * Copyright 2013, Codrops
+ * http://www.codrops.com
+ */
+(function(b){var a=b.document;function d(f,e){for(var g in e){if(e.hasOwnProperty(g)){f[g]=e[g]}}return f}function c(f,e){this.el=f;this.options=d(this.defaults,e);this._init()}c.prototype={defaults:{},_init:function(){this.current=-1;this.touch=Modernizr.touch;this.menu=this.el.querySelector(".cbp-hsmenu");this.menuItems=this.el.querySelectorAll(".cbp-hsmenu > li");this.menuBg=a.createElement("div");this.menuBg.className="cbp-hsmenubg";this.el.appendChild(this.menuBg);this._initEvents()},_openMenu:function(i,k){var g=this,j=i.parentNode,f=Array.prototype.slice.call(this.menuItems),h=j.querySelector(".cbp-hssubmenu"),l=function(m){var m=m||g.menuItems[g.current];m.className="";m.setAttribute("data-open","")},e=function(){g.current=-1;g.menuBg.style.height="0px"};if(h){k.preventDefault();if(j.getAttribute("data-open")==="open"){l(j);e()}else{j.setAttribute("data-open","open");if(g.current!==-1){l()}g.current=f.indexOf(j);j.className="cbp-hsitem-open";g.menuBg.style.height=h.offsetHeight+"px"}}else{if(g.current!==-1){l();e()}}},_initEvents:function(){var e=this;Array.prototype.slice.call(this.menuItems).forEach(function(h,g){var f=h.querySelector("a");if(e.touch){f.addEventListener("touchstart",function(i){e._openMenu(this,i)})}else{f.addEventListener("click",function(i){e._openMenu(this,i)})}});b.addEventListener("resize",function(f){e._resizeHandler()})},_resizeHandler:function(){var e=this;function f(){e._resize();e._resizeTimeout=null}if(this._resizeTimeout){clearTimeout(this._resizeTimeout)}this._resizeTimeout=setTimeout(f,50)},_resize:function(){if(this.current!==-1){this.menuBg.style.height=this.menuItems[this.current].querySelector(".cbp-hssubmenu").offsetHeight+"px"}}};b.cbpHorizontalSlideOutMenu=c})(window);
+</script>
+                <script>
+            var menu = new cbpHorizontalSlideOutMenu( document.getElementById( 'cbp-hsmenu-wrapper' ) );
+        </script>
+    </body>
+</html>
+<br/><br/><br/><br/>
+
     </header><!--/header-->
+
+
 
 

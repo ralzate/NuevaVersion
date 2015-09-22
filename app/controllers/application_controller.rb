@@ -16,6 +16,7 @@ class ApplicationController < ActionController::Base
     #end
     true
   end
+
   # Permisos
   def authorize
     unless admin?
@@ -24,6 +25,7 @@ class ApplicationController < ActionController::Base
       false
     end
   end
+
   # Private Method
   private
   def not_authenticated

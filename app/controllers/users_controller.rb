@@ -23,10 +23,10 @@ class UsersController < ApplicationController
 
     respond_to do |format|
       if @user.save
-        format.html { login(params[:user][:email], params[:user][:password])
-                      flash[:success] = "Registro exitoso. Por favor revise su correo electrónico para la activación."
+
+        format.html {     flash[:success] = "Registro exitoso. Por favor revise su correo electrónico para la activación."
                       redirect_to root_path  }
-        format.json { render :show, status: :created, location: @user }
+                      
       else
         format.html { flash[:danger] = "Registro fallido. Por favor, compruebe los datos que introduces"
                       redirect_to root_path  }

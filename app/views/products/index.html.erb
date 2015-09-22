@@ -1,41 +1,195 @@
 <!--Version para navegadores de escritorio-->
-<div class="oculto-en-moviles">
-  <h1 class="title">Listado de mis articulos</h1>
-    <%= form_tag request.path, :method => 'get' do %>
-    <%= content_tag :label do %>
-    Buscar:
-    <%= text_field_tag :search, params[:search], :placeholder => "Buscador de Productos" %>
-    <%= submit_tag "Consultar", :name => nil %>
-    <% end %>
-    <% end %>
-    <br />
-    <div class="panel-body">
-    </div>
-    <table class="table table-hover">
-    <thead>
-      <tr>
-        <th>Imagen</th>
-        <th>Nombre</th>
-        <th>Cantidad</th>
-        <th>Precio Unitario</th>
-        <th>Nuevo / Usado</th>
-        <th>Total</th>
-        <th>Acciones</th>
-      </tr>
-    </thead>
-    <tbody>
-      <%= render @products %>
-    </tbody>
-  </table>
-  <%= link_to image_tag('Options/new.png', :size => "28x28"),  new_product_path, :rel => "tooltip", :title => "Ingresar nuevo Producto", :class => "btn btn-link boton-oculto-moviles " %>
-</div>
+
+      
+
+
+
+
+    <div class="container-fluid" style="background-color:#e8e8e8">
+        <div class="container container-pad" id="property-listings">
+            
+            <div class="row">
+              <div class="col-md-12">
+                <h1>Listado de mis articulos</h1>
+                <p>Espacio para Publicar todos los articulos que busco intercambiar</p>
+              </div>
+            </div>
+                <% @products.each do |product| %>
+
+            <div class="row">
+                <div class="col-sm-12"> 
+
+                    <!-- Begin Listing: 609 W GRAVERS LN-->
+                    <div class="brdr bgc-fff pad-10 box-shad btm-mrg-20 property-listing">
+                    <style type="text/css">
+                      .pull-left:hover{
+                        background-color: #ffffff;
+                      }
+                    </style>
+                        <div class="media">
+                            
+                            <% if product.avatar? %>
+                            <%= link_to image_tag(product.avatar, size:'80x80'), product, :remote => true,  :rel => "tooltip", :title => "Mostrar", :class => 'btn btn-link pull-left' %>
+                            <% else %>
+                            <%= link_to image_tag('default.jpg', :size => "80x80"), @product, :remote => true,  :rel => "tooltip", :title => "Mostrar", :class => 'btn btn-link pull-left' %>
+                            <% end %>
+                            
+
+
+                            <div class="clearfix visible-sm"></div>
+
+                            <div class="media-body fnt-smaller">
+                                <a href="#" target="_parent"></a>
+
+                                <h4 class="media-heading">
+                                  <a href="#" target="_parent">Nombre: <%=  product.name %><small class="pull-right">
+                                  <%= link_to  image_tag('Options/show.png', :size => "25x25"), product, :rel => "tooltip", :title => "Mostrar", :class => 'btn btn-link'%>
+                                  <%= link_to image_tag('Options/edit.png', :size => "25x25"), edit_product_path(product),   :rel => "tooltip", :title => "Editar", :class => 'btn btn-link'%></small></a></h4>
+
+
+                                <ul class="list-inline mrg-0 btm-mrg-10 clr-535353">
+                                    
+                                    
+                                    <li><b>Precio Unitario</b>:<%=  product.unit_price %></li>
+
+                                    <li><b>Cantidad: </b><%= product.quantity %></li>
+
+                                    <li style="list-style: none">|</li>
+
+                                    <li><b>Producto: </b><%= product.label_new_used %></li>
+
+                                    <li style="list-style: none">|</li>
+
+                                    <li><b>Valor Total: </b><%=  product.total %></li>
+
+                                </ul>
+
+                                <p class="hidden-xs">Descripción: <%=  product.description %></p><span class="fnt-smaller fnt-lighter fnt-arial">Articulo Publicado por <%=  product.user.email %></span>
+                            </div>
+                        </div>
+                    </div><!-- End Listing-->
+
+
+
+             
+                </div>
+
+               
+            </div><!-- End row -->
+             <% end %>
+          <%= link_to image_tag('Options/new.png', :size => "28x28"),  new_product_path, :rel => "tooltip", :title => "Ingresar nuevo Producto", :class => "btn btn-link boton-oculto-moviles " %>
+
+        </div><!-- End container -->
+
+
+
 <br />
 <br />
 <div align="center">
   <%= will_paginate @products, :previous_label => '&laquo; Anterior', :next_label => 'Siguiente
   &raquo;' %>
 </div>
-  Total products : <%= @products.total_entries %>
+<div align="center">
+  Total productos : <%= @products.total_entries %>
 </div>
 
 
+
+    </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<style type="text/css">
+  
+  /**** BASE ****/
+body {
+    color: #888;   
+}
+a {
+    color: #03a1d1;
+    text-decoration: none!important;
+}
+
+/**** LAYOUT ****/
+.list-inline>li {
+    padding: 0 10px 0 0;
+}
+.container-pad {
+    padding: 10px 15px;
+}
+
+
+/**** MODULE ****/
+.bgc-fff {
+    background-color: #fff!important;
+}
+.box-shad {
+    -webkit-box-shadow: 1px 1px 0 rgba(0,0,0,.2);
+    box-shadow: 1px 1px 0 rgba(0,0,0,.2);
+}
+.brdr {
+    border: 1px solid #ededed;
+}
+
+/* Font changes */
+.fnt-smaller {
+    font-size: .9em;
+}
+.fnt-lighter {
+    color: #bbb;
+}
+
+/* Padding - Margins */
+.pad-10 {
+    padding: 10px!important;
+}
+.mrg-0 {
+    margin: 0!important;
+}
+.btm-mrg-10 {
+    margin-bottom: 10px!important;
+}
+.btm-mrg-20 {
+    margin-bottom: 20px!important;
+}
+
+/* Color  */
+.clr-535353 {
+    color: #535353;
+}
+
+
+
+
+/**** MEDIA QUERIES ****/
+@media only screen and (max-width: 991px) {
+    #property-listings .property-listing {
+        padding: 5px!important;
+    }
+    #property-listings .property-listing a {
+        margin: 0;
+    }
+    #property-listings .property-listing .media-body {
+        padding: 10px;
+    }
+}
+
+@media only screen and (min-width: 992px) {
+    #property-listings .property-listing img {
+        max-width: 180px;
+    }
+}
+
+</style>

@@ -3,7 +3,7 @@ class ProductsController < ApplicationController
   respond_to :html, :json
   def index
     if current_user
-            @products = Product.search(params[:search]).page(params[:page]).per_page(10).where user_id: current_user.id
+            @products = Product.search(params[:search]).page(params[:page]).per_page(10)
     else
           @products = Product.search(params[:search]).page(params[:page]).per_page(10)
     end

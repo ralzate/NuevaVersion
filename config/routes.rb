@@ -29,6 +29,7 @@ Rails.application.routes.draw do
   end
   resources :products
   resources :sessions
+
   resources :reset_passwords, only: [:new, :create, :update, :edit]
   resources :messages do
     member do
