@@ -43,7 +43,7 @@
 																	<p>Hola <b><%= @user.first_name %></b>, muchas <span class="il">gracias</span> <span class="il">por</span> <span class="il">registrarte</span> en Sinstock,de parte de todo el equipo que trabaja con SinStock, te damos la Bienvenido a la mejor opción para hacer trueques e intercambios de productos en internet<br> 
 																
 
-                                                                    </p><b>Por favor Activa tu cuenta</b> atraves de este <%= link_to 'link', login, activate_user_url(@user.activation_token) %>.
+                                                                    </p><b>Por favor Activa tu cuenta</b> atraves de este <%= link_to 'link', activate_user_url(@user.activation_token) %>.
 															</div>
 														</td>
                                                     </tr>

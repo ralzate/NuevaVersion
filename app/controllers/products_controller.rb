@@ -1,6 +1,8 @@
 class ProductsController < ApplicationController
   before_action :set_product, only: [:show, :edit, :update, :destroy]
   respond_to :html, :json
+
+
   def index
     if current_user
             @products = Product.search(params[:search]).page(params[:page]).per_page(10)
