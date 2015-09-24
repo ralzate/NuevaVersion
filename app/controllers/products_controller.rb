@@ -4,10 +4,13 @@ class ProductsController < ApplicationController
 
 
   def index
+
+
     if current_user
             @products = Product.search(params[:search]).page(params[:page]).per_page(10)
     else
           @products = Product.search(params[:search]).page(params[:page]).per_page(10)
+
     end
   end
   # Show Products

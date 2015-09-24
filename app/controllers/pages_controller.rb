@@ -5,6 +5,11 @@ class PagesController < ApplicationController
     @users = User.search(params[:search]).page(params[:page]).per_page(9)
     @type_products = TypeProduct.search(params[:search]).page(params[:page]).per_page(9)
     @user = User.new
+
+    @products = @products.where("unit_price >= ?", params["min_price"]) if params["min_price"].present?
+    @products = @products.where("unit_price <= ?", params["max_price"]) if params["max_price"].present?
+    @products = @products.where(type_product_id: params["bedrooms"]) if params["bedrooms"].present?
+
   end
   def treeview
   end
