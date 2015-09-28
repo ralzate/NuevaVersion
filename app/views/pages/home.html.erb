@@ -24,55 +24,6 @@
 
 <div>
 
-
-
-
-
-<div class="row filter">
-    <%= form_tag request.path, :method => 'get', :class => 'navbar-form navb-l' do %>
-    <div class="col-md-12 col-md-offset-">
-     
-      <div class="row">
-        <div class="col-md-4">
-          <div class="form-group">
-            <%= label_tag :Precio_Minimo %>
-            <%= text_field_tag :min_price, params[:min_price], placeholder: 'Minimum', class: 'form-control input-sm'%>
-         </div>
-        </div>
-
-        <div class="col-md-4">
-          <div class="form-group">
-            <%= label_tag :Precio_Maximo  %>
-            <%= text_field_tag :max_price, params[:max_price], placeholder: 'Maximum', class: 'form-control input-sm'%>
-          </div>
-        </div>
-
-
-
-    <div class="col-md-4">
-       <div class="form-group">
-
-        <%= submit_tag 'Buscar', class: 'btn btn-default custom-btn search-btn' %>
-
-<%= button_tag 'Cancel', :type => 'reset', :class => 'btn' %>
-
-
-       </div>
-    </div>
-  </div>
-   <% end %>
-</div>
-
-<br/><br/><br/>
-
-
-
-
-
-
-
-
-
     
     <section>
         <div class="container">
@@ -139,9 +90,29 @@
 						<div class="col-sm-12">
 
 							<ul class="nav nav-tabs">
-								<% @type_products.each do |type_product| %>
-								<li><a href="#blazers" data-toggle="tab"><%= type_product.name   %></a></li>
-								<% end %>
+								
+                                <div class="row filter" style="margin-bottom:10px;">
+                                    <%= form_tag request.path, :method => 'get', :class => 'navbar-form navb-l' do %>
+                                        <div class="col-md-12">
+                                     
+                                            <div class="row">
+
+                                                <div class="col-md-12">
+                                                    <div class="form-group">
+                                                      <%= label_tag :Precio_Minimo %>
+                                                        <%= number_field_tag :min_price, params[:min_price], placeholder: 'Precio Minimo', class: 'form-control input-sm'%>
+                                                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                                        <%= label_tag :Precio_Maximo  %>
+                                                        <%= number_field_tag :max_price, params[:max_price], placeholder: 'Precio Maximo', class: 'form-control input-sm'%>
+                                                    </div>
+                                                    <%= submit_tag 'Filtrar', class: 'btn btn-primary custom-btn search-btn' %>
+                                                </div>
+                                            </div>
+                                        </div>
+                                   <% end %>
+
+                                </div>
+
 							</ul>
 
 						</div>
@@ -215,6 +186,12 @@
 
 
 								</div>
+
+
+
+
+
+
                                 <div class="choose">
                                     <ul class="nav nav-pills nav-justified">
                                         <li><a href="#"><span class="glyphicon glyphicon-user"></span><%= product.user.email %></a></li>
