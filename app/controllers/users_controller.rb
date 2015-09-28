@@ -61,7 +61,7 @@ class UsersController < ApplicationController
   def activate
     if @user = User.load_from_activation_token(params[:id])
       @user.activate!
-      flash[:success] = 'Usuario se activó correctamente.'
+      flash[:success] = 'Usuario se activó correctamente, Por favor inicia sesión.'
       redirect_to @user
     else
       flash[:warning] = 'No se puede activar este usuario'

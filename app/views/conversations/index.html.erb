@@ -2,20 +2,20 @@
 <div class="container">
   <div class="well">
     <div class="title">
-      <h1>Conversations</h1></div>
+      <h1>Conversaciones</h1></div>
       <h2 style="float:right"> <a class="btn btn-default" href="<%= conversations_path %>">  Inbox <%= @conversationscount.count %> </a> <a class="btn btn-default"  href="<%= trashbin_conversations_path %>">  Trash <%= @trash.count %></a> </h2>
     <br>
     <h3> Inbox </h3>
     <br \>
   <table width="900" border="0" cellspacing="0" cellpadding="0"  align="center" class="table table-striped">
   <tr>
-    <th scope="col" class="emailTH">SENDER</th>
-    <th scope="col" class="emailTH">SUBJECT</th>
-    <th scope="col" class="emailTH">DATE</th>
+    <th scope="col" class="emailTH">Remitente</th>
+    <th scope="col" class="emailTH">Asunto</th>
+    <th scope="col" class="emailTH">Fecha</th>
     <th scope="col" class="emailTH"></th>
   </tr>
   <% if @conversations == nil || @conversations.empty? %>
-    <i>Your Inbox folder is currently empty</i>
+    <i>Tu Carpeta de Mensajes esta vacia</i>
     <%end%>
   <% @conversations.each do |conversation| %>
   <tr>

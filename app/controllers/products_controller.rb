@@ -7,7 +7,7 @@ class ProductsController < ApplicationController
 
 
     if current_user
-            @products = Product.search(params[:search]).page(params[:page]).per_page(10)
+            @products = Product.search(params[:search]).page(params[:page]).per_page(10).where user_id: current_user.id
     else
           @products = Product.search(params[:search]).page(params[:page]).per_page(10)
 
