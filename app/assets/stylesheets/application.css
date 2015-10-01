@@ -3805,7 +3805,7 @@ a#scrollUp i{
 }
 
 
-.nav.navbar-nav > li:hover > ul.sub-menu{
+.nav.navbar-nav > li:hover > ul.suob-menu{
   display: block;
   -webkit-animation: fadeInUp 400ms;
   -moz-animation: fadeInUp 400ms;
@@ -6872,3 +6872,7 @@ ul.sub-menu{
 }
 
 }
+.navbar-inverse {
+
+background: blue!important;
+  }
